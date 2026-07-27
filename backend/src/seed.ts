@@ -16,53 +16,43 @@ const run = async () => {
     existingCountry.docs[0] ??
     (await payload.create({ collection: 'countries', data: { name: 'Италия', slug: 'italia' } }))
 
-  const existingTariffs = await payload.find({
-    collection: 'events',
-    where: { slug: { equals: 'sobytie-s-tarifami-demo' } },
-    limit: 1,
-  })
-  if (existingTariffs.docs.length === 0) {
-    await payload.create({
-      collection: 'events',
-      data: {
-        title: 'Демо-событие: готовые тарифы',
-        slug: 'sobytie-s-tarifami-demo',
-        type: 'concert',
-        country: country.id,
-        pricingType: 'tariffs',
-        tariffs: [
-          { title: 'Только билет', price: 5000, includes: [{ item: 'Билет на событие' }] },
-          { title: 'Билет + отель', price: 15000, includes: [{ item: 'Билет' }, { item: 'Отель' }] },
-        ],
-        status: 'published',
-      },
-    })
-    payload.logger.info('Seeded: sobytie-s-tarifami-demo')
-  }
+  const demos = [
+    {
+      title: 'Демо-событие: рублёвая цена',
+      slug: 'sobytie-rubli-demo',
+      type: 'concert' as const,
+      price: 15000,
+      currency: 'rub' as const,
+      addons: [
+        { label: 'Трансфер', price: 1000, type: 'transfer' },
+        { label: 'Страховка', price: 500, type: 'insurance' },
+      ],
+    },
+    {
+      // В валюте — чтобы было видно работу конвертации и сортировки каталога
+      title: 'Демо-событие: цена в долларах',
+      slug: 'sobytie-dollary-demo',
+      type: 'sport' as const,
+      price: 300,
+      currency: 'usd' as const,
+      addons: [{ label: 'Экскурсия', price: 50, type: 'excursion' }],
+    },
+  ]
 
-  const existingAddons = await payload.find({
-    collection: 'events',
-    where: { slug: { equals: 'sobytie-s-dopkami-demo' } },
-    limit: 1,
-  })
-  if (existingAddons.docs.length === 0) {
+  for (const demo of demos) {
+    const existing = await payload.find({
+      collection: 'events',
+      where: { slug: { equals: demo.slug } },
+      limit: 1,
+    })
+
+    if (existing.docs.length > 0) continue
+
     await payload.create({
       collection: 'events',
-      data: {
-        title: 'Демо-событие: билет + допки',
-        slug: 'sobytie-s-dopkami-demo',
-        type: 'sport',
-        country: country.id,
-        pricingType: 'base+addons',
-        basePrice: 3000,
-        addons: [
-          { label: 'Трансфер', price: 1000, type: 'transfer' },
-          { label: 'Страховка', price: 500, type: 'insurance' },
-        ],
-        status: 'published',
-      },
+      data: { ...demo, country: country.id, status: 'published' },
     })
-    payload.logger.info('Seeded: sobytie-s-dopkami-demo')
+    payload.logger.info(`Seeded: ${demo.slug}`)
   }
 
   process.exit(0)

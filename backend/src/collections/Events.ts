@@ -1,9 +1,10 @@
 import type { CollectionConfig } from 'payload'
 import { seoField } from '../fields/seo'
 import { generateSlug } from '../hooks/generateSlug'
+import { computePriceRub } from '../hooks/computePriceRub'
 
-// Событие и есть полный тур: концерт/забег/etc с опциональным ценообразованием
-// (готовые тарифы или базовый билет + допки). Отдельной сущности "тур" нет.
+// Событие и есть полный тур: концерт/забег/etc с одной ценой в выбранной валюте
+// и опциональными допками. Отдельной сущности "тур" нет.
 export const Events: CollectionConfig = {
   slug: 'events',
   labels: { singular: 'Событие', plural: 'События' },
@@ -68,47 +69,53 @@ export const Events: CollectionConfig = {
         },
       ],
     },
+    { name: 'description', type: 'richText', label: 'Описание' },
     {
-      name: 'pricingType',
-      type: 'select',
-      required: true,
-      defaultValue: 'tariffs',
-      label: 'Тип ценообразования',
-      options: [
-        { label: 'Готовые тарифы', value: 'tariffs' },
-        { label: 'Билет + допки', value: 'base+addons' },
-      ],
-    },
-    {
-      name: 'tariffs',
-      type: 'array',
-      label: 'Тарифы',
-      admin: { condition: (_, siblingData) => siblingData?.pricingType === 'tariffs' },
+      type: 'row',
       fields: [
-        { name: 'title', type: 'text', required: true, label: 'Название' },
-        { name: 'price', type: 'number', required: true, label: 'Цена, ₽' },
         {
-          name: 'includes',
-          type: 'array',
-          label: 'Состав',
-          fields: [{ name: 'item', type: 'text', label: 'Пункт' }],
+          name: 'price',
+          type: 'number',
+          required: true,
+          min: 0,
+          label: 'Цена',
+          admin: { width: '50%' },
+        },
+        {
+          name: 'currency',
+          type: 'select',
+          required: true,
+          defaultValue: 'rub',
+          label: 'Валюта',
+          admin: { width: '50%' },
+          options: [
+            { label: '₽ Рубль', value: 'rub' },
+            { label: '$ Доллар', value: 'usd' },
+            { label: '€ Евро', value: 'eur' },
+          ],
         },
       ],
     },
     {
-      name: 'basePrice',
+      name: 'priceRub',
       type: 'number',
-      label: 'Базовая цена билета, ₽',
-      admin: { condition: (_, siblingData) => siblingData?.pricingType === 'base+addons' },
+      index: true,
+      label: 'Цена в рублях',
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+        description: 'Считается по курсу и наценке из настроек. Каталог сортирует по этому полю.',
+      },
+      hooks: { beforeChange: [computePriceRub] },
     },
     {
       name: 'addons',
       type: 'array',
       label: 'Допки (дополнительные опции)',
-      admin: { condition: (_, siblingData) => siblingData?.pricingType === 'base+addons' },
+      admin: { description: 'Опциональные дополнения к билету. Цена — в валюте события.' },
       fields: [
         { name: 'label', type: 'text', required: true, label: 'Название' },
-        { name: 'price', type: 'number', required: true, label: 'Цена, ₽' },
+        { name: 'price', type: 'number', required: true, label: 'Цена' },
         { name: 'type', type: 'text', label: 'Тип (свободный текст)' },
       ],
     },

@@ -5,66 +5,34 @@ import { describe, it, beforeAll, expect } from 'vitest'
 
 let payload: Payload
 
+const uniq = () => `${Date.now()}-${Math.floor(Math.random() * 10000)}`
+
 describe('Events pricing schema', () => {
   beforeAll(async () => {
     const payloadConfig = await config
     payload = await getPayload({ config: payloadConfig })
   })
 
-  it('creates and finds an event with pricingType=tariffs', async () => {
+  it('событие с ценой и допками сохраняется и читается целиком', async () => {
     const country = await payload.create({
       collection: 'countries',
-      data: { name: 'Италия', slug: `italia-${Date.now()}` },
+      data: { name: `Испания ${uniq()}`, slug: `ispaniya-${uniq()}` },
     })
 
     const created = await payload.create({
       collection: 'events',
       data: {
-        title: 'Событие с тарифами',
-        slug: `sobytie-s-tarifami-${Date.now()}`,
-        type: 'concert',
-        country: country.id,
-        pricingType: 'tariffs',
-        tariffs: [
-          { title: 'Только билет', price: 5000, includes: [{ item: 'Билет на событие' }] },
-          { title: 'Билет + отель', price: 15000, includes: [{ item: 'Билет' }, { item: 'Отель' }] },
-        ],
-      },
-    })
-
-    const { docs } = await payload.find({
-      collection: 'events',
-      where: { id: { equals: created.id } },
-    })
-
-    expect(docs).toHaveLength(1)
-    const doc = docs[0]
-    expect(doc.pricingType).toBe('tariffs')
-    expect(doc.tariffs).toHaveLength(2)
-    expect(doc.tariffs?.[0]).toMatchObject({ title: 'Только билет', price: 5000 })
-    expect(doc.tariffs?.[0].includes).toEqual([{ item: 'Билет на событие', id: expect.any(String) }])
-    expect(doc.addons ?? []).toHaveLength(0)
-  })
-
-  it('creates and finds an event with pricingType=base+addons', async () => {
-    const country = await payload.create({
-      collection: 'countries',
-      data: { name: 'Испания', slug: `ispaniya-${Date.now()}` },
-    })
-
-    const created = await payload.create({
-      collection: 'events',
-      data: {
-        title: 'Событие с допками',
-        slug: `sobytie-s-dopkami-${Date.now()}`,
+        title: `Событие с допками ${uniq()}`,
+        slug: `sobytie-s-dopkami-${uniq()}`,
         type: 'sport',
         country: country.id,
-        pricingType: 'base+addons',
-        basePrice: 3000,
+        price: 3000,
+        currency: 'rub',
         addons: [
           { label: 'Трансфер', price: 1000, type: 'transfer' },
           { label: 'Страховка', price: 500, type: 'insurance' },
         ],
+        status: 'published',
       },
     })
 
@@ -75,10 +43,52 @@ describe('Events pricing schema', () => {
 
     expect(docs).toHaveLength(1)
     const doc = docs[0]
-    expect(doc.pricingType).toBe('base+addons')
-    expect(doc.basePrice).toBe(3000)
+    expect(doc.price).toBe(3000)
+    expect(doc.currency).toBe('rub')
+    expect(doc.priceRub).toBe(3000)
     expect(doc.addons).toHaveLength(2)
     expect(doc.addons?.[0]).toMatchObject({ label: 'Трансфер', price: 1000, type: 'transfer' })
-    expect(doc.tariffs ?? []).toHaveLength(0)
+  })
+
+  it('допки необязательны — событие может быть просто билетом', async () => {
+    const country = await payload.create({
+      collection: 'countries',
+      data: { name: `Италия ${uniq()}`, slug: `italia-${uniq()}` },
+    })
+
+    const created = await payload.create({
+      collection: 'events',
+      data: {
+        title: `Событие без допок ${uniq()}`,
+        slug: `sobytie-bez-dopok-${uniq()}`,
+        type: 'concert',
+        country: country.id,
+        price: 5000,
+        currency: 'rub',
+        status: 'published',
+      },
+    })
+
+    expect(created.addons ?? []).toHaveLength(0)
+    expect(created.priceRub).toBe(5000)
+  })
+
+  it('цена обязательна: без неё событие не создаётся', async () => {
+    const country = await payload.create({
+      collection: 'countries',
+      data: { name: `Франция ${uniq()}`, slug: `franciya-${uniq()}` },
+    })
+
+    await expect(
+      payload.create({
+        collection: 'events',
+        data: {
+          title: `Событие без цены ${uniq()}`,
+          type: 'concert',
+          country: country.id,
+          status: 'published',
+        } as never,
+      }),
+    ).rejects.toThrow()
   })
 })

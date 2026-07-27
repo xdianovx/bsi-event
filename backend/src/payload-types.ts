@@ -97,8 +97,12 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    settings: Setting;
+  };
+  globalsSelect: {
+    settings: SettingsSelect<false> | SettingsSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -213,21 +217,30 @@ export interface Event {
         }[]
       | null;
   };
-  pricingType: 'tariffs' | 'base+addons';
-  tariffs?:
-    | {
-        title: string;
-        price: number;
-        includes?:
-          | {
-              item?: string | null;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-      }[]
-    | null;
-  basePrice?: number | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  price: number;
+  currency: 'rub' | 'usd' | 'eur';
+  /**
+   * Считается по курсу и наценке из настроек. Каталог сортирует по этому полю.
+   */
+  priceRub?: number | null;
+  /**
+   * Опциональные дополнения к билету. Цена — в валюте события.
+   */
   addons?:
     | {
         label: string;
@@ -477,21 +490,10 @@ export interface EventsSelect<T extends boolean = true> {
               id?: T;
             };
       };
-  pricingType?: T;
-  tariffs?:
-    | T
-    | {
-        title?: T;
-        price?: T;
-        includes?:
-          | T
-          | {
-              item?: T;
-              id?: T;
-            };
-        id?: T;
-      };
-  basePrice?: T;
+  description?: T;
+  price?: T;
+  currency?: T;
+  priceRub?: T;
   addons?:
     | T
     | {
@@ -594,6 +596,39 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings".
+ */
+export interface Setting {
+  id: number;
+  rates: {
+    usd: number;
+    eur: number;
+  };
+  /**
+   * Накидывается сверх курса. К рублёвым ценам не применяется.
+   */
+  markupPercent: number;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings_select".
+ */
+export interface SettingsSelect<T extends boolean = true> {
+  rates?:
+    | T
+    | {
+        usd?: T;
+        eur?: T;
+      };
+  markupPercent?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

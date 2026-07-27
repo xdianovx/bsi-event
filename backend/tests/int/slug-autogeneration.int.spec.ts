@@ -16,7 +16,9 @@ describe('Автогенерация slug', () => {
     const name = `Германия автотест ${Date.now()}`
     const doc = await payload.create({
       collection: 'countries',
-      data: { name },
+      // slug опущен намеренно — проверяем, что его подставит хук. Типы этого не знают:
+      // поле объявлено required, генерация происходит в beforeValidate.
+      data: { name } as never,
     })
     expect(doc.slug).toBe(slugify(name))
   })
@@ -37,7 +39,8 @@ describe('Автогенерация slug', () => {
     })
     const doc = await payload.create({
       collection: 'events',
-      data: { title, type: 'concert', country: country.id, pricingType: 'tariffs' },
+      // slug опущен намеренно — см. комментарий выше
+      data: { title, type: 'concert', country: country.id, price: 5000, currency: 'rub' } as never,
     })
     expect(doc.slug).toBe(slugify(title))
   })

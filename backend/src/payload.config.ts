@@ -15,6 +15,7 @@ import { Events } from './collections/Events'
 import { Leads } from './collections/Leads'
 import { Reviews } from './collections/Reviews'
 import { Pages } from './collections/Pages'
+import { Settings } from './globals/Settings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -32,6 +33,7 @@ export default buildConfig({
     fallbackLanguage: 'ru',
   },
   collections: [Users, Media, Countries, Events, Leads, Reviews, Pages],
+  globals: [Settings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
