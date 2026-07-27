@@ -37,17 +37,17 @@ export function EventCard({ event }: { event: Event }) {
 
   return (
     <article
-      className="ticket group bg-surface border-line focus-within:ring-accent relative flex flex-col overflow-hidden rounded-2xl border transition-transform focus-within:ring-2 hover:-translate-y-1"
+      className="ticket bg-surface focus-within:ring-accent relative flex flex-col overflow-hidden rounded-2xl focus-within:ring-2"
       style={{ '--tear-y': '58%' } as React.CSSProperties}
     >
       {/* Афиша */}
-      <div className="bg-line/50 relative aspect-[4/3] overflow-hidden">
+      <div className="bg-surface-strong relative aspect-[4/3] overflow-hidden">
         {photo?.url ? (
           // eslint-disable-next-line @next/next/no-img-element -- media отдаётся Payload, next/image потребует настройки loader
           <img
             src={photo.url}
             alt={photo.alt ?? event.title}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="h-full w-full object-cover"
             loading="lazy"
           />
         ) : (
@@ -56,13 +56,13 @@ export function EventCard({ event }: { event: Event }) {
           </div>
         )}
 
-        <span className="bg-background/90 text-foreground border-line absolute top-3 left-3 rounded-full border px-3 py-1 text-[11px] tracking-widest uppercase backdrop-blur">
+        <span className="bg-background text-foreground absolute top-3 left-3 rounded-full px-3 py-1 text-[11px] tracking-widest uppercase">
           {TYPE_LABELS[event.type] ?? event.type}
         </span>
       </div>
 
       {/* Корешок: дата, место, цена — как на печатном билете */}
-      <div className="ticket__tear flex flex-1 flex-col gap-3 p-5">
+      <div className="flex flex-1 flex-col gap-3 p-5">
         <p className="text-accent text-sm font-semibold">
           {formatDate(event.startDate)}
         </p>

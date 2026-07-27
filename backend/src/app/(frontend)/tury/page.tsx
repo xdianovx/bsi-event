@@ -89,7 +89,7 @@ export default async function CatalogPage({ searchParams }: { searchParams: Sear
       </div>
 
       {events.length === 0 ? (
-        <div className="border-line rounded-2xl border border-dashed p-12 text-center">
+        <div className="bg-surface rounded-2xl p-12 text-center">
           <p className="text-lg font-semibold">Под эти условия ничего нет</p>
           <p className="text-muted mt-2">
             Попробуйте расширить диапазон цены или выбрать другую страну.
@@ -122,10 +122,8 @@ export default async function CatalogPage({ searchParams }: { searchParams: Sear
               key={n}
               href={pageHref(n)}
               aria-current={n === page ? 'page' : undefined}
-              className={`rounded-lg border px-4 py-2 text-sm transition-colors ${
-                n === page
-                  ? 'bg-accent text-accent-foreground border-accent'
-                  : 'border-line hover:border-accent'
+              className={`rounded-lg px-4 py-2 text-sm ${
+                n === page ? 'bg-accent text-accent-foreground' : 'bg-surface text-foreground'
               }`}
             >
               {n}

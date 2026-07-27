@@ -14,9 +14,10 @@
   --background: oklch(1 0 0);
   --foreground: oklch(0.16 0 0);
 
-  --surface: oklch(0.985 0 0);
-  --line: oklch(0.9 0 0);
-  --muted: oklch(0.52 0 0);
+  /* Раз рамок нет, блок отделяется только заливкой — она должна быть заметной */
+  --surface: oklch(0.955 0 0);
+  --surface-strong: oklch(0.915 0 0);
+  --muted: oklch(0.48 0 0);
 
   --accent: oklch(0.53 0.21 262);
   --accent-foreground: oklch(1 0 0);
@@ -26,7 +27,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
-  --color-line: var(--line);
+  --color-surface-strong: var(--surface-strong);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
@@ -38,7 +39,7 @@ body {
   font-family: var(--font-body), system-ui, sans-serif;
 }
 
-/* Карточка каталога — билет: вырубка по краям на линии отрыва. */
+/* Карточка каталога — билет: вырубка по краям на месте линии отрыва. */
 .ticket {
   --notch: 0.75rem;
 
@@ -47,10 +48,6 @@ body {
     radial-gradient(var(--notch) at right var(--tear-y), transparent 98%, black 100%);
   mask-composite: intersect;
   -webkit-mask-composite: source-in;
-}
-
-.ticket__tear {
-  border-top: 1px dashed var(--line);
 }
 
 @media (prefers-reduced-motion: reduce) {

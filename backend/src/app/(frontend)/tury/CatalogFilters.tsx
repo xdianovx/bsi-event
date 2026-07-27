@@ -38,7 +38,7 @@ export function CatalogFilters({
       method="GET"
       action="/tury"
       aria-label="Фильтры каталога"
-      className="border-line bg-surface/60 flex flex-wrap items-end gap-4 rounded-2xl border p-4 backdrop-blur"
+      className="bg-surface flex flex-wrap items-end gap-4 rounded-2xl p-4"
     >
       <Select
         name="country"
@@ -129,7 +129,7 @@ export function CatalogFilters({
           // Ctrl+клик и переход попадал в историю.
           <Link
             href="/tury"
-            className="text-muted hover:text-foreground focus-visible:ring-accent inline-flex items-center rounded-lg px-4 py-2 text-sm underline-offset-4 transition-colors hover:underline focus-visible:ring-2 focus-visible:outline-none"
+            className="text-muted hover:text-foreground focus-visible:ring-accent inline-flex items-center rounded-lg px-4 py-2 text-sm underline underline-offset-4 focus-visible:ring-2 focus-visible:outline-none"
           >
             Сбросить
           </Link>
