@@ -1,0 +1,21 @@
+{
+  "name": "bsi-events",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev:backend": "npm run dev -w bsi-backend",
+    "build:backend": "npm run build -w bsi-backend",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
+}
