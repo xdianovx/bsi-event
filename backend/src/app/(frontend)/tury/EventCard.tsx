@@ -1,33 +1,11 @@
 import Link from 'next/link'
 import type { Event, Media } from '@/payload-types'
+import { formatDate, formatPrice } from './format'
 
 const TYPE_LABELS: Record<string, string> = {
   concert: 'Концерт',
   sport: 'Спорт',
   racing: 'Гонки',
-}
-
-const CURRENCY_SIGNS: Record<string, string> = {
-  rub: '₽',
-  usd: '$',
-  eur: '€',
-}
-
-const formatPrice = (value: number, currency: string) =>
-  `${new Intl.NumberFormat('ru-RU').format(value)} ${CURRENCY_SIGNS[currency] ?? ''}`.trim()
-
-/**
- * «12 сент 2026» — как печать на билете. Части собираем вручную: ru-RU
- * добавляет к году «г.», а точку к месяцу — на корешке это лишний шум.
- */
-const formatDate = (iso?: string | null) => {
-  if (!iso) return 'дата уточняется'
-
-  const d = new Date(iso)
-  const month = new Intl.DateTimeFormat('ru-RU', { month: 'short' }).format(d).replace('.', '')
-  const day = String(d.getDate()).padStart(2, '0')
-
-  return `${day} ${month} ${d.getFullYear()}`
 }
 
 export function EventCard({ event }: { event: Event }) {

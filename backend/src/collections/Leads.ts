@@ -27,6 +27,42 @@ export const Leads: CollectionConfig = {
       label: 'Событие',
     },
     {
+      // Копия состава на момент заявки, а не ссылка на текущие цены события:
+      // прайс и курс потом поменяются, а заявка должна помнить свои.
+      name: 'orderItems',
+      type: 'array',
+      label: 'Состав заказа',
+      admin: {
+        description: 'Что выбрал покупатель. Снимок на момент заявки, пересчёту не подлежит.',
+      },
+      fields: [
+        { name: 'label', type: 'text', required: true, label: 'Позиция' },
+        { name: 'price', type: 'number', required: true, label: 'Цена' },
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'orderTotal',
+          type: 'number',
+          label: 'Итого',
+          admin: { width: '50%' },
+        },
+        {
+          name: 'orderCurrency',
+          type: 'select',
+          label: 'Валюта заказа',
+          admin: { width: '50%' },
+          options: [
+            { label: '₽ Рубль', value: 'rub' },
+            { label: '$ Доллар', value: 'usd' },
+            { label: '€ Евро', value: 'eur' },
+          ],
+        },
+      ],
+    },
+    {
       name: 'source',
       type: 'text',
       label: 'Источник',

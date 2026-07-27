@@ -269,6 +269,18 @@ export interface Lead {
   phone: string;
   event?: (number | null) | Event;
   /**
+   * Что выбрал покупатель. Снимок на момент заявки, пересчёту не подлежит.
+   */
+  orderItems?:
+    | {
+        label: string;
+        price: number;
+        id?: string | null;
+      }[]
+    | null;
+  orderTotal?: number | null;
+  orderCurrency?: ('rub' | 'usd' | 'eur') | null;
+  /**
    * UTM-метка или страница, с которой пришла заявка
    */
   source?: string | null;
@@ -522,6 +534,15 @@ export interface LeadsSelect<T extends boolean = true> {
   name?: T;
   phone?: T;
   event?: T;
+  orderItems?:
+    | T
+    | {
+        label?: T;
+        price?: T;
+        id?: T;
+      };
+  orderTotal?: T;
+  orderCurrency?: T;
   source?: T;
   processed?: T;
   updatedAt?: T;
