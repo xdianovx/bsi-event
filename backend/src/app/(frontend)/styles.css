@@ -16,7 +16,7 @@
 
   /* Раз рамок нет, блок отделяется только заливкой — она должна быть заметной */
   --surface: oklch(0.955 0 0);
-  --surface-strong: oklch(0.915 0 0);
+  --surface-strong: oklch(0.885 0 0);
   --muted: oklch(0.48 0 0);
 
   --accent: oklch(0.53 0.21 262);
