@@ -4,7 +4,7 @@ import type { CollectionConfig } from 'payload'
 export const Reviews: CollectionConfig = {
   slug: 'reviews',
   labels: { singular: 'Отзыв', plural: 'Отзывы' },
-  admin: { useAsTitle: 'author', group: 'Контент', defaultColumns: ['author', 'rating', 'tour'] },
+  admin: { useAsTitle: 'author', group: 'Контент', defaultColumns: ['author', 'rating', 'event'] },
   access: { read: () => true },
   fields: [
     { name: 'author', type: 'text', required: true, label: 'Автор' },
@@ -18,10 +18,10 @@ export const Reviews: CollectionConfig = {
       label: 'Рейтинг (1–5)',
     },
     {
-      name: 'tour',
+      name: 'event',
       type: 'relationship',
-      relationTo: 'tours',
-      label: 'Тур',
+      relationTo: 'events',
+      label: 'Событие',
     },
   ],
 }

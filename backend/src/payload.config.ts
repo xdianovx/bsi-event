@@ -12,7 +12,6 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Countries } from './collections/Countries'
 import { Events } from './collections/Events'
-import { Tours } from './collections/Tours'
 import { Leads } from './collections/Leads'
 import { Reviews } from './collections/Reviews'
 import { Pages } from './collections/Pages'
@@ -32,7 +31,7 @@ export default buildConfig({
     supportedLanguages: { ru, en },
     fallbackLanguage: 'ru',
   },
-  collections: [Users, Media, Countries, Events, Tours, Leads, Reviews, Pages],
+  collections: [Users, Media, Countries, Events, Leads, Reviews, Pages],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

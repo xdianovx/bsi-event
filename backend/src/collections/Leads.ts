@@ -7,7 +7,7 @@ export const Leads: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     group: 'Заявки',
-    defaultColumns: ['name', 'phone', 'tour', 'source', 'processed', 'createdAt'],
+    defaultColumns: ['name', 'phone', 'event', 'source', 'processed', 'createdAt'],
   },
   access: {
     // Форма на сайте создаёт лид анонимно; читать/править — только админы.
@@ -21,10 +21,10 @@ export const Leads: CollectionConfig = {
     { name: 'name', type: 'text', required: true, label: 'Имя' },
     { name: 'phone', type: 'text', required: true, label: 'Телефон' },
     {
-      name: 'tour',
+      name: 'event',
       type: 'relationship',
-      relationTo: 'tours',
-      label: 'Тур',
+      relationTo: 'events',
+      label: 'Событие',
     },
     {
       name: 'source',

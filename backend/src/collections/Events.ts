@@ -1,12 +1,30 @@
 import type { CollectionConfig } from 'payload'
+import { seoField } from '../fields/seo'
+import { generateSlug } from '../hooks/generateSlug'
 
+// Событие и есть полный тур: концерт/забег/etc с опциональным ценообразованием
+// (готовые тарифы или базовый билет + допки). Отдельной сущности "тур" нет.
 export const Events: CollectionConfig = {
   slug: 'events',
   labels: { singular: 'Событие', plural: 'События' },
-  admin: { useAsTitle: 'name', group: 'Каталог', defaultColumns: ['name', 'type', 'date'] },
+  admin: {
+    useAsTitle: 'title',
+    group: 'Каталог',
+    defaultColumns: ['title', 'type', 'country', 'startDate', 'status'],
+  },
   access: { read: () => true },
   fields: [
-    { name: 'name', type: 'text', required: true, label: 'Название' },
+    { name: 'title', type: 'text', required: true, label: 'Название' },
+    {
+      name: 'slug',
+      type: 'text',
+      required: true,
+      unique: true,
+      index: true,
+      label: 'Slug',
+      admin: { description: 'Латиницей, автогенерируется из названия, можно переопределить' },
+      hooks: { beforeValidate: [generateSlug('title')] },
+    },
     {
       name: 'type',
       type: 'select',
@@ -18,6 +36,102 @@ export const Events: CollectionConfig = {
         { label: 'Гонки', value: 'racing' },
       ],
     },
-    { name: 'date', type: 'date', label: 'Дата события' },
+    {
+      name: 'country',
+      type: 'relationship',
+      relationTo: 'countries',
+      required: true,
+      label: 'Страна',
+    },
+    { name: 'city', type: 'text', label: 'Город' },
+    {
+      type: 'row',
+      fields: [
+        { name: 'startDate', type: 'date', label: 'Начало', admin: { width: '33%' } },
+        { name: 'endDate', type: 'date', label: 'Окончание', admin: { width: '33%' } },
+        { name: 'duration', type: 'number', label: 'Дней', admin: { width: '33%' } },
+      ],
+    },
+    {
+      name: 'includes',
+      type: 'group',
+      label: 'Что входит',
+      fields: [
+        { name: 'ticket', type: 'checkbox', label: 'Билет на событие', defaultValue: true },
+        { name: 'visa', type: 'checkbox', label: 'Виза', defaultValue: false },
+        { name: 'accommodation', type: 'checkbox', label: 'Расселение', defaultValue: false },
+        {
+          name: 'extra',
+          type: 'array',
+          label: 'Прочее',
+          fields: [{ name: 'item', type: 'text', label: 'Пункт' }],
+        },
+      ],
+    },
+    {
+      name: 'pricingType',
+      type: 'select',
+      required: true,
+      defaultValue: 'tariffs',
+      label: 'Тип ценообразования',
+      options: [
+        { label: 'Готовые тарифы', value: 'tariffs' },
+        { label: 'Билет + допки', value: 'base+addons' },
+      ],
+    },
+    {
+      name: 'tariffs',
+      type: 'array',
+      label: 'Тарифы',
+      admin: { condition: (_, siblingData) => siblingData?.pricingType === 'tariffs' },
+      fields: [
+        { name: 'title', type: 'text', required: true, label: 'Название' },
+        { name: 'price', type: 'number', required: true, label: 'Цена, ₽' },
+        {
+          name: 'includes',
+          type: 'array',
+          label: 'Состав',
+          fields: [{ name: 'item', type: 'text', label: 'Пункт' }],
+        },
+      ],
+    },
+    {
+      name: 'basePrice',
+      type: 'number',
+      label: 'Базовая цена билета, ₽',
+      admin: { condition: (_, siblingData) => siblingData?.pricingType === 'base+addons' },
+    },
+    {
+      name: 'addons',
+      type: 'array',
+      label: 'Допки (дополнительные опции)',
+      admin: { condition: (_, siblingData) => siblingData?.pricingType === 'base+addons' },
+      fields: [
+        { name: 'label', type: 'text', required: true, label: 'Название' },
+        { name: 'price', type: 'number', required: true, label: 'Цена, ₽' },
+        { name: 'type', type: 'text', label: 'Тип (свободный текст)' },
+      ],
+    },
+    {
+      name: 'photos',
+      type: 'upload',
+      relationTo: 'media',
+      hasMany: true,
+      label: 'Фото',
+    },
+    seoField,
+    {
+      name: 'status',
+      type: 'select',
+      required: true,
+      defaultValue: 'draft',
+      label: 'Статус',
+      admin: { position: 'sidebar' },
+      options: [
+        { label: 'Черновик', value: 'draft' },
+        { label: 'Опубликован', value: 'published' },
+        { label: 'В архиве', value: 'archived' },
+      ],
+    },
   ],
 }

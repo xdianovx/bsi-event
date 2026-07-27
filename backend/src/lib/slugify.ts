@@ -40,4 +40,6 @@ export function slugify(input: string): string {
     .split('')
     .map((ch) => RU_TO_LAT[ch] ?? ch)
     .join('')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
 }

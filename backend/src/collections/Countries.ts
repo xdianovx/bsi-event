@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { generateSlug } from '../hooks/generateSlug'
 
 // Ось фасетных URL: /tury/{тип}/{slug страны}/
 export const Countries: CollectionConfig = {
@@ -15,7 +16,8 @@ export const Countries: CollectionConfig = {
       unique: true,
       index: true,
       label: 'Slug',
-      admin: { description: 'Латиницей, для URL: /tury/{тип}/{slug}/' },
+      admin: { description: 'Латиницей, автогенерируется из названия, можно переопределить' },
+      hooks: { beforeValidate: [generateSlug('name')] },
     },
   ],
 }

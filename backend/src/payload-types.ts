@@ -71,7 +71,6 @@ export interface Config {
     media: Media;
     countries: Country;
     events: Event;
-    tours: Tour;
     leads: Lead;
     reviews: Review;
     pages: Page;
@@ -86,7 +85,6 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     countries: CountriesSelect<false> | CountriesSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
-    tours: ToursSelect<false> | ToursSelect<true>;
     leads: LeadsSelect<false> | LeadsSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
@@ -181,7 +179,7 @@ export interface Country {
   id: number;
   name: string;
   /**
-   * Латиницей, для URL: /tury/{тип}/{slug}/
+   * Латиницей, автогенерируется из названия, можно переопределить
    */
   slug: string;
   updatedAt: string;
@@ -193,21 +191,12 @@ export interface Country {
  */
 export interface Event {
   id: number;
-  name: string;
-  type: 'concert' | 'sport' | 'racing';
-  date?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tours".
- */
-export interface Tour {
-  id: number;
   title: string;
+  /**
+   * Латиницей, автогенерируется из названия, можно переопределить
+   */
   slug: string;
-  event?: (number | null) | Event;
+  type: 'concert' | 'sport' | 'racing';
   country: number | Country;
   city?: string | null;
   startDate?: string | null;
@@ -224,13 +213,29 @@ export interface Tour {
         }[]
       | null;
   };
-  price?: {
-    onRequest?: boolean | null;
-    /**
-     * Отображается как «от X ₽»
-     */
-    from?: number | null;
-  };
+  pricingType: 'tariffs' | 'base+addons';
+  tariffs?:
+    | {
+        title: string;
+        price: number;
+        includes?:
+          | {
+              item?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  basePrice?: number | null;
+  addons?:
+    | {
+        label: string;
+        price: number;
+        type?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   photos?: (number | Media)[] | null;
   seo?: {
     title?: string | null;
@@ -249,7 +254,7 @@ export interface Lead {
   id: number;
   name: string;
   phone: string;
-  tour?: (number | null) | Tour;
+  event?: (number | null) | Event;
   /**
    * UTM-метка или страница, с которой пришла заявка
    */
@@ -267,7 +272,7 @@ export interface Review {
   author: string;
   text: string;
   rating: number;
-  tour?: (number | null) | Tour;
+  event?: (number | null) | Event;
   updatedAt: string;
   createdAt: string;
 }
@@ -341,10 +346,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'events';
         value: number | Event;
-      } | null)
-    | ({
-        relationTo: 'tours';
-        value: number | Tour;
       } | null)
     | ({
         relationTo: 'leads';
@@ -455,20 +456,9 @@ export interface CountriesSelect<T extends boolean = true> {
  * via the `definition` "events_select".
  */
 export interface EventsSelect<T extends boolean = true> {
-  name?: T;
-  type?: T;
-  date?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tours_select".
- */
-export interface ToursSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
-  event?: T;
+  type?: T;
   country?: T;
   city?: T;
   startDate?: T;
@@ -487,11 +477,28 @@ export interface ToursSelect<T extends boolean = true> {
               id?: T;
             };
       };
-  price?:
+  pricingType?: T;
+  tariffs?:
     | T
     | {
-        onRequest?: T;
-        from?: T;
+        title?: T;
+        price?: T;
+        includes?:
+          | T
+          | {
+              item?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  basePrice?: T;
+  addons?:
+    | T
+    | {
+        label?: T;
+        price?: T;
+        type?: T;
+        id?: T;
       };
   photos?: T;
   seo?:
@@ -512,7 +519,7 @@ export interface ToursSelect<T extends boolean = true> {
 export interface LeadsSelect<T extends boolean = true> {
   name?: T;
   phone?: T;
-  tour?: T;
+  event?: T;
   source?: T;
   processed?: T;
   updatedAt?: T;
@@ -526,7 +533,7 @@ export interface ReviewsSelect<T extends boolean = true> {
   author?: T;
   text?: T;
   rating?: T;
-  tour?: T;
+  event?: T;
   updatedAt?: T;
   createdAt?: T;
 }

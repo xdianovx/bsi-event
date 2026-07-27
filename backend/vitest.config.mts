@@ -8,5 +8,8 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
     include: ['tests/int/**/*.int.spec.ts'],
+    // Payload/Postgres пушит схему на первый getPayload() в каждом файле — на пустой БД
+    // параллельные файлы гонятся за CREATE TYPE одновременно. Файлы строго последовательно.
+    fileParallelism: false,
   },
 })
