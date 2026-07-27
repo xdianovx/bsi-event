@@ -1,164 +1,72 @@
+/* Tailwind v4 — строго первым */
+@import 'tailwindcss';
+
+/* Стили HeroUI v3 — строго после Tailwind */
+@import '@heroui/styles';
+
+/*
+  Подключается только в layout группы (frontend). Админка Payload — отдельная
+  route-группа со своим layout и своими стилями, Tailwind туда не протекает.
+*/
+
+/*
+  Палитра: стадион в сумерках. Бумажный тон живёт только на корешке билета,
+  фоном не становится.
+*/
 :root {
-  --font-mono: 'Roboto Mono', monospace;
+  --background: oklch(0.19 0.045 279);
+  --foreground: oklch(0.93 0.015 279);
+
+  --ink-raised: oklch(0.26 0.05 279);
+  --ink-line: oklch(0.34 0.045 279);
+  --paper: oklch(0.94 0.018 85);
+  --muted: oklch(0.68 0.04 279);
+
+  /* Янтарь прожекторов — единственный акцент */
+  --accent: oklch(0.81 0.15 74);
+  --accent-foreground: oklch(0.21 0.05 279);
 }
 
-* {
-  box-sizing: border-box;
-}
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ink-raised: var(--ink-raised);
+  --color-ink-line: var(--ink-line);
+  --color-paper: var(--paper);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
 
-html {
-  font-size: 18px;
-  line-height: 32px;
-
-  background: rgb(0, 0, 0);
-  -webkit-font-smoothing: antialiased;
-}
-
-html,
-body,
-#app {
-  height: 100%;
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
 }
 
 body {
-  font-family: system-ui;
-  font-size: 18px;
-  line-height: 32px;
-
-  margin: 0;
-  color: rgb(1000, 1000, 1000);
-
-  @media (max-width: 1024px) {
-    font-size: 15px;
-    line-height: 24px;
-  }
+  font-family: var(--font-body), system-ui, sans-serif;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+/*
+  Подпись каталога: карточка — это билет. Полукруглые вырубки по бокам на месте
+  линии отрыва и пунктир между афишей и корешком.
+*/
+.ticket {
+  --notch: 0.75rem;
+
+  mask-image:
+    radial-gradient(var(--notch) at left var(--tear-y), transparent 98%, black 100%),
+    radial-gradient(var(--notch) at right var(--tear-y), transparent 98%, black 100%);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
 }
 
-h1 {
-  margin: 40px 0;
-  font-size: 64px;
-  line-height: 70px;
-  font-weight: bold;
-
-  @media (max-width: 1024px) {
-    margin: 24px 0;
-    font-size: 42px;
-    line-height: 42px;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 38px;
-    line-height: 38px;
-  }
-
-  @media (max-width: 400px) {
-    font-size: 32px;
-    line-height: 32px;
-  }
+.ticket__tear {
+  border-top: 1px dashed var(--ink-line);
 }
 
-p {
-  margin: 24px 0;
-
-  @media (max-width: 1024px) {
-    margin: calc(var(--base) * 0.75) 0;
-  }
-}
-
-a {
-  color: currentColor;
-
-  &:focus {
-    opacity: 0.8;
-    outline: none;
-  }
-
-  &:active {
-    opacity: 0.7;
-    outline: none;
-  }
-}
-
-svg {
-  vertical-align: middle;
-}
-
-.home {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 100vh;
-  padding: 45px;
-  max-width: 1024px;
-  margin: 0 auto;
-  overflow: hidden;
-
-  @media (max-width: 400px) {
-    padding: 24px;
-  }
-
-  .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-
-    h1 {
-      text-align: center;
-    }
-  }
-
-  .links {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    a {
-      text-decoration: none;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-    }
-
-    .admin {
-      color: rgb(0, 0, 0);
-      background: rgb(1000, 1000, 1000);
-      border: 1px solid rgb(0, 0, 0);
-    }
-
-    .docs {
-      color: rgb(1000, 1000, 1000);
-      background: rgb(0, 0, 0);
-      border: 1px solid rgb(1000, 1000, 1000);
-    }
-  }
-
-  .footer {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    @media (max-width: 1024px) {
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    p {
-      margin: 0;
-    }
-
-    .codeLink {
-      text-decoration: none;
-      padding: 0 0.5rem;
-      background: rgb(60, 60, 60);
-      border-radius: 4px;
-    }
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }

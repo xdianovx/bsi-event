@@ -21,15 +21,15 @@ test.describe('Admin Panel', () => {
   test('can navigate to dashboard', async () => {
     await page.goto('http://localhost:3000/admin')
     await expect(page).toHaveURL('http://localhost:3000/admin')
-    const dashboardArtifact = page.locator('span[title="Dashboard"]').first()
-    await expect(dashboardArtifact).toBeVisible()
+    // Селектор по локали не завязан: админка русифицирована (i18n ru)
+    await expect(page.locator('.dashboard').first()).toBeVisible()
   })
 
   test('can navigate to list view', async () => {
     await page.goto('http://localhost:3000/admin/collections/users')
-    await expect(page).toHaveURL('http://localhost:3000/admin/collections/users')
-    const listViewArtifact = page.locator('h1', { hasText: 'Users' }).first()
-    await expect(listViewArtifact).toBeVisible()
+    // Payload дописывает к списку ?depth=1&limit=10 — точное сравнение гонится с редиректом
+    await expect(page).toHaveURL(/\/admin\/collections\/users/)
+    await expect(page.locator('.collection-list').first()).toBeVisible()
   })
 
   test('can navigate to edit view', async () => {

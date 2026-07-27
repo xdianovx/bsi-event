@@ -21,6 +21,8 @@ const run = async () => {
       title: 'Демо-событие: рублёвая цена',
       slug: 'sobytie-rubli-demo',
       type: 'concert' as const,
+      city: 'Милан',
+      startDate: '2026-09-12T19:00:00.000Z',
       price: 15000,
       currency: 'rub' as const,
       addons: [
@@ -33,6 +35,8 @@ const run = async () => {
       title: 'Демо-событие: цена в долларах',
       slug: 'sobytie-dollary-demo',
       type: 'sport' as const,
+      city: 'Монца',
+      startDate: '2026-10-04T14:00:00.000Z',
       price: 300,
       currency: 'usd' as const,
       addons: [{ label: 'Экскурсия', price: 50, type: 'excursion' }],

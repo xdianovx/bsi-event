@@ -1,20 +1,15 @@
-import { test, expect, Page } from '@playwright/test'
+import { test, expect } from '@playwright/test'
 
 test.describe('Frontend', () => {
-  let page: Page
-
-  test.beforeAll(async ({ browser }, testInfo) => {
-    const context = await browser.newContext()
-    page = await context.newPage()
-  })
-
-  test('can go on homepage', async ({ page }) => {
+  test('главная открывается под брендом проекта', async ({ page }) => {
     await page.goto('http://localhost:3000')
 
-    await expect(page).toHaveTitle(/Payload Blank Template/)
+    await expect(page).toHaveTitle(/BSI Events/)
+  })
 
-    const heading = page.locator('h1').first()
+  test('страница направлений отдаёт список стран', async ({ page }) => {
+    await page.goto('http://localhost:3000/napravleniya')
 
-    await expect(heading).toHaveText('Welcome to your new project.')
+    await expect(page.locator('h1')).toHaveText('Направления')
   })
 })
