@@ -1,3 +1,6 @@
+// Первым импортом: при standalone-запуске (вне Next) .env сам не подхватывается,
+// а payload.config читает process.env уже на этапе импорта.
+import 'dotenv/config'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 
