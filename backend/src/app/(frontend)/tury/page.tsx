@@ -69,10 +69,10 @@ export default async function CatalogPage({ searchParams }: { searchParams: Sear
   return (
     <main className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:py-16">
       <header className="mb-10">
-        <p className="text-accent mb-3 font-mono text-xs tracking-[0.2em] uppercase">
+        <p className="text-accent mb-3 text-xs tracking-[0.2em] uppercase">
           Билет · отель · виза
         </p>
-        <h1 className="font-display text-3xl leading-tight font-extrabold text-balance sm:text-5xl">
+        <h1 className="text-3xl leading-tight font-extrabold text-balance sm:text-5xl">
           Туры на события
         </h1>
         <p className="text-muted mt-4 max-w-2xl text-lg">
@@ -89,8 +89,8 @@ export default async function CatalogPage({ searchParams }: { searchParams: Sear
       </div>
 
       {events.length === 0 ? (
-        <div className="border-ink-line rounded-2xl border border-dashed p-12 text-center">
-          <p className="font-display text-lg font-semibold">Под эти условия ничего нет</p>
+        <div className="border-line rounded-2xl border border-dashed p-12 text-center">
+          <p className="text-lg font-semibold">Под эти условия ничего нет</p>
           <p className="text-muted mt-2">
             Попробуйте расширить диапазон цены или выбрать другую страну.
           </p>
@@ -102,7 +102,7 @@ export default async function CatalogPage({ searchParams }: { searchParams: Sear
         </div>
       ) : (
         <>
-          <p className="text-muted mb-4 font-mono text-xs tracking-widest uppercase">
+          <p className="text-muted mb-4 text-xs tracking-widest uppercase">
             Найдено: {totalDocs}
           </p>
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -122,10 +122,10 @@ export default async function CatalogPage({ searchParams }: { searchParams: Sear
               key={n}
               href={pageHref(n)}
               aria-current={n === page ? 'page' : undefined}
-              className={`rounded-lg border px-4 py-2 font-mono text-sm transition-colors ${
+              className={`rounded-lg border px-4 py-2 text-sm transition-colors ${
                 n === page
                   ? 'bg-accent text-accent-foreground border-accent'
-                  : 'border-ink-line hover:border-accent'
+                  : 'border-line hover:border-accent'
               }`}
             >
               {n}

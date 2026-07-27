@@ -38,7 +38,7 @@ export function CatalogFilters({
       method="GET"
       action="/tury"
       aria-label="Фильтры каталога"
-      className="border-ink-line bg-ink-raised/60 flex flex-wrap items-end gap-4 rounded-2xl border p-4 backdrop-blur"
+      className="border-line bg-surface/60 flex flex-wrap items-end gap-4 rounded-2xl border p-4 backdrop-blur"
     >
       <Select
         name="country"

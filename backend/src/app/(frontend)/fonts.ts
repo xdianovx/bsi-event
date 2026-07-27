@@ -1,28 +1,12 @@
-import { Unbounded, Golos_Text, JetBrains_Mono } from 'next/font/google'
+import { Golos_Text } from 'next/font/google'
 
-// Контент русский, поэтому кириллица — обязательное условие, а не пожелание:
-// она и определила выбор пары.
-
-/** Дисплей: заголовки, название события на карточке. Употреблять сдержанно. */
-export const display = Unbounded({
-  subsets: ['cyrillic', 'latin'],
-  weight: ['400', '600', '800'],
-  variable: '--font-display',
-  display: 'swap',
-})
-
-/** Основной текст. Сделан под кириллицу. */
+/**
+ * Единственный шрифт проекта. Golos сделан под кириллицу — контент русский.
+ * Веса покрывают и текст, и заголовки, поэтому отдельная дисплейная пара не нужна.
+ */
 export const body = Golos_Text({
   subsets: ['cyrillic', 'latin'],
-  weight: ['400', '500', '600'],
+  weight: ['400', '500', '600', '700', '800'],
   variable: '--font-body',
-  display: 'swap',
-})
-
-/** Даты, цены, номера — как печать на билете. */
-export const mono = JetBrains_Mono({
-  subsets: ['cyrillic', 'latin'],
-  weight: ['400', '700'],
-  variable: '--font-mono',
   display: 'swap',
 })
