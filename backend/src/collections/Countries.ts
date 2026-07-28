@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { seoField } from '../fields/seo'
 import { generateSlug } from '../hooks/generateSlug'
 
 // Ось фасетных URL: /tury/{тип}/{slug страны}/
@@ -39,5 +40,6 @@ export const Countries: CollectionConfig = {
           'Отдаётся через <img>, инлайном в разметку не встраивается: сторонний SVG может содержать скрипт.',
       },
     },
+    seoField,
   ],
 }

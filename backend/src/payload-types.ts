@@ -229,6 +229,11 @@ export interface Country {
    * Отдаётся через <img>, инлайном в разметку не встраивается: сторонний SVG может содержать скрипт.
    */
   flag?: (number | null) | Media;
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+    noindex?: boolean | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -564,6 +569,13 @@ export interface CountriesSelect<T extends boolean = true> {
   slug?: T;
   region?: T;
   flag?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        noindex?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
