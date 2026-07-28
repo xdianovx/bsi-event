@@ -19,3 +19,15 @@ export const formatDate = (iso?: string | null) => {
 
   return `${String(d.getDate()).padStart(2, '0')} ${month} ${d.getFullYear()}`
 }
+
+/** «Италия, Милан» из связей события; город может быть не задан или не раскрыт. */
+export const formatPlace = (
+  country?: { name?: string | null } | number | null,
+  city?: { name?: string | null } | number | null,
+) =>
+  [
+    typeof country === 'object' && country ? country.name : null,
+    typeof city === 'object' && city ? city.name : null,
+  ]
+    .filter(Boolean)
+    .join(', ')

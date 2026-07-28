@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import type { Event, Media } from '@/payload-types'
-import { formatDate, formatPrice } from './format'
+import { formatDate, formatPlace, formatPrice } from './format'
 
 const TYPE_LABELS: Record<string, string> = {
   concert: 'Концерт',
@@ -10,8 +10,7 @@ const TYPE_LABELS: Record<string, string> = {
 
 export function EventCard({ event }: { event: Event }) {
   const photo = Array.isArray(event.photos) ? (event.photos[0] as Media | undefined) : undefined
-  const country = typeof event.country === 'object' ? event.country : undefined
-  const place = [country?.name, event.city].filter(Boolean).join(', ')
+  const place = formatPlace(event.country, event.city)
 
   return (
     <article

@@ -44,7 +44,13 @@ export const Events: CollectionConfig = {
       required: true,
       label: 'Страна',
     },
-    { name: 'city', type: 'text', label: 'Город' },
+    {
+      name: 'city',
+      type: 'relationship',
+      relationTo: 'cities',
+      index: true,
+      label: 'Город',
+    },
     {
       type: 'row',
       fields: [

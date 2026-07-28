@@ -19,5 +19,25 @@ export const Countries: CollectionConfig = {
       admin: { description: 'Латиницей, автогенерируется из названия, можно переопределить' },
       hooks: { beforeValidate: [generateSlug('name')] },
     },
+    {
+      name: 'region',
+      type: 'relationship',
+      relationTo: 'regions',
+      index: true,
+      label: 'Регион',
+    },
+    {
+      name: 'flag',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Флаг (SVG)',
+      // Только SVG: выбор ограничен на уровне поля, чтобы не заводить
+      // отдельную коллекцию под флаги.
+      filterOptions: { mimeType: { contains: 'svg' } },
+      admin: {
+        description:
+          'Отдаётся через <img>, инлайном в разметку не встраивается: сторонний SVG может содержать скрипт.',
+      },
+    },
   ],
 }

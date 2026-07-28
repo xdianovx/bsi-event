@@ -69,7 +69,9 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    regions: Region;
     countries: Country;
+    cities: City;
     events: Event;
     leads: Lead;
     reviews: Review;
@@ -83,7 +85,9 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    regions: RegionsSelect<false> | RegionsSelect<true>;
     countries: CountriesSelect<false> | CountriesSelect<true>;
+    cities: CitiesSelect<false> | CitiesSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     leads: LeadsSelect<false> | LeadsSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
@@ -177,6 +181,40 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "regions".
+ */
+export interface Region {
+  id: number;
+  name: string;
+  /**
+   * Латиницей, автогенерируется из названия, можно переопределить
+   */
+  slug: string;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+    noindex?: boolean | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "countries".
  */
 export interface Country {
@@ -186,6 +224,31 @@ export interface Country {
    * Латиницей, автогенерируется из названия, можно переопределить
    */
   slug: string;
+  region?: (number | null) | Region;
+  /**
+   * Отдаётся через <img>, инлайном в разметку не встраивается: сторонний SVG может содержать скрипт.
+   */
+  flag?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cities".
+ */
+export interface City {
+  id: number;
+  name: string;
+  /**
+   * Латиницей, автогенерируется из названия, можно переопределить
+   */
+  slug: string;
+  country: number | Country;
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+    noindex?: boolean | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -202,7 +265,7 @@ export interface Event {
   slug: string;
   type: 'concert' | 'sport' | 'racing';
   country: number | Country;
-  city?: string | null;
+  city?: (number | null) | City;
   startDate?: string | null;
   endDate?: string | null;
   duration?: number | null;
@@ -365,8 +428,16 @@ export interface PayloadLockedDocument {
         value: number | Media;
       } | null)
     | ({
+        relationTo: 'regions';
+        value: number | Region;
+      } | null)
+    | ({
         relationTo: 'countries';
         value: number | Country;
+      } | null)
+    | ({
+        relationTo: 'cities';
+        value: number | City;
       } | null)
     | ({
         relationTo: 'events';
@@ -468,11 +539,49 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "regions_select".
+ */
+export interface RegionsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  description?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        noindex?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "countries_select".
  */
 export interface CountriesSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
+  region?: T;
+  flag?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cities_select".
+ */
+export interface CitiesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  country?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        noindex?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }

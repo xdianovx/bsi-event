@@ -11,6 +11,8 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Countries } from './collections/Countries'
+import { Regions } from './collections/Regions'
+import { Cities } from './collections/Cities'
 import { Events } from './collections/Events'
 import { Leads } from './collections/Leads'
 import { Reviews } from './collections/Reviews'
@@ -32,7 +34,7 @@ export default buildConfig({
     supportedLanguages: { ru, en },
     fallbackLanguage: 'ru',
   },
-  collections: [Users, Media, Countries, Events, Leads, Reviews, Pages],
+  collections: [Users, Media, Regions, Countries, Cities, Events, Leads, Reviews, Pages],
   globals: [Settings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

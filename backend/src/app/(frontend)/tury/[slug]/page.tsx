@@ -7,7 +7,7 @@ import { RichText } from '@payloadcms/richtext-lexical/react'
 import config from '@/payload.config'
 import { getEventBySlug } from '@/lib/catalog'
 import type { Media } from '@/payload-types'
-import { formatDate, formatPrice } from '../format'
+import { formatDate, formatPlace, formatPrice } from '../format'
 import { OrderPanel } from './OrderPanel'
 
 type Params = Promise<{ slug: string }>
@@ -29,9 +29,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
   if (!event) return { title: 'Тур не найден' }
 
-  const place = [typeof event.country === 'object' ? event.country.name : null, event.city]
-    .filter(Boolean)
-    .join(', ')
+  const place = formatPlace(event.country, event.city)
 
   return {
     title: event.seo?.title || event.title,
@@ -51,8 +49,7 @@ export default async function EventPage({ params }: { params: Params }) {
   if (!event) notFound()
 
   const photos = (Array.isArray(event.photos) ? event.photos : []) as Media[]
-  const country = typeof event.country === 'object' ? event.country : undefined
-  const place = [country?.name, event.city].filter(Boolean).join(', ')
+  const place = formatPlace(event.country, event.city)
 
   const includes = [
     event.includes?.ticket && 'Билет на событие',
