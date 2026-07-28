@@ -25,6 +25,15 @@ test.describe('Admin Panel', () => {
     await expect(page.locator('.dashboard').first()).toBeVisible()
   })
 
+  test('на главной админки видна витрина заявок', async () => {
+    await page.goto('http://localhost:3000/admin')
+
+    const stats = page.locator('section', { hasText: 'Заявки' }).first()
+    await expect(stats).toBeVisible()
+    await expect(stats).toContainText('не обработано')
+    await expect(stats).toContainText('за неделю')
+  })
+
   test('can navigate to list view', async () => {
     await page.goto('http://localhost:3000/admin/collections/users')
     // Payload дописывает к списку ?depth=1&limit=10 — точное сравнение гонится с редиректом

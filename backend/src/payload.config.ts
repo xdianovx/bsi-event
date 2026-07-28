@@ -26,6 +26,10 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     dateFormat: 'dd.MM.yyyy',
+    components: {
+      // Витрина заявок над стандартным содержимым главной админки
+      beforeDashboard: ['/components/LeadStats#default'],
+    },
     importMap: {
       baseDir: path.resolve(dirname),
     },
