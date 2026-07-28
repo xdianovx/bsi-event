@@ -15,6 +15,29 @@ describe('buildCatalogQuery', () => {
     expect(q.where).toMatchObject({ 'country.slug': { equals: 'italia' } })
   })
 
+  it('фильтрует по региону через цепочку страна→регион', () => {
+    const q = buildCatalogQuery({ region: 'evropa' })
+
+    expect(q.where).toMatchObject({ 'country.region.slug': { equals: 'evropa' } })
+  })
+
+  it('фильтрует по городу', () => {
+    const q = buildCatalogQuery({ city: 'milan' })
+
+    expect(q.where).toMatchObject({ 'city.slug': { equals: 'milan' } })
+  })
+
+  it('уровни гео комбинируются', () => {
+    const q = buildCatalogQuery({ region: 'evropa', country: 'italia', city: 'milan' })
+
+    expect(q.where).toEqual({
+      status: { equals: 'published' },
+      'country.region.slug': { equals: 'evropa' },
+      'country.slug': { equals: 'italia' },
+      'city.slug': { equals: 'milan' },
+    })
+  })
+
   it('фильтрует по типу события', () => {
     const q = buildCatalogQuery({ type: 'concert' })
 

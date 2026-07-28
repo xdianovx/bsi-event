@@ -13,7 +13,9 @@ type SearchParams = Promise<Record<string, string | string[] | undefined>>
 const toParams = (sp: Record<string, string | string[] | undefined>): CatalogParams => {
   const first = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v)
   return {
+    region: first(sp.region),
     country: first(sp.country),
+    city: first(sp.city),
     type: first(sp.type),
     dateFrom: first(sp.dateFrom),
     dateTo: first(sp.dateTo),
@@ -25,7 +27,16 @@ const toParams = (sp: Record<string, string | string[] | undefined>): CatalogPar
 }
 
 const isFiltered = (p: CatalogParams) =>
-  Boolean(p.country || p.type || p.dateFrom || p.dateTo || p.minPrice || p.maxPrice)
+  Boolean(
+    p.region ||
+      p.country ||
+      p.city ||
+      p.type ||
+      p.dateFrom ||
+      p.dateTo ||
+      p.minPrice ||
+      p.maxPrice,
+  )
 
 export async function generateMetadata({
   searchParams,
@@ -50,10 +61,27 @@ export default async function CatalogPage({ searchParams }: { searchParams: Sear
   const params = toParams(await searchParams)
   const payload = await getPayload({ config: await config })
 
-  const [{ docs: events, totalPages, page, totalDocs }, { docs: countries }] = await Promise.all([
-    payload.find({ collection: 'events', ...buildCatalogQuery(params), depth: 1 }),
-    payload.find({ collection: 'countries', sort: 'name', limit: 100, depth: 0 }),
-  ])
+  // Списки зависимые: выбран регион — страны сужаются, выбрана страна — города.
+  // Сужение считается на сервере при отправке формы, клиентского стейта нет.
+  const [{ docs: events, totalPages, page, totalDocs }, { docs: regions }, { docs: countries }, { docs: cities }] =
+    await Promise.all([
+      payload.find({ collection: 'events', ...buildCatalogQuery(params), depth: 2 }),
+      payload.find({ collection: 'regions', sort: 'name', limit: 100, depth: 0 }),
+      payload.find({
+        collection: 'countries',
+        where: params.region ? { 'region.slug': { equals: params.region } } : undefined,
+        sort: 'name',
+        limit: 200,
+        depth: 0,
+      }),
+      payload.find({
+        collection: 'cities',
+        where: params.country ? { 'country.slug': { equals: params.country } } : undefined,
+        sort: 'name',
+        limit: 300,
+        depth: 0,
+      }),
+    ])
 
   const filtered = isFiltered(params)
 
@@ -82,7 +110,9 @@ export default async function CatalogPage({ searchParams }: { searchParams: Sear
 
       <div className="mb-8">
         <CatalogFilters
-          countries={countries.map((c) => ({ id: c.id, name: c.name, slug: c.slug }))}
+          regions={regions.map((r) => ({ name: r.name, slug: r.slug }))}
+          countries={countries.map((c) => ({ name: c.name, slug: c.slug }))}
+          cities={cities.map((c) => ({ name: c.name, slug: c.slug }))}
           active={params}
           hasActiveFilters={filtered}
         />

@@ -105,6 +105,37 @@ describe('Гео-каталог: регион → страна → город', 
     expect(cityDoc.country.region.name).toBe(region.name)
   })
 
+  it('события фильтруются по слагу региона через страну — два уровня вложенности', async () => {
+    const regionSlug = `region-filter-${uniq()}`
+    const region = await payload.create({
+      collection: 'regions',
+      data: { name: `Регион ${uniq()}`, slug: regionSlug },
+    })
+    const country = await payload.create({
+      collection: 'countries',
+      data: { name: `Страна ${uniq()}`, slug: `strana-${uniq()}`, region: region.id },
+    })
+    const event = await payload.create({
+      collection: 'events',
+      data: {
+        title: `Событие региона ${uniq()}`,
+        slug: `sobytie-regiona-${uniq()}`,
+        type: 'concert',
+        country: country.id,
+        price: 2000,
+        currency: 'rub',
+        status: 'published',
+      } as never,
+    })
+
+    const { docs } = await payload.find({
+      collection: 'events',
+      where: { 'country.region.slug': { equals: regionSlug } },
+    })
+
+    expect(docs.map((d) => d.id)).toEqual([event.id])
+  })
+
   it('события фильтруются по слагу города', async () => {
     const country = await payload.create({
       collection: 'countries',

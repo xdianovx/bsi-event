@@ -24,6 +24,21 @@ test.describe('Каталог туров', () => {
     expect(filtered).toBeGreaterThan(0)
   })
 
+  test('фильтр по региону сужает список', async ({ page }) => {
+    await page.goto(`${CATALOG}?region=evropa`)
+    expect(await cards(page).count()).toBeGreaterThan(0)
+
+    await page.goto(`${CATALOG}?region=net-takogo-regiona`)
+    await expect(cards(page)).toHaveCount(0)
+  })
+
+  test('фильтр по городу оставляет события только этого города', async ({ page }) => {
+    await page.goto(`${CATALOG}?city=milan`)
+
+    await expect(cards(page)).toHaveCount(1)
+    await expect(cards(page).first()).toContainText('Милан')
+  })
+
   test('фильтр по цене отбирает по рублёвому эквиваленту', async ({ page }) => {
     // Демо-данные: 15 000 ₽ и 300 $ (≈ 30 000 ₽). Порог 20 000 оставляет только первое.
     await page.goto(`${CATALOG}?maxPrice=20000`)

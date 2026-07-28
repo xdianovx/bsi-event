@@ -15,7 +15,9 @@ const SORT_MAP: Record<string, string> = {
 }
 
 export type CatalogParams = {
+  region?: string
   country?: string
+  city?: string
   type?: string
   dateFrom?: string
   dateTo?: string
@@ -54,7 +56,10 @@ const rangeOf = <T extends number | string>(min?: T, max?: T) => {
 export const buildCatalogQuery = (params: CatalogParams): CatalogQuery => {
   const where: Where = { status: { equals: 'published' } }
 
+  // Гео-уровни независимы: регион читается через страну, город — напрямую
+  if (params.region) where['country.region.slug'] = { equals: params.region }
   if (params.country) where['country.slug'] = { equals: params.country }
+  if (params.city) where['city.slug'] = { equals: params.city }
   if (params.type) where.type = { equals: params.type }
 
   const price = rangeOf(toNumber(params.minPrice), toNumber(params.maxPrice))

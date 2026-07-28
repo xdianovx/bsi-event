@@ -4,7 +4,7 @@ import { Button, Label, ListBox, NumberField, Select } from '@heroui/react'
 import Link from 'next/link'
 import type { CatalogParams } from '@/lib/catalog'
 
-type Country = { id: number; name: string; slug: string }
+type GeoOption = { name: string; slug: string }
 
 const TYPES = [
   { id: 'concert', label: 'Концерт' },
@@ -19,17 +19,63 @@ const SORTS = [
   { id: '-price', label: 'Сначала дорогие' },
 ]
 
+/** Один и тот же селект для всех гео-уровней — отличается только подписью. */
+function GeoSelect({
+  name,
+  label,
+  placeholder,
+  options,
+  value,
+}: {
+  name: string
+  label: string
+  placeholder: string
+  options: GeoOption[]
+  value?: string
+}) {
+  return (
+    <Select
+      name={name}
+      defaultSelectedKey={value}
+      placeholder={placeholder}
+      className="min-w-[170px] flex-1"
+    >
+      <Label>{label}</Label>
+      <Select.Trigger>
+        <Select.Value />
+        <Select.Indicator />
+      </Select.Trigger>
+      <Select.Popover>
+        <ListBox>
+          {options.map((o) => (
+            <ListBox.Item key={o.slug} id={o.slug} textValue={o.name}>
+              {o.name}
+              <ListBox.ItemIndicator />
+            </ListBox.Item>
+          ))}
+        </ListBox>
+      </Select.Popover>
+    </Select>
+  )
+}
+
 /**
  * Обычная GET-форма: submit меняет searchParams и перерисовывает страницу на
  * сервере. Своего JS для фильтрации нет — HeroUI отдаёт значения через
  * скрытые нативные поля, поэтому форма работает и до гидрации.
+ *
+ * Гео-списки зависимые: сужение считается на сервере при отправке.
  */
 export function CatalogFilters({
+  regions,
   countries,
+  cities,
   active,
   hasActiveFilters,
 }: {
-  countries: Country[]
+  regions: GeoOption[]
+  countries: GeoOption[]
+  cities: GeoOption[]
   active: CatalogParams
   hasActiveFilters: boolean
 }) {
@@ -40,28 +86,29 @@ export function CatalogFilters({
       aria-label="Фильтры каталога"
       className="bg-surface flex flex-wrap items-end gap-4 rounded-2xl p-4"
     >
-      <Select
+      <GeoSelect
+        name="region"
+        label="Регион"
+        placeholder="Любой"
+        options={regions}
+        value={active.region}
+      />
+
+      <GeoSelect
         name="country"
-        defaultSelectedKey={active.country}
+        label="Страна"
         placeholder="Любая"
-        className="min-w-[190px] flex-1"
-      >
-        <Label>Страна</Label>
-        <Select.Trigger>
-          <Select.Value />
-          <Select.Indicator />
-        </Select.Trigger>
-        <Select.Popover>
-          <ListBox>
-            {countries.map((c) => (
-              <ListBox.Item key={c.slug} id={c.slug} textValue={c.name}>
-                {c.name}
-                <ListBox.ItemIndicator />
-              </ListBox.Item>
-            ))}
-          </ListBox>
-        </Select.Popover>
-      </Select>
+        options={countries}
+        value={active.country}
+      />
+
+      <GeoSelect
+        name="city"
+        label="Город"
+        placeholder="Любой"
+        options={cities}
+        value={active.city}
+      />
 
       <Select
         name="type"
@@ -102,7 +149,7 @@ export function CatalogFilters({
         </NumberField.Group>
       </NumberField>
 
-      <Select name="sort" defaultSelectedKey={active.sort ?? '-date'} className="min-w-[200px] flex-1">
+      <Select name="sort" defaultSelectedKey={active.sort ?? '-date'} className="w-[220px]">
         <Label>Сортировка</Label>
         <Select.Trigger>
           <Select.Value />
