@@ -13,13 +13,16 @@ type GeoData = {
   cities: { slug: string; name: string; country: string }[]
 }
 
-type SeedCollection = 'regions' | 'countries' | 'cities' | 'attributes'
+type SeedCollection = 'regions' | 'countries' | 'cities' | 'attributes' | 'categories'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
 const DATA = join(HERE, 'seed', 'data')
 const geo: GeoData = JSON.parse(readFileSync(join(DATA, 'geo.json'), 'utf8'))
 const attributes: { slug: string; [key: string]: unknown }[] = JSON.parse(
   readFileSync(join(DATA, 'attributes.json'), 'utf8'),
+)
+const categories: { slug: string; [key: string]: unknown }[] = JSON.parse(
+  readFileSync(join(DATA, 'categories.json'), 'utf8'),
 )
 
 /**
@@ -95,6 +98,12 @@ const run = async () => {
   // а атрибут без иконки выводится названием — так решено в PRD.
   await syncCollection(payload, 'attributes', attributes, { createOnly: true })
 
+  // Категории события. Слаги заданы явно: транслитерация дала бы «kontserty»
+  // (ц → ts), а адрес /kategorii/koncerty читается привычнее.
+  const eventCategories = await syncCollection(payload, 'categories', categories, {
+    createOnly: true,
+  })
+
   // --- Демо-контент: события, на которых видно работу каталога ---
 
   const italy = countries.get('italiya')
@@ -109,7 +118,7 @@ const run = async () => {
     {
       title: 'Демо-событие: рублёвая цена',
       slug: 'sobytie-rubli-demo',
-      type: 'concert' as const,
+      category: eventCategories.get('koncerty')!.id,
       city: demoCities.get('milan')!.id,
       startDate: '2026-09-12T19:00:00.000Z',
       price: 15000,
@@ -123,7 +132,7 @@ const run = async () => {
       // В валюте — чтобы было видно работу конвертации и сортировки каталога
       title: 'Демо-событие: цена в долларах',
       slug: 'sobytie-dollary-demo',
-      type: 'sport' as const,
+      category: eventCategories.get('sport')!.id,
       city: demoCities.get('moncza')!.id,
       startDate: '2026-10-04T14:00:00.000Z',
       price: 300,

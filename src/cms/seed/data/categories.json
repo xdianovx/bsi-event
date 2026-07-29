@@ -1,0 +1,5 @@
+[
+  { "slug": "koncerty", "name": "Концерты", "order": 1 },
+  { "slug": "sport", "name": "Спорт", "order": 2 },
+  { "slug": "gonki", "name": "Гонки", "order": 3 }
+]

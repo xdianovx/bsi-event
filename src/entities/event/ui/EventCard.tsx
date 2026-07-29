@@ -3,14 +3,10 @@ import { Card, Chip, Typography } from '@heroui/react'
 import type { Event, Media } from '@/payload-types'
 import { formatDate, formatPlace, formatPrice } from '../lib/format'
 
-const TYPE_LABELS: Record<string, string> = {
-  concert: 'Концерт',
-  sport: 'Спорт',
-  racing: 'Гонки',
-}
-
 export function EventCard({ event }: { event: Event }) {
   const photo = Array.isArray(event.photos) ? (event.photos[0] as Media | undefined) : undefined
+  // depth каталога раскрывает связь; на всякий случай — число вместо объекта не рисуем
+  const category = typeof event.category === 'object' ? event.category : null
   const place = formatPlace(event.country, event.city)
 
   return (
@@ -36,9 +32,11 @@ export function EventCard({ event }: { event: Event }) {
           </div>
         )}
 
-        <Chip className="absolute top-3 left-3" size="sm">
-          {TYPE_LABELS[event.type] ?? event.type}
-        </Chip>
+        {category && (
+          <Chip className="absolute top-3 left-3" size="sm">
+            {category.name}
+          </Chip>
+        )}
       </div>
 
       <Card.Header>

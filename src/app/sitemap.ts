@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next'
 import { getPayload } from 'payload'
 import config from '@/cms/payload.config'
 import { collectPopulatedGeo } from '@/entities/geo'
+import { categoryUrl, collectPopulatedCategories, getCategories } from '@/entities/category'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
 
@@ -12,7 +13,15 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const payload = await getPayload({ config: await config })
 
-  const [{ docs: events }, { docs: regions }, { docs: countries }, { docs: cities }, populated] = await Promise.all([
+  const [
+    { docs: events },
+    { docs: regions },
+    { docs: countries },
+    { docs: cities },
+    populated,
+    categories,
+    populatedCategories,
+  ] = await Promise.all([
     payload.find({
       collection: 'events',
       where: { status: { equals: 'published' } },
@@ -25,6 +34,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     payload.find({ collection: 'countries', limit: 0, depth: 1 }),
     payload.find({ collection: 'cities', limit: 0, depth: 2 }),
     collectPopulatedGeo(payload),
+    getCategories(payload),
+    collectPopulatedCategories(payload),
   ])
 
   const regionSlug = (country: (typeof countries)[number]) =>
@@ -34,6 +45,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/`, changeFrequency: 'weekly', priority: 1 },
     { url: `${SITE_URL}/sobytiya`, changeFrequency: 'daily', priority: 0.9 },
     { url: `${SITE_URL}/napravleniya`, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${SITE_URL}${categoryUrl.hub()}`, changeFrequency: 'weekly', priority: 0.7 },
+    // Категория без событий отдаёт 404 — в карте её быть не должно
+    ...categories
+      .filter((category) => populatedCategories.ids.has(category.id))
+      .map((category) => ({
+        url: `${SITE_URL}${categoryUrl.item(category.slug)}`,
+        changeFrequency: 'weekly' as const,
+        priority: 0.6,
+      })),
     // В карту идёт только то, что открывается: страницы географии без событий
     // отдают 404, ссылаться на них нельзя.
     ...regions

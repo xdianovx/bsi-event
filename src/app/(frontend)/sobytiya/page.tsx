@@ -14,11 +14,13 @@ type SearchParams = Promise<Record<string, string | string[] | undefined>>
 /** searchParams приходят строками или массивами — берём первое значение. */
 const toParams = (sp: Record<string, string | string[] | undefined>): CatalogParams => {
   const first = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v)
+  // Категорий может быть несколько: чекбоксы шлют параметр повторно
+  const all = (v: string | string[] | undefined) => (Array.isArray(v) ? v : v ? [v] : [])
   return {
     region: first(sp.region),
     country: first(sp.country),
     city: first(sp.city),
-    type: first(sp.type),
+    category: all(sp.category),
     dateFrom: first(sp.dateFrom),
     dateTo: first(sp.dateTo),
     minPrice: first(sp.minPrice),
@@ -33,7 +35,7 @@ const isFiltered = (p: CatalogParams) =>
     p.region ||
       p.country ||
       p.city ||
-      p.type ||
+      p.category?.length ||
       p.dateFrom ||
       p.dateTo ||
       p.minPrice ||
@@ -65,7 +67,13 @@ export default async function CatalogPage({ searchParams }: { searchParams: Sear
 
   // Списки зависимые: выбран регион — страны сужаются, выбрана страна — города.
   // Сужение считается на сервере при отправке формы, клиентского стейта нет.
-  const [{ docs: events, totalPages, page, totalDocs }, { docs: regions }, { docs: countries }, { docs: cities }] =
+  const [
+    { docs: events, totalPages, page, totalDocs },
+    { docs: regions },
+    { docs: countries },
+    { docs: cities },
+    { docs: categories },
+  ] =
     await Promise.all([
       payload.find({ collection: 'events', ...buildCatalogQuery(params), depth: 2 }),
       payload.find({ collection: 'regions', sort: 'name', limit: 100, depth: 0 }),
@@ -83,6 +91,7 @@ export default async function CatalogPage({ searchParams }: { searchParams: Sear
         limit: 300,
         depth: 0,
       }),
+      payload.find({ collection: 'categories', limit: 0, depth: 0 }),
     ])
 
   const filtered = isFiltered(params)
@@ -90,7 +99,12 @@ export default async function CatalogPage({ searchParams }: { searchParams: Sear
   /** Ссылка на страницу пагинации с сохранением активных фильтров. */
   const pageHref = (n: number) => {
     const qs = new URLSearchParams()
-    Object.entries(params).forEach(([k, v]) => v && k !== 'page' && qs.set(k, v))
+    Object.entries(params).forEach(([k, v]) => {
+      if (!v || k === 'page') return
+      // Категории повторяются параметром, а не склеиваются в один через запятую
+      if (Array.isArray(v)) v.forEach((item) => qs.append(k, item))
+      else qs.set(k, v)
+    })
     if (n > 1) qs.set('page', String(n))
     const s = qs.toString()
     return s ? `/sobytiya?${s}` : '/sobytiya'
@@ -115,6 +129,7 @@ export default async function CatalogPage({ searchParams }: { searchParams: Sear
           regions={regions.map((r) => ({ name: r.name, slug: r.slug }))}
           countries={countries.map((c) => ({ name: c.name, slug: c.slug }))}
           cities={cities.map((c) => ({ name: c.name, slug: c.slug }))}
+          categories={categories.map((c) => ({ name: c.name, slug: c.slug }))}
           active={params}
           hasActiveFilters={filtered}
         />

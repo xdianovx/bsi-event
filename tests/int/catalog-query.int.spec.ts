@@ -38,10 +38,28 @@ describe('buildCatalogQuery', () => {
     })
   })
 
-  it('фильтрует по типу события', () => {
-    const q = buildCatalogQuery({ type: 'concert' })
+  it('фильтрует по категории', () => {
+    const q = buildCatalogQuery({ category: ['koncerty'] })
 
-    expect(q.where).toMatchObject({ type: { equals: 'concert' } })
+    expect(q.where).toMatchObject({ 'category.slug': { in: ['koncerty'] } })
+  })
+
+  it('несколько категорий уходят одним in — выдача объединяется', () => {
+    const q = buildCatalogQuery({ category: ['koncerty', 'sport'] })
+
+    expect(q.where).toMatchObject({ 'category.slug': { in: ['koncerty', 'sport'] } })
+  })
+
+  it('пустой список категорий не попадает в where', () => {
+    const q = buildCatalogQuery({ category: [] })
+
+    expect(q.where['category.slug']).toBeUndefined()
+  })
+
+  it('пустые строки в категориях отбрасываются', () => {
+    const q = buildCatalogQuery({ category: ['', 'sport'] })
+
+    expect(q.where).toMatchObject({ 'category.slug': { in: ['sport'] } })
   })
 
   it('фильтрует по цене через priceRub — сравнение валют должно быть честным', () => {
@@ -81,12 +99,12 @@ describe('buildCatalogQuery', () => {
   })
 
   it('комбинирует фильтры', () => {
-    const q = buildCatalogQuery({ country: 'italia', type: 'sport', maxPrice: '20000' })
+    const q = buildCatalogQuery({ country: 'italia', category: ['sport'], maxPrice: '20000' })
 
     expect(q.where).toEqual({
       status: { equals: 'published' },
       'country.slug': { equals: 'italia' },
-      type: { equals: 'sport' },
+      'category.slug': { in: ['sport'] },
       priceRub: { less_than_equal: 20000 },
     })
   })

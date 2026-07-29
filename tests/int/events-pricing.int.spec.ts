@@ -1,9 +1,11 @@
 import { getPayload, Payload } from 'payload'
 import config from '@/cms/payload.config'
+import { ensureCategory } from '../helpers/category'
 
 import { describe, it, beforeAll, expect } from 'vitest'
 
 let payload: Payload
+let categoryId: number
 
 const uniq = () => `${Date.now()}-${Math.floor(Math.random() * 10000)}`
 
@@ -11,6 +13,7 @@ describe('Events pricing schema', () => {
   beforeAll(async () => {
     const payloadConfig = await config
     payload = await getPayload({ config: payloadConfig })
+    categoryId = await ensureCategory(payload)
   })
 
   it('событие с ценой и допками сохраняется и читается целиком', async () => {
@@ -24,7 +27,7 @@ describe('Events pricing schema', () => {
       data: {
         title: `Событие с допками ${uniq()}`,
         slug: `sobytie-s-dopkami-${uniq()}`,
-        type: 'sport',
+        category: categoryId,
         country: country.id,
         price: 3000,
         currency: 'rub',
@@ -61,7 +64,7 @@ describe('Events pricing schema', () => {
       data: {
         title: `Событие без допок ${uniq()}`,
         slug: `sobytie-bez-dopok-${uniq()}`,
-        type: 'concert',
+        category: categoryId,
         country: country.id,
         price: 5000,
         currency: 'rub',
@@ -84,7 +87,7 @@ describe('Events pricing schema', () => {
         collection: 'events',
         data: {
           title: `Событие без цены ${uniq()}`,
-          type: 'concert',
+          category: categoryId,
           country: country.id,
           status: 'published',
         } as never,

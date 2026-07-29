@@ -1,11 +1,13 @@
 import { getPayload, Payload } from 'payload'
 import config from '@/cms/payload.config'
+import { ensureCategory } from '../helpers/category'
 import { describe, it, beforeAll, expect } from 'vitest'
 
 import { buildCatalogQuery } from '@/entities/event'
 import { getEventBySlug } from '@/entities/event'
 
 let payload: Payload
+let categoryId: number
 let countryId: number
 
 const uniq = () => `${Date.now()}-${Math.floor(Math.random() * 10000)}`
@@ -16,7 +18,7 @@ const makeEvent = async (data: Record<string, unknown>) =>
     collection: 'events',
     data: {
       title: `Событие ${uniq()}`,
-      type: 'concert',
+      category: categoryId,
       country: countryId,
       price: 5000,
       currency: 'rub',
@@ -28,6 +30,7 @@ const makeEvent = async (data: Record<string, unknown>) =>
 describe('Каталог: цена, валюта, выдача', () => {
   beforeAll(async () => {
     payload = await getPayload({ config: await config })
+    categoryId = await ensureCategory(payload)
 
     const country = await payload.create({
       collection: 'countries',

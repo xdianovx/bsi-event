@@ -18,7 +18,8 @@ export type CatalogParams = {
   region?: string
   country?: string
   city?: string
-  type?: string
+  /** Слаги категорий: чекбоксы шлют параметр несколько раз. */
+  category?: string[]
   dateFrom?: string
   dateTo?: string
   minPrice?: string
@@ -60,7 +61,10 @@ export const buildCatalogQuery = (params: CatalogParams): CatalogQuery => {
   if (params.region) where['country.region.slug'] = { equals: params.region }
   if (params.country) where['country.slug'] = { equals: params.country }
   if (params.city) where['city.slug'] = { equals: params.city }
-  if (params.type) where.type = { equals: params.type }
+  // Мусорные слаги не отсеиваем: несуществующий просто не совпадёт ни с чем,
+  // а лишний запрос к справочнику ради валидации не нужен.
+  const categories = params.category?.filter(Boolean) ?? []
+  if (categories.length > 0) where['category.slug'] = { in: categories }
 
   const price = rangeOf(toNumber(params.minPrice), toNumber(params.maxPrice))
   if (price) where.priceRub = price

@@ -28,16 +28,16 @@ const HOME_LIMIT = 6
 const load = async () => {
   const payload = await getPayload({ config: await config })
 
-  const [{ docs: upcoming }, stats, populated, regionDocs, countryDocs, cityDocs] = await Promise.all(
-    [
+  const [{ docs: upcoming }, stats, populated, regionDocs, countryDocs, cityDocs, categoryDocs] =
+    await Promise.all([
       payload.find({ collection: 'events', ...buildCatalogQuery({}), limit: HOME_LIMIT, depth: 2 }),
       collectLeadStats(payload, HOME_LIMIT),
       collectPopulatedGeo(payload),
       payload.find({ collection: 'regions', sort: 'name', limit: 100, depth: 0 }),
       payload.find({ collection: 'countries', sort: 'name', limit: 500, depth: 0 }),
       payload.find({ collection: 'cities', sort: 'name', limit: 500, depth: 0 }),
-    ],
-  )
+      payload.find({ collection: 'categories', limit: 0, depth: 0 }),
+    ])
 
   // «Популярное» считаем по числу заявок — это единственный честный сигнал
   // спроса, который у нас есть. Ставить хиты флажком в админке значит выдавать
@@ -69,6 +69,7 @@ const load = async () => {
     regions: options(regionDocs.docs.filter((r) => populated.regions.has(r.id))),
     countries: options(countryDocs.docs.filter((c) => populated.countries.has(c.id))),
     cities: options(cityDocs.docs.filter((c) => populated.cities.has(c.id))),
+    categories: options(categoryDocs.docs),
   }
 }
 
@@ -83,11 +84,16 @@ const EventGrid = ({ events }: { events: Event[] }) => (
 )
 
 export default async function HomePage() {
-  const { upcoming, popular, regions, countries, cities } = await load()
+  const { upcoming, popular, regions, countries, cities, categories } = await load()
 
   return (
     <Page>
-      <HomeHero regions={regions} countries={countries} cities={cities} />
+      <HomeHero
+        regions={regions}
+        countries={countries}
+        cities={cities}
+        categories={categories}
+      />
 
       <TrustBar />
 

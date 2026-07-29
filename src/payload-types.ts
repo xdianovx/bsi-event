@@ -74,6 +74,7 @@ export interface Config {
     countries: Country;
     cities: City;
     attributes: Attribute;
+    categories: Category;
     events: Event;
     leads: Lead;
     reviews: Review;
@@ -99,6 +100,7 @@ export interface Config {
     countries: CountriesSelect<false> | CountriesSelect<true>;
     cities: CitiesSelect<false> | CitiesSelect<true>;
     attributes: AttributesSelect<false> | AttributesSelect<true>;
+    categories: CategoriesSelect<false> | CategoriesSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     leads: LeadsSelect<false> | LeadsSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
@@ -330,6 +332,48 @@ export interface Attribute {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: number;
+  name: string;
+  /**
+   * Латиницей, автогенерируется из названия. Участвует в адресе /kategorii/{slug} — после индексации менять нельзя без редиректа.
+   */
+  slug: string;
+  /**
+   * Одноцветная SVG-иконка: цвет задаёт сайт. Выводится через CSS mask-image, поэтому цветная станет одноцветной.
+   */
+  icon?: (number | null) | Icon;
+  /**
+   * Текст лендинга категории. Показывается на /kategorii/{slug}.
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  order?: number | null;
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+    noindex?: boolean | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events".
  */
 export interface Event {
@@ -339,7 +383,7 @@ export interface Event {
    * Латиницей, автогенерируется из названия, можно переопределить
    */
   slug: string;
-  type: 'concert' | 'sport' | 'racing';
+  category: number | Category;
   country: number | Country;
   city?: (number | null) | City;
   startDate?: string | null;
@@ -522,6 +566,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'attributes';
         value: number | Attribute;
+      } | null)
+    | ({
+        relationTo: 'categories';
+        value: number | Category;
       } | null)
     | ({
         relationTo: 'events';
@@ -713,12 +761,32 @@ export interface AttributesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories_select".
+ */
+export interface CategoriesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  icon?: T;
+  description?: T;
+  order?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        noindex?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events_select".
  */
 export interface EventsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
-  type?: T;
+  category?: T;
   country?: T;
   city?: T;
   startDate?: T;

@@ -1,16 +1,10 @@
 'use client'
 
-import { Button, Label, ListBox, NumberField, Select } from '@heroui/react'
+import { Button, Checkbox, CheckboxGroup, Label, ListBox, NumberField, Select } from '@heroui/react'
 import Link from 'next/link'
 import type { CatalogParams } from '@/entities/event'
 
 type GeoOption = { name: string; slug: string }
-
-const TYPES = [
-  { id: 'concert', label: 'Концерт' },
-  { id: 'sport', label: 'Спорт' },
-  { id: 'racing', label: 'Гонки' },
-]
 
 const SORTS = [
   { id: '-date', label: 'Сначала ближайшие' },
@@ -70,12 +64,14 @@ export function CatalogFilters({
   regions,
   countries,
   cities,
+  categories,
   active,
   hasActiveFilters,
 }: {
   regions: GeoOption[]
   countries: GeoOption[]
   cities: GeoOption[]
+  categories: { name: string; slug: string }[]
   active: CatalogParams
   hasActiveFilters: boolean
 }) {
@@ -110,28 +106,22 @@ export function CatalogFilters({
         value={active.city}
       />
 
-      <Select
-        name="type"
-        defaultSelectedKey={active.type}
-        placeholder="Любой"
-        className="min-w-[170px] flex-1"
-      >
-        <Label>Тип события</Label>
-        <Select.Trigger>
-          <Select.Value />
-          <Select.Indicator />
-        </Select.Trigger>
-        <Select.Popover>
-          <ListBox>
-            {TYPES.map((t) => (
-              <ListBox.Item key={t.id} id={t.id} textValue={t.label}>
-                {t.label}
-                <ListBox.ItemIndicator />
-              </ListBox.Item>
-            ))}
-          </ListBox>
-        </Select.Popover>
-      </Select>
+      {/* Чекбоксы, а не select: категорий можно выбрать несколько, и каждая
+          отмеченная уходит отдельным `category=` в query — это делает сам
+          браузер, своего JS не нужно. */}
+      <CheckboxGroup name="category" defaultValue={active.category} className="min-w-[220px] flex-1">
+        <Label>Категории</Label>
+        <div className="flex flex-wrap gap-x-4 gap-y-2">
+          {categories.map((c) => (
+            <Checkbox key={c.slug} value={c.slug}>
+              <Checkbox.Control>
+                <Checkbox.Indicator />
+              </Checkbox.Control>
+              <Checkbox.Content>{c.name}</Checkbox.Content>
+            </Checkbox>
+          ))}
+        </div>
+      </CheckboxGroup>
 
       <NumberField
         name="maxPrice"

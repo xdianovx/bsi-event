@@ -1,15 +1,18 @@
 import { getPayload, Payload } from 'payload'
 import config from '@/cms/payload.config'
+import { ensureCategory } from '../helpers/category'
 import { slugify } from '@/shared/lib'
 
 import { describe, it, beforeAll, expect } from 'vitest'
 
 let payload: Payload
+let categoryId: number
 
 describe('Автогенерация slug', () => {
   beforeAll(async () => {
     const payloadConfig = await config
     payload = await getPayload({ config: payloadConfig })
+    categoryId = await ensureCategory(payload)
   })
 
   it('countries: генерирует slug из name, если slug не передан', async () => {
@@ -40,7 +43,7 @@ describe('Автогенерация slug', () => {
     const doc = await payload.create({
       collection: 'events',
       // slug опущен намеренно — см. комментарий выше
-      data: { title, type: 'concert', country: country.id, price: 5000, currency: 'rub' } as never,
+      data: { title, category: categoryId, country: country.id, price: 5000, currency: 'rub' } as never,
     })
     expect(doc.slug).toBe(slugify(title))
   })

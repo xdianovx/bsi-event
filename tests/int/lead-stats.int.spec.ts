@@ -1,9 +1,11 @@
 import { getPayload, Payload } from 'payload'
 import config from '@/cms/payload.config'
+import { ensureCategory } from '../helpers/category'
 import { describe, it, beforeAll, expect } from 'vitest'
 import { collectLeadStats } from '@/entities/lead'
 
 let payload: Payload
+let categoryId: number
 let eventId: number
 
 const uniq = () => `${Date.now()}-${Math.floor(Math.random() * 10000)}`
@@ -17,6 +19,7 @@ const daysAgo = (n: number) => {
 describe('Статистика заявок', () => {
   beforeAll(async () => {
     payload = await getPayload({ config: await config })
+    categoryId = await ensureCategory(payload)
 
     const country = await payload.create({
       collection: 'countries',
@@ -27,7 +30,7 @@ describe('Статистика заявок', () => {
       data: {
         title: `Событие стат ${uniq()}`,
         slug: `sobytie-stat-${uniq()}`,
-        type: 'concert',
+        category: categoryId,
         country: country.id,
         price: 1000,
         currency: 'rub',

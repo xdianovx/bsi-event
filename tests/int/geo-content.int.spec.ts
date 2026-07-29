@@ -1,9 +1,11 @@
 import { getPayload, Payload } from 'payload'
 import config from '@/cms/payload.config'
+import { ensureCategory } from '../helpers/category'
 import { describe, it, beforeAll, expect } from 'vitest'
 import { collectPopulatedGeo } from '@/entities/geo'
 
 let payload: Payload
+let categoryId: number
 
 const uniq = () => `${Date.now()}-${Math.floor(Math.random() * 10000)}`
 
@@ -14,6 +16,7 @@ let draftOnly = { country: 0, city: 0 }
 describe('Гео с контентом', () => {
   beforeAll(async () => {
     payload = await getPayload({ config: await config })
+    categoryId = await ensureCategory(payload)
 
     const mkGeo = async (tag: string) => {
       const region = await payload.create({
@@ -41,7 +44,7 @@ describe('Гео с контентом', () => {
       data: {
         title: `Событие с контентом ${uniq()}`,
         slug: `sobytie-full-${uniq()}`,
-        type: 'concert',
+        category: categoryId,
         country: filled.country,
         city: filled.city,
         price: 1000,
@@ -55,7 +58,7 @@ describe('Гео с контентом', () => {
       data: {
         title: `Черновик ${uniq()}`,
         slug: `sobytie-draft-${uniq()}`,
-        type: 'concert',
+        category: categoryId,
         country: drafted.country,
         city: drafted.city,
         price: 1000,

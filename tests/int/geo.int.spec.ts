@@ -1,14 +1,17 @@
 import { getPayload, Payload } from 'payload'
 import config from '@/cms/payload.config'
+import { ensureCategory } from '../helpers/category'
 import { describe, it, beforeAll, expect } from 'vitest'
 
 let payload: Payload
+let categoryId: number
 
 const uniq = () => `${Date.now()}-${Math.floor(Math.random() * 10000)}`
 
 describe('Гео-каталог: регион → страна → город', () => {
   beforeAll(async () => {
     payload = await getPayload({ config: await config })
+    categoryId = await ensureCategory(payload)
   })
 
   it('регион создаётся и получает слаг из названия', async () => {
@@ -88,7 +91,7 @@ describe('Гео-каталог: регион → страна → город', 
       data: {
         title: `Событие гео ${uniq()}`,
         slug: `sobytie-geo-${uniq()}`,
-        type: 'concert',
+        category: categoryId,
         country: country.id,
         city: city.id,
         price: 5000,
@@ -120,7 +123,7 @@ describe('Гео-каталог: регион → страна → город', 
       data: {
         title: `Событие региона ${uniq()}`,
         slug: `sobytie-regiona-${uniq()}`,
-        type: 'concert',
+        category: categoryId,
         country: country.id,
         price: 2000,
         currency: 'rub',
@@ -151,7 +154,7 @@ describe('Гео-каталог: регион → страна → город', 
       data: {
         title: `Событие города ${uniq()}`,
         slug: `sobytie-goroda-${uniq()}`,
-        type: 'sport',
+        category: categoryId,
         country: country.id,
         city: city.id,
         price: 1000,

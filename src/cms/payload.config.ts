@@ -12,6 +12,7 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Icons } from './collections/Icons'
 import { Attributes } from './collections/Attributes'
+import { Categories } from './collections/Categories'
 import { Countries } from './collections/Countries'
 import { Regions } from './collections/Regions'
 import { Cities } from './collections/Cities'
@@ -50,6 +51,7 @@ export default buildConfig({
     Countries,
     Cities,
     Attributes,
+    Categories,
     Events,
     Leads,
     Reviews,

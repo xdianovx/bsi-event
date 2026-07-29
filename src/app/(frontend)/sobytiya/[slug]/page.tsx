@@ -13,12 +13,6 @@ import { Breadcrumbs, Page, Section } from '@/shared/ui'
 
 type Params = Promise<{ slug: string }>
 
-const TYPE_LABELS: Record<string, string> = {
-  concert: 'Концерт',
-  sport: 'Спорт',
-  racing: 'Гонки',
-}
-
 const load = async (slug: string) => {
   const payload = await getPayload({ config: await config })
   return getEventBySlug(payload, slug)
@@ -59,6 +53,9 @@ export default async function EventPage({ params }: { params: Params }) {
     ...(event.includes?.extra ?? []).map((e) => e.item).filter(Boolean),
   ].filter(Boolean) as string[]
 
+  // getEventBySlug раскрывает связи depth: 2
+  const category = typeof event.category === 'object' ? event.category : null
+
   const addons = (event.addons ?? []).map((a) => ({
     id: String(a.id),
     label: a.label,
@@ -76,7 +73,7 @@ export default async function EventPage({ params }: { params: Params }) {
           <p className="text-accent mb-3 text-sm font-semibold">
             {formatDate(event.startDate)}
             <span className="text-muted mx-2">·</span>
-            <span className="text-muted">{TYPE_LABELS[event.type] ?? event.type}</span>
+            {category && <span className="text-muted">{category.name}</span>}
           </p>
 
           <Typography.Heading className="text-balance" level={1}>

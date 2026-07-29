@@ -14,8 +14,9 @@ const COLUMNS: { title: string; items: Item[] }[] = [
     items: [
       { label: 'Все события', href: '/sobytiya' },
       { label: 'Направления', href: '/napravleniya' },
-      { label: 'Концерты', href: '/sobytiya?type=concert' },
-      { label: 'Спорт', href: '/sobytiya?type=sport' },
+      { label: 'Категории', href: '/kategorii' },
+      { label: 'Концерты', href: '/kategorii/koncerty' },
+      { label: 'Спорт', href: '/kategorii/sport' },
     ],
   },
   {

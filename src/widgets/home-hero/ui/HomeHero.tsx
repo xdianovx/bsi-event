@@ -17,10 +17,12 @@ export function HomeHero({
   regions,
   countries,
   cities,
+  categories,
 }: {
   regions: Option[]
   countries: Option[]
   cities: Option[]
+  categories: Option[]
 }) {
   return (
     <Section className="gap-6">
@@ -48,6 +50,7 @@ export function HomeHero({
         regions={regions}
         countries={countries}
         cities={cities}
+        categories={categories}
         active={{}}
         hasActiveFilters={false}
       />

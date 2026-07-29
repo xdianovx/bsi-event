@@ -14,11 +14,11 @@ test.describe('Каталог событий', () => {
     expect(await cards(page).count()).toBeGreaterThan(0)
   })
 
-  test('фильтр по типу сужает список', async ({ page }) => {
+  test('фильтр по категории сужает список', async ({ page }) => {
     await page.goto(CATALOG)
     const total = await cards(page).count()
 
-    await page.goto(`${CATALOG}?type=sport`)
+    await page.goto(`${CATALOG}?category=sport`)
     const filtered = await cards(page).count()
 
     expect(filtered).toBeLessThan(total)
@@ -55,7 +55,7 @@ test.describe('Каталог событий', () => {
   })
 
   test('сброс фильтров возвращает полный список', async ({ page }) => {
-    await page.goto(`${CATALOG}?type=sport`)
+    await page.goto(`${CATALOG}?category=sport`)
     const filtered = await cards(page).count()
 
     await page.getByRole('link', { name: 'Сбросить' }).click()
@@ -68,7 +68,7 @@ test.describe('Каталог событий', () => {
     await page.goto(CATALOG)
     await expect(page.locator('meta[name="robots"]')).toHaveCount(0)
 
-    await page.goto(`${CATALOG}?type=sport`)
+    await page.goto(`${CATALOG}?category=sport`)
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
   })
 

@@ -11,7 +11,7 @@ export const Events: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     group: 'Каталог',
-    defaultColumns: ['title', 'type', 'country', 'startDate', 'status'],
+    defaultColumns: ['title', 'category', 'country', 'startDate', 'status'],
   },
   access: { read: () => true },
   fields: [
@@ -27,15 +27,12 @@ export const Events: CollectionConfig = {
       hooks: { beforeValidate: [generateSlug('title')] },
     },
     {
-      name: 'type',
-      type: 'select',
+      name: 'category',
+      type: 'relationship',
+      relationTo: 'categories',
       required: true,
-      label: 'Тип',
-      options: [
-        { label: 'Концерт', value: 'concert' },
-        { label: 'Спорт', value: 'sport' },
-        { label: 'Гонки', value: 'racing' },
-      ],
+      index: true,
+      label: 'Категория',
     },
     {
       name: 'country',
