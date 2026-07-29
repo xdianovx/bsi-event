@@ -437,16 +437,16 @@ export interface Event {
       | null;
   };
   photos?: (number | Media)[] | null;
+  /**
+   * Латиницей, автогенерируется из названия, можно переопределить
+   */
+  slug: string;
   seo?: {
     title?: string | null;
     description?: string | null;
     noindex?: boolean | null;
   };
   status: 'draft' | 'published' | 'archived';
-  /**
-   * Латиницей, автогенерируется из названия, можно переопределить
-   */
-  slug: string;
   startDate?: string | null;
   endDate?: string | null;
   days?: number | null;
@@ -955,6 +955,7 @@ export interface EventsSelect<T extends boolean = true> {
             };
       };
   photos?: T;
+  slug?: T;
   seo?:
     | T
     | {
@@ -963,7 +964,6 @@ export interface EventsSelect<T extends boolean = true> {
         noindex?: T;
       };
   status?: T;
-  slug?: T;
   startDate?: T;
   endDate?: T;
   days?: T;

@@ -17,6 +17,11 @@ export const Events: CollectionConfig = {
     useAsTitle: 'title',
     group: 'Каталог',
     defaultColumns: ['title', 'category', 'country', 'startDate', 'status'],
+    components: {
+      // Слева от «Сохранить»: проверить результат на сайте хочется ровно в тот момент,
+      // когда рука тянется сохранять.
+      edit: { beforeDocumentControls: ['/cms/ui/ViewOnSite#ViewOnSite'] },
+    },
   },
   access: { read: () => true },
   fields: [
@@ -154,7 +159,21 @@ export const Events: CollectionConfig = {
         },
         {
           label: 'SEO',
-          fields: [seoField],
+          fields: [
+            {
+              name: 'slug',
+              type: 'text',
+              required: true,
+              unique: true,
+              index: true,
+              label: 'Адрес страницы',
+              admin: {
+                description: 'Латиницей, автогенерируется из названия, можно переопределить',
+              },
+              hooks: { beforeValidate: [generateSlug('title')] },
+            },
+            seoField,
+          ],
         },
       ],
     },
@@ -173,27 +192,6 @@ export const Events: CollectionConfig = {
         { label: 'Опубликован', value: 'published' },
         { label: 'В архиве', value: 'archived' },
       ],
-    },
-    {
-      name: 'slug',
-      type: 'text',
-      required: true,
-      unique: true,
-      index: true,
-      label: 'Адрес страницы',
-      admin: {
-        position: 'sidebar',
-        description: 'Латиницей, автогенерируется из названия, можно переопределить',
-      },
-      hooks: { beforeValidate: [generateSlug('title')] },
-    },
-    {
-      name: 'viewOnSite',
-      type: 'ui',
-      admin: {
-        position: 'sidebar',
-        components: { Field: '/cms/ui/ViewOnSite#ViewOnSite' },
-      },
     },
     {
       type: 'row',

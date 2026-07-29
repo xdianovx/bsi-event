@@ -32,11 +32,9 @@ export const EventPriceSummary = () => {
       </div>
       {isForeign && (
         <p className="field-description">
-          {format(price, currency)} по курсу ЦБ с наценкой из настроек. Каталог сортирует по
-          рублёвой цене.
+          {format(price, currency)} по курсу ЦБ с наценкой из настроек
         </p>
       )}
-      {!isForeign && <p className="field-description">Цена в рублях, курс не применяется.</p>}
     </div>
   )
 }

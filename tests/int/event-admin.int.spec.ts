@@ -109,8 +109,6 @@ describe('Карточка события в админке', () => {
       expect(sidebar).toEqual(
         expect.arrayContaining([
           'status',
-          'slug',
-          'viewOnSite',
           'startDate',
           'endDate',
           'days',
@@ -118,6 +116,23 @@ describe('Карточка события в админке', () => {
           'priceSummary',
         ]),
       )
+    })
+
+    it('кнопка «Посмотреть на сайте» стоит рядом с «Сохранить»', async () => {
+      const controls = (await events()).admin?.components?.edit?.beforeDocumentControls
+
+      expect(controls).toContain('/cms/ui/ViewOnSite#ViewOnSite')
+    })
+
+    it('адрес страницы лежит во вкладке SEO', async () => {
+      const tabs = (await events()).fields.find((field) => field.type === 'tabs')
+      const seo =
+        tabs && 'tabs' in tabs
+          ? tabs.tabs.find((tab) => 'label' in tab && tab.label === 'SEO')
+          : undefined
+
+      const names = (seo?.fields ?? []).map((field) => ('name' in field ? field.name : null))
+      expect(names).toContain('slug')
     })
 
     it('поле priceRub из формы убрано: править его нельзя, в сайдбаре — сводка', async () => {

@@ -1,12 +1,12 @@
 'use client'
 
-import { useFormFields } from '@payloadcms/ui'
+import { Button, useFormFields } from '@payloadcms/ui'
 
 /**
- * Ссылка на живую страницу события.
+ * Кнопка на живую страницу события.
  *
  * Черновик наружу не отдаётся (страница вернёт 404), поэтому для него показываем
- * подсказку вместо ссылки — иначе менеджер уходит по ссылке в «не найдено»
+ * подсказку вместо кнопки — иначе менеджер уходит по ссылке в «не найдено»
  * и думает, что сломался сайт.
  */
 export const ViewOnSite = () => {
@@ -22,8 +22,8 @@ export const ViewOnSite = () => {
   }
 
   return (
-    <a href={`/sobytiya/${slug}`} target="_blank" rel="noreferrer">
-      Посмотреть на сайте ↗
-    </a>
+    <Button el="anchor" url={`/sobytiya/${slug}`} newTab buttonStyle="secondary" size="medium">
+      Посмотреть на сайте
+    </Button>
   )
 }
