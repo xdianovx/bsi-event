@@ -1,0 +1,2705 @@
+{
+  "regions": [
+    {
+      "slug": "evropa",
+      "name": "Европа"
+    },
+    {
+      "slug": "aziya",
+      "name": "Азия"
+    },
+    {
+      "slug": "severnaya-amerika",
+      "name": "Северная Америка"
+    },
+    {
+      "slug": "afrika",
+      "name": "Африка"
+    },
+    {
+      "slug": "yuzhnaya-amerika",
+      "name": "Южная Америка"
+    },
+    {
+      "slug": "okeaniya",
+      "name": "Океания"
+    }
+  ],
+  "countries": [
+    {
+      "code": "ad",
+      "slug": "andorra",
+      "name": "Андорра",
+      "region": "evropa"
+    },
+    {
+      "code": "ae",
+      "slug": "obedinennye-arabskie-emiraty",
+      "name": "Объединённые Арабские Эмираты",
+      "region": "aziya"
+    },
+    {
+      "code": "af",
+      "slug": "afganistan",
+      "name": "Афганистан",
+      "region": "aziya"
+    },
+    {
+      "code": "ag",
+      "slug": "antigua-i-barbuda",
+      "name": "Антигуа и Барбуда",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "ai",
+      "slug": "angilya",
+      "name": "Ангилья",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "al",
+      "slug": "albaniya",
+      "name": "Албания",
+      "region": "evropa"
+    },
+    {
+      "code": "am",
+      "slug": "armeniya",
+      "name": "Армения",
+      "region": "aziya"
+    },
+    {
+      "code": "ao",
+      "slug": "angola",
+      "name": "Ангола",
+      "region": "afrika"
+    },
+    {
+      "code": "ar",
+      "slug": "argentina",
+      "name": "Аргентина",
+      "region": "yuzhnaya-amerika"
+    },
+    {
+      "code": "as",
+      "slug": "amerikanskoe-samoa",
+      "name": "Американское Самоа",
+      "region": "okeaniya"
+    },
+    {
+      "code": "at",
+      "slug": "avstriya",
+      "name": "Австрия",
+      "region": "evropa"
+    },
+    {
+      "code": "au",
+      "slug": "avstraliya",
+      "name": "Австралия",
+      "region": "okeaniya"
+    },
+    {
+      "code": "aw",
+      "slug": "aruba",
+      "name": "Аруба",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "ax",
+      "slug": "alandskie-ostrova",
+      "name": "Аландские острова",
+      "region": "evropa"
+    },
+    {
+      "code": "az",
+      "slug": "azerbaydzhan",
+      "name": "Азербайджан",
+      "region": "aziya"
+    },
+    {
+      "code": "ba",
+      "slug": "bosniya-i-gertsegovina",
+      "name": "Босния и Герцеговина",
+      "region": "evropa"
+    },
+    {
+      "code": "bb",
+      "slug": "barbados",
+      "name": "Барбадос",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "bd",
+      "slug": "bangladesh",
+      "name": "Бангладеш",
+      "region": "aziya"
+    },
+    {
+      "code": "be",
+      "slug": "belgiya",
+      "name": "Бельгия",
+      "region": "evropa"
+    },
+    {
+      "code": "bf",
+      "slug": "burkina-faso",
+      "name": "Буркина-Фасо",
+      "region": "afrika"
+    },
+    {
+      "code": "bg",
+      "slug": "bolgariya",
+      "name": "Болгария",
+      "region": "evropa"
+    },
+    {
+      "code": "bh",
+      "slug": "bahreyn",
+      "name": "Бахрейн",
+      "region": "aziya"
+    },
+    {
+      "code": "bi",
+      "slug": "burundi",
+      "name": "Бурунди",
+      "region": "afrika"
+    },
+    {
+      "code": "bj",
+      "slug": "benin",
+      "name": "Бенин",
+      "region": "afrika"
+    },
+    {
+      "code": "bl",
+      "slug": "sen-bartelemi",
+      "name": "Сен-Бартелеми",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "bm",
+      "slug": "bermudskie-ostrova",
+      "name": "Бермудские Острова",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "bn",
+      "slug": "bruney",
+      "name": "Бруней",
+      "region": "aziya"
+    },
+    {
+      "code": "bo",
+      "slug": "boliviya",
+      "name": "Боливия",
+      "region": "yuzhnaya-amerika"
+    },
+    {
+      "code": "bq",
+      "slug": "bonayre-sint-estatius-i-saba",
+      "name": "Бонайре, Синт-Эстатиус и Саба",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "br",
+      "slug": "braziliya",
+      "name": "Бразилия",
+      "region": "yuzhnaya-amerika"
+    },
+    {
+      "code": "bs",
+      "slug": "bagamskie-ostrova",
+      "name": "Багамские Острова",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "bt",
+      "slug": "butan",
+      "name": "Бутан",
+      "region": "aziya"
+    },
+    {
+      "code": "bw",
+      "slug": "botsvana",
+      "name": "Ботсвана",
+      "region": "afrika"
+    },
+    {
+      "code": "by",
+      "slug": "belarus",
+      "name": "Беларусь",
+      "region": "evropa"
+    },
+    {
+      "code": "bz",
+      "slug": "beliz",
+      "name": "Белиз",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "ca",
+      "slug": "kanada",
+      "name": "Канада",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "cc",
+      "slug": "kokosovye-ostrova",
+      "name": "Кокосовые острова",
+      "region": "okeaniya"
+    },
+    {
+      "code": "cd",
+      "slug": "demokraticheskaya-respublika-kongo",
+      "name": "Демократическая Республика Конго",
+      "region": "afrika"
+    },
+    {
+      "code": "cf",
+      "slug": "tsentralnoafrikanskaya-respublika",
+      "name": "Центральноафриканская Республика",
+      "region": "afrika"
+    },
+    {
+      "code": "cg",
+      "slug": "respublika-kongo",
+      "name": "Республика Конго",
+      "region": "afrika"
+    },
+    {
+      "code": "ch",
+      "slug": "shveytsariya",
+      "name": "Швейцария",
+      "region": "evropa"
+    },
+    {
+      "code": "ci",
+      "slug": "kot-d-ivuar",
+      "name": "Кот-д’Ивуар",
+      "region": "afrika"
+    },
+    {
+      "code": "ck",
+      "slug": "ostrova-kuka",
+      "name": "Острова Кука",
+      "region": "okeaniya"
+    },
+    {
+      "code": "cl",
+      "slug": "chili",
+      "name": "Чили",
+      "region": "yuzhnaya-amerika"
+    },
+    {
+      "code": "cm",
+      "slug": "kamerun",
+      "name": "Камерун",
+      "region": "afrika"
+    },
+    {
+      "code": "cn",
+      "slug": "kitay",
+      "name": "Китай",
+      "region": "aziya"
+    },
+    {
+      "code": "co",
+      "slug": "kolumbiya",
+      "name": "Колумбия",
+      "region": "yuzhnaya-amerika"
+    },
+    {
+      "code": "cr",
+      "slug": "kosta-rika",
+      "name": "Коста-Рика",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "cu",
+      "slug": "kuba",
+      "name": "Куба",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "cv",
+      "slug": "kabo-verde",
+      "name": "Кабо-Верде",
+      "region": "afrika"
+    },
+    {
+      "code": "cw",
+      "slug": "kyurasao",
+      "name": "Кюрасао",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "cx",
+      "slug": "ostrov-rozhdestva",
+      "name": "Остров Рождества",
+      "region": "aziya"
+    },
+    {
+      "code": "cy",
+      "slug": "kipr",
+      "name": "Кипр",
+      "region": "evropa"
+    },
+    {
+      "code": "cz",
+      "slug": "chehiya",
+      "name": "Чехия",
+      "region": "evropa"
+    },
+    {
+      "code": "de",
+      "slug": "germaniya",
+      "name": "Германия",
+      "region": "evropa"
+    },
+    {
+      "code": "dj",
+      "slug": "dzhibuti",
+      "name": "Джибути",
+      "region": "afrika"
+    },
+    {
+      "code": "dk",
+      "slug": "daniya",
+      "name": "Дания",
+      "region": "evropa"
+    },
+    {
+      "code": "dm",
+      "slug": "dominika",
+      "name": "Доминика",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "do",
+      "slug": "dominikanskaya-respublika",
+      "name": "Доминиканская Республика",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "dz",
+      "slug": "alzhir",
+      "name": "Алжир",
+      "region": "afrika"
+    },
+    {
+      "code": "ec",
+      "slug": "ekvador",
+      "name": "Эквадор",
+      "region": "yuzhnaya-amerika"
+    },
+    {
+      "code": "ee",
+      "slug": "estoniya",
+      "name": "Эстония",
+      "region": "evropa"
+    },
+    {
+      "code": "eg",
+      "slug": "egipet",
+      "name": "Египет",
+      "region": "afrika"
+    },
+    {
+      "code": "eh",
+      "slug": "zapadnaya-sahara",
+      "name": "Западная Сахара",
+      "region": "afrika"
+    },
+    {
+      "code": "er",
+      "slug": "eritreya",
+      "name": "Эритрея",
+      "region": "afrika"
+    },
+    {
+      "code": "es",
+      "slug": "ispaniya",
+      "name": "Испания",
+      "region": "evropa"
+    },
+    {
+      "code": "et",
+      "slug": "efiopiya",
+      "name": "Эфиопия",
+      "region": "afrika"
+    },
+    {
+      "code": "fi",
+      "slug": "finlyandiya",
+      "name": "Финляндия",
+      "region": "evropa"
+    },
+    {
+      "code": "fj",
+      "slug": "fidzhi",
+      "name": "Фиджи",
+      "region": "okeaniya"
+    },
+    {
+      "code": "fk",
+      "slug": "folklendskie-ostrova",
+      "name": "Фолклендские острова",
+      "region": "yuzhnaya-amerika"
+    },
+    {
+      "code": "fm",
+      "slug": "federativnye-shtaty-mikronezii",
+      "name": "Федеративные Штаты Микронезии",
+      "region": "okeaniya"
+    },
+    {
+      "code": "fo",
+      "slug": "farerskie-ostrova",
+      "name": "Фарерские острова",
+      "region": "evropa"
+    },
+    {
+      "code": "fr",
+      "slug": "frantsiya",
+      "name": "Франция",
+      "region": "evropa"
+    },
+    {
+      "code": "ga",
+      "slug": "gabon",
+      "name": "Габон",
+      "region": "afrika"
+    },
+    {
+      "code": "gb",
+      "slug": "velikobritaniya",
+      "name": "Великобритания",
+      "region": "evropa"
+    },
+    {
+      "code": "gd",
+      "slug": "grenada",
+      "name": "Гренада",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "ge",
+      "slug": "gruziya",
+      "name": "Грузия",
+      "region": "evropa"
+    },
+    {
+      "code": "gf",
+      "slug": "frantsuzskaya-gviana",
+      "name": "Французская Гвиана",
+      "region": "yuzhnaya-amerika"
+    },
+    {
+      "code": "gg",
+      "slug": "gernsi",
+      "name": "Гернси",
+      "region": "evropa"
+    },
+    {
+      "code": "gh",
+      "slug": "gana",
+      "name": "Гана",
+      "region": "afrika"
+    },
+    {
+      "code": "gi",
+      "slug": "gibraltar",
+      "name": "Гибралтар",
+      "region": "evropa"
+    },
+    {
+      "code": "gl",
+      "slug": "grenlandiya",
+      "name": "Гренландия",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "gm",
+      "slug": "gambiya",
+      "name": "Гамбия",
+      "region": "afrika"
+    },
+    {
+      "code": "gn",
+      "slug": "gvineya",
+      "name": "Гвинея",
+      "region": "afrika"
+    },
+    {
+      "code": "gp",
+      "slug": "gvadelupa",
+      "name": "Гваделупа",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "gq",
+      "slug": "ekvatorialnaya-gvineya",
+      "name": "Экваториальная Гвинея",
+      "region": "afrika"
+    },
+    {
+      "code": "gr",
+      "slug": "gretsiya",
+      "name": "Греция",
+      "region": "evropa"
+    },
+    {
+      "code": "gt",
+      "slug": "gvatemala",
+      "name": "Гватемала",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "gu",
+      "slug": "guam",
+      "name": "Гуам",
+      "region": "okeaniya"
+    },
+    {
+      "code": "gw",
+      "slug": "gvineya-bisau",
+      "name": "Гвинея-Бисау",
+      "region": "afrika"
+    },
+    {
+      "code": "gy",
+      "slug": "gayana",
+      "name": "Гайана",
+      "region": "yuzhnaya-amerika"
+    },
+    {
+      "code": "hk",
+      "slug": "gonkong",
+      "name": "Гонконг",
+      "region": "aziya"
+    },
+    {
+      "code": "hn",
+      "slug": "gonduras",
+      "name": "Гондурас",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "hr",
+      "slug": "horvatiya",
+      "name": "Хорватия",
+      "region": "evropa"
+    },
+    {
+      "code": "ht",
+      "slug": "gaiti",
+      "name": "Гаити",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "hu",
+      "slug": "vengriya",
+      "name": "Венгрия",
+      "region": "evropa"
+    },
+    {
+      "code": "id",
+      "slug": "indoneziya",
+      "name": "Индонезия",
+      "region": "aziya"
+    },
+    {
+      "code": "ie",
+      "slug": "irlandiya",
+      "name": "Ирландия",
+      "region": "evropa"
+    },
+    {
+      "code": "il",
+      "slug": "izrail",
+      "name": "Израиль",
+      "region": "aziya"
+    },
+    {
+      "code": "im",
+      "slug": "ostrov-men",
+      "name": "Остров Мэн",
+      "region": "evropa"
+    },
+    {
+      "code": "in",
+      "slug": "indiya",
+      "name": "Индия",
+      "region": "aziya"
+    },
+    {
+      "code": "io",
+      "slug": "britanskaya-territoriya-v-indiyskom-okeane",
+      "name": "Британская территория в Индийском океане",
+      "region": "afrika"
+    },
+    {
+      "code": "iq",
+      "slug": "irak",
+      "name": "Ирак",
+      "region": "aziya"
+    },
+    {
+      "code": "ir",
+      "slug": "iran",
+      "name": "Иран",
+      "region": "aziya"
+    },
+    {
+      "code": "is",
+      "slug": "islandiya",
+      "name": "Исландия",
+      "region": "evropa"
+    },
+    {
+      "code": "it",
+      "slug": "italiya",
+      "name": "Италия",
+      "region": "evropa"
+    },
+    {
+      "code": "je",
+      "slug": "dzhersi",
+      "name": "Джерси",
+      "region": "evropa"
+    },
+    {
+      "code": "jm",
+      "slug": "yamayka",
+      "name": "Ямайка",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "jo",
+      "slug": "iordaniya",
+      "name": "Иордания",
+      "region": "aziya"
+    },
+    {
+      "code": "jp",
+      "slug": "yaponiya",
+      "name": "Япония",
+      "region": "aziya"
+    },
+    {
+      "code": "ke",
+      "slug": "keniya",
+      "name": "Кения",
+      "region": "afrika"
+    },
+    {
+      "code": "kg",
+      "slug": "kyrgyzstan",
+      "name": "Кыргызстан",
+      "region": "aziya"
+    },
+    {
+      "code": "kh",
+      "slug": "kambodzha",
+      "name": "Камбоджа",
+      "region": "aziya"
+    },
+    {
+      "code": "ki",
+      "slug": "kiribati",
+      "name": "Кирибати",
+      "region": "okeaniya"
+    },
+    {
+      "code": "km",
+      "slug": "komory",
+      "name": "Коморы",
+      "region": "afrika"
+    },
+    {
+      "code": "kn",
+      "slug": "sent-kits-i-nevis",
+      "name": "Сент-Китс и Невис",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "kp",
+      "slug": "kndr",
+      "name": "КНДР",
+      "region": "aziya"
+    },
+    {
+      "code": "kr",
+      "slug": "respublika-koreya",
+      "name": "Республика Корея",
+      "region": "aziya"
+    },
+    {
+      "code": "kw",
+      "slug": "kuveyt",
+      "name": "Кувейт",
+      "region": "aziya"
+    },
+    {
+      "code": "ky",
+      "slug": "kaymanovy-ostrova",
+      "name": "Каймановы Острова",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "kz",
+      "slug": "kazahstan",
+      "name": "Казахстан",
+      "region": "aziya"
+    },
+    {
+      "code": "la",
+      "slug": "laos",
+      "name": "Лаос",
+      "region": "aziya"
+    },
+    {
+      "code": "lb",
+      "slug": "livan",
+      "name": "Ливан",
+      "region": "aziya"
+    },
+    {
+      "code": "lc",
+      "slug": "sent-lyusiya",
+      "name": "Сент-Люсия",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "li",
+      "slug": "lihtenshteyn",
+      "name": "Лихтенштейн",
+      "region": "evropa"
+    },
+    {
+      "code": "lk",
+      "slug": "shri-lanka",
+      "name": "Шри-Ланка",
+      "region": "aziya"
+    },
+    {
+      "code": "lr",
+      "slug": "liberiya",
+      "name": "Либерия",
+      "region": "afrika"
+    },
+    {
+      "code": "ls",
+      "slug": "lesoto",
+      "name": "Лесото",
+      "region": "afrika"
+    },
+    {
+      "code": "lt",
+      "slug": "litva",
+      "name": "Литва",
+      "region": "evropa"
+    },
+    {
+      "code": "lu",
+      "slug": "lyuksemburg",
+      "name": "Люксембург",
+      "region": "evropa"
+    },
+    {
+      "code": "lv",
+      "slug": "latviya",
+      "name": "Латвия",
+      "region": "evropa"
+    },
+    {
+      "code": "ly",
+      "slug": "liviya",
+      "name": "Ливия",
+      "region": "afrika"
+    },
+    {
+      "code": "ma",
+      "slug": "marokko",
+      "name": "Марокко",
+      "region": "afrika"
+    },
+    {
+      "code": "mc",
+      "slug": "monako",
+      "name": "Монако",
+      "region": "evropa"
+    },
+    {
+      "code": "md",
+      "slug": "moldova",
+      "name": "Молдова",
+      "region": "evropa"
+    },
+    {
+      "code": "me",
+      "slug": "chernogoriya",
+      "name": "Черногория",
+      "region": "evropa"
+    },
+    {
+      "code": "mf",
+      "slug": "sen-marten",
+      "name": "Сен-Мартен",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "mg",
+      "slug": "madagaskar",
+      "name": "Мадагаскар",
+      "region": "afrika"
+    },
+    {
+      "code": "mh",
+      "slug": "marshallovy-ostrova",
+      "name": "Маршалловы Острова",
+      "region": "okeaniya"
+    },
+    {
+      "code": "mk",
+      "slug": "severnaya-makedoniya",
+      "name": "Северная Македония",
+      "region": "evropa"
+    },
+    {
+      "code": "ml",
+      "slug": "mali",
+      "name": "Мали",
+      "region": "afrika"
+    },
+    {
+      "code": "mm",
+      "slug": "myanma",
+      "name": "Мьянма",
+      "region": "aziya"
+    },
+    {
+      "code": "mn",
+      "slug": "mongoliya",
+      "name": "Монголия",
+      "region": "aziya"
+    },
+    {
+      "code": "mo",
+      "slug": "makao",
+      "name": "Макао",
+      "region": "aziya"
+    },
+    {
+      "code": "mp",
+      "slug": "severnye-marianskie-ostrova",
+      "name": "Северные Марианские Острова",
+      "region": "okeaniya"
+    },
+    {
+      "code": "mq",
+      "slug": "martinika",
+      "name": "Мартиника",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "mr",
+      "slug": "mavritaniya",
+      "name": "Мавритания",
+      "region": "afrika"
+    },
+    {
+      "code": "ms",
+      "slug": "montserrat",
+      "name": "Монтсеррат",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "mt",
+      "slug": "malta",
+      "name": "Мальта",
+      "region": "evropa"
+    },
+    {
+      "code": "mu",
+      "slug": "mavrikiy",
+      "name": "Маврикий",
+      "region": "afrika"
+    },
+    {
+      "code": "mv",
+      "slug": "maldivy",
+      "name": "Мальдивы",
+      "region": "aziya"
+    },
+    {
+      "code": "mw",
+      "slug": "malavi",
+      "name": "Малави",
+      "region": "afrika"
+    },
+    {
+      "code": "mx",
+      "slug": "meksika",
+      "name": "Мексика",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "my",
+      "slug": "malayziya",
+      "name": "Малайзия",
+      "region": "aziya"
+    },
+    {
+      "code": "mz",
+      "slug": "mozambik",
+      "name": "Мозамбик",
+      "region": "afrika"
+    },
+    {
+      "code": "na",
+      "slug": "namibiya",
+      "name": "Намибия",
+      "region": "afrika"
+    },
+    {
+      "code": "nc",
+      "slug": "novaya-kaledoniya",
+      "name": "Новая Каледония",
+      "region": "okeaniya"
+    },
+    {
+      "code": "ne",
+      "slug": "niger",
+      "name": "Нигер",
+      "region": "afrika"
+    },
+    {
+      "code": "nf",
+      "slug": "norfolk",
+      "name": "Норфолк",
+      "region": "okeaniya"
+    },
+    {
+      "code": "ng",
+      "slug": "nigeriya",
+      "name": "Нигерия",
+      "region": "afrika"
+    },
+    {
+      "code": "ni",
+      "slug": "nikaragua",
+      "name": "Никарагуа",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "nl",
+      "slug": "korolevstvo-niderlandov",
+      "name": "Королевство Нидерландов",
+      "region": "evropa"
+    },
+    {
+      "code": "no",
+      "slug": "norvegiya",
+      "name": "Норвегия",
+      "region": "evropa"
+    },
+    {
+      "code": "np",
+      "slug": "nepal",
+      "name": "Непал",
+      "region": "aziya"
+    },
+    {
+      "code": "nr",
+      "slug": "nauru",
+      "name": "Науру",
+      "region": "okeaniya"
+    },
+    {
+      "code": "nu",
+      "slug": "niue",
+      "name": "Ниуэ",
+      "region": "okeaniya"
+    },
+    {
+      "code": "nz",
+      "slug": "novaya-zelandiya",
+      "name": "Новая Зеландия",
+      "region": "okeaniya"
+    },
+    {
+      "code": "om",
+      "slug": "oman",
+      "name": "Оман",
+      "region": "aziya"
+    },
+    {
+      "code": "pa",
+      "slug": "panama",
+      "name": "Панама",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "pe",
+      "slug": "peru",
+      "name": "Перу",
+      "region": "yuzhnaya-amerika"
+    },
+    {
+      "code": "pf",
+      "slug": "frantsuzskaya-polineziya",
+      "name": "Французская Полинезия",
+      "region": "okeaniya"
+    },
+    {
+      "code": "pg",
+      "slug": "papua-novaya-gvineya",
+      "name": "Папуа — Новая Гвинея",
+      "region": "okeaniya"
+    },
+    {
+      "code": "ph",
+      "slug": "filippiny",
+      "name": "Филиппины",
+      "region": "aziya"
+    },
+    {
+      "code": "pk",
+      "slug": "pakistan",
+      "name": "Пакистан",
+      "region": "aziya"
+    },
+    {
+      "code": "pl",
+      "slug": "polsha",
+      "name": "Польша",
+      "region": "evropa"
+    },
+    {
+      "code": "pm",
+      "slug": "sen-per-i-mikelon",
+      "name": "Сен-Пьер и Микелон",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "pn",
+      "slug": "ostrova-pitkern",
+      "name": "Острова Питкэрн",
+      "region": "okeaniya"
+    },
+    {
+      "code": "pr",
+      "slug": "puerto-riko",
+      "name": "Пуэрто-Рико",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "ps",
+      "slug": "gosudarstvo-palestina",
+      "name": "Государство Палестина",
+      "region": "aziya"
+    },
+    {
+      "code": "pt",
+      "slug": "portugaliya",
+      "name": "Португалия",
+      "region": "evropa"
+    },
+    {
+      "code": "pw",
+      "slug": "palau",
+      "name": "Палау",
+      "region": "okeaniya"
+    },
+    {
+      "code": "py",
+      "slug": "paragvay",
+      "name": "Парагвай",
+      "region": "yuzhnaya-amerika"
+    },
+    {
+      "code": "qa",
+      "slug": "katar",
+      "name": "Катар",
+      "region": "aziya"
+    },
+    {
+      "code": "re",
+      "slug": "reyunon",
+      "name": "Реюньон",
+      "region": "afrika"
+    },
+    {
+      "code": "ro",
+      "slug": "rumyniya",
+      "name": "Румыния",
+      "region": "evropa"
+    },
+    {
+      "code": "rs",
+      "slug": "serbiya",
+      "name": "Сербия",
+      "region": "evropa"
+    },
+    {
+      "code": "ru",
+      "slug": "rossiya",
+      "name": "Россия",
+      "region": "evropa"
+    },
+    {
+      "code": "rw",
+      "slug": "ruanda",
+      "name": "Руанда",
+      "region": "afrika"
+    },
+    {
+      "code": "sa",
+      "slug": "al-juwain",
+      "name": "Al Juwain",
+      "region": "aziya"
+    },
+    {
+      "code": "sb",
+      "slug": "solomonovy-ostrova",
+      "name": "Соломоновы Острова",
+      "region": "okeaniya"
+    },
+    {
+      "code": "sc",
+      "slug": "seyshelskie-ostrova",
+      "name": "Сейшельские Острова",
+      "region": "afrika"
+    },
+    {
+      "code": "sd",
+      "slug": "sudan",
+      "name": "Судан",
+      "region": "afrika"
+    },
+    {
+      "code": "se",
+      "slug": "shvetsiya",
+      "name": "Швеция",
+      "region": "evropa"
+    },
+    {
+      "code": "sg",
+      "slug": "singapur",
+      "name": "Сингапур",
+      "region": "aziya"
+    },
+    {
+      "code": "sh",
+      "slug": "ostrova-svyatoy-eleny-vozneseniya-i-tristan-da-kunya",
+      "name": "Острова Святой Елены, Вознесения и Тристан-да-Кунья",
+      "region": "afrika"
+    },
+    {
+      "code": "si",
+      "slug": "sloveniya",
+      "name": "Словения",
+      "region": "evropa"
+    },
+    {
+      "code": "sj",
+      "slug": "shpitsbergen-i-yan-mayen",
+      "name": "Шпицберген и Ян-Майен",
+      "region": "evropa"
+    },
+    {
+      "code": "sk",
+      "slug": "slovakiya",
+      "name": "Словакия",
+      "region": "evropa"
+    },
+    {
+      "code": "sl",
+      "slug": "serra-leone",
+      "name": "Сьерра-Леоне",
+      "region": "afrika"
+    },
+    {
+      "code": "sm",
+      "slug": "san-marino",
+      "name": "Сан-Марино",
+      "region": "evropa"
+    },
+    {
+      "code": "sn",
+      "slug": "senegal",
+      "name": "Сенегал",
+      "region": "afrika"
+    },
+    {
+      "code": "so",
+      "slug": "somali",
+      "name": "Сомали",
+      "region": "afrika"
+    },
+    {
+      "code": "sr",
+      "slug": "surinam",
+      "name": "Суринам",
+      "region": "yuzhnaya-amerika"
+    },
+    {
+      "code": "ss",
+      "slug": "yuzhnyy-sudan",
+      "name": "Южный Судан",
+      "region": "afrika"
+    },
+    {
+      "code": "st",
+      "slug": "san-tome-i-prinsipi",
+      "name": "Сан-Томе и Принсипи",
+      "region": "afrika"
+    },
+    {
+      "code": "sv",
+      "slug": "salvador",
+      "name": "Сальвадор",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "sx",
+      "slug": "sint-marten",
+      "name": "Синт-Мартен",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "sy",
+      "slug": "siriya",
+      "name": "Сирия",
+      "region": "aziya"
+    },
+    {
+      "code": "sz",
+      "slug": "esvatini",
+      "name": "Эсватини",
+      "region": "afrika"
+    },
+    {
+      "code": "tc",
+      "slug": "terks-i-kaykos",
+      "name": "Тёркс и Кайкос",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "td",
+      "slug": "chad",
+      "name": "Чад",
+      "region": "afrika"
+    },
+    {
+      "code": "tg",
+      "slug": "togo",
+      "name": "Того",
+      "region": "afrika"
+    },
+    {
+      "code": "th",
+      "slug": "tailand",
+      "name": "Таиланд",
+      "region": "aziya"
+    },
+    {
+      "code": "tj",
+      "slug": "tadzhikistan",
+      "name": "Таджикистан",
+      "region": "aziya"
+    },
+    {
+      "code": "tl",
+      "slug": "vostochnyy-timor",
+      "name": "Восточный Тимор",
+      "region": "aziya"
+    },
+    {
+      "code": "tm",
+      "slug": "turkmenistan",
+      "name": "Туркменистан",
+      "region": "aziya"
+    },
+    {
+      "code": "tn",
+      "slug": "tunis",
+      "name": "Тунис",
+      "region": "afrika"
+    },
+    {
+      "code": "to",
+      "slug": "tonga",
+      "name": "Тонга",
+      "region": "okeaniya"
+    },
+    {
+      "code": "tr",
+      "slug": "turtsiya",
+      "name": "Турция",
+      "region": "evropa"
+    },
+    {
+      "code": "tt",
+      "slug": "trinidad-i-tobago",
+      "name": "Тринидад и Тобаго",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "tv",
+      "slug": "tuvalu",
+      "name": "Тувалу",
+      "region": "okeaniya"
+    },
+    {
+      "code": "tw",
+      "slug": "kitayskaya-respublika-tayvan",
+      "name": "Китайская Республика (Тайвань)",
+      "region": "aziya"
+    },
+    {
+      "code": "tz",
+      "slug": "tanzaniya",
+      "name": "Танзания",
+      "region": "afrika"
+    },
+    {
+      "code": "ua",
+      "slug": "ukraina",
+      "name": "Украина",
+      "region": "evropa"
+    },
+    {
+      "code": "ug",
+      "slug": "uganda",
+      "name": "Уганда",
+      "region": "afrika"
+    },
+    {
+      "code": "us",
+      "slug": "ssha",
+      "name": "США",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "uy",
+      "slug": "urugvay",
+      "name": "Уругвай",
+      "region": "yuzhnaya-amerika"
+    },
+    {
+      "code": "uz",
+      "slug": "uzbekistan",
+      "name": "Узбекистан",
+      "region": "aziya"
+    },
+    {
+      "code": "va",
+      "slug": "vatikan",
+      "name": "Ватикан",
+      "region": "evropa"
+    },
+    {
+      "code": "vc",
+      "slug": "sent-vinsent-i-grenadiny",
+      "name": "Сент-Винсент и Гренадины",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "ve",
+      "slug": "venesuela",
+      "name": "Венесуэла",
+      "region": "yuzhnaya-amerika"
+    },
+    {
+      "code": "vg",
+      "slug": "britanskie-virginskie-ostrova",
+      "name": "Британские Виргинские Острова",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "vi",
+      "slug": "amerikanskie-virginskie-ostrova",
+      "name": "Американские Виргинские Острова",
+      "region": "severnaya-amerika"
+    },
+    {
+      "code": "vn",
+      "slug": "vetnam",
+      "name": "Вьетнам",
+      "region": "aziya"
+    },
+    {
+      "code": "vu",
+      "slug": "vanuatu",
+      "name": "Вануату",
+      "region": "okeaniya"
+    },
+    {
+      "code": "wf",
+      "slug": "uollis-i-futuna",
+      "name": "Уоллис и Футуна",
+      "region": "okeaniya"
+    },
+    {
+      "code": "ws",
+      "slug": "samoa",
+      "name": "Самоа",
+      "region": "okeaniya"
+    },
+    {
+      "code": "xk",
+      "slug": "respublika-kosovo",
+      "name": "Республика Косово",
+      "region": "evropa"
+    },
+    {
+      "code": "ye",
+      "slug": "yemen",
+      "name": "Йемен",
+      "region": "aziya"
+    },
+    {
+      "code": "yt",
+      "slug": "mayotta",
+      "name": "Майотта",
+      "region": "afrika"
+    },
+    {
+      "code": "za",
+      "slug": "yuar",
+      "name": "ЮАР",
+      "region": "afrika"
+    },
+    {
+      "code": "zm",
+      "slug": "zambiya",
+      "name": "Замбия",
+      "region": "afrika"
+    },
+    {
+      "code": "zw",
+      "slug": "zimbabve",
+      "name": "Зимбабве",
+      "region": "afrika"
+    }
+  ],
+  "cities": [
+    {
+      "slug": "andorra-la-velya",
+      "name": "Андорра-ла-Велья",
+      "country": "ad"
+    },
+    {
+      "slug": "abu-dabi",
+      "name": "Абу-Даби",
+      "country": "ae"
+    },
+    {
+      "slug": "kabul",
+      "name": "Кабул",
+      "country": "af"
+    },
+    {
+      "slug": "sent-dzhons",
+      "name": "Сент-Джонс",
+      "country": "ag"
+    },
+    {
+      "slug": "valli",
+      "name": "Валли",
+      "country": "ai"
+    },
+    {
+      "slug": "tirana",
+      "name": "Тирана",
+      "country": "al"
+    },
+    {
+      "slug": "erevan",
+      "name": "Ереван",
+      "country": "am"
+    },
+    {
+      "slug": "luanda",
+      "name": "Луанда",
+      "country": "ao"
+    },
+    {
+      "slug": "buenos-ayres",
+      "name": "Буэнос-Айрес",
+      "country": "ar"
+    },
+    {
+      "slug": "pago-pago",
+      "name": "Паго-Паго",
+      "country": "as"
+    },
+    {
+      "slug": "vena",
+      "name": "Вена",
+      "country": "at"
+    },
+    {
+      "slug": "kanberra",
+      "name": "Канберра",
+      "country": "au"
+    },
+    {
+      "slug": "oranestad",
+      "name": "Ораньестад",
+      "country": "aw"
+    },
+    {
+      "slug": "mariehamn",
+      "name": "Мариехамн",
+      "country": "ax"
+    },
+    {
+      "slug": "baku",
+      "name": "Баку",
+      "country": "az"
+    },
+    {
+      "slug": "saraevo",
+      "name": "Сараево",
+      "country": "ba"
+    },
+    {
+      "slug": "bridzhtaun",
+      "name": "Бриджтаун",
+      "country": "bb"
+    },
+    {
+      "slug": "dakka",
+      "name": "Дакка",
+      "country": "bd"
+    },
+    {
+      "slug": "bryussel",
+      "name": "Брюссель",
+      "country": "be"
+    },
+    {
+      "slug": "uagadugu",
+      "name": "Уагадугу",
+      "country": "bf"
+    },
+    {
+      "slug": "sofiya",
+      "name": "София",
+      "country": "bg"
+    },
+    {
+      "slug": "manama",
+      "name": "Манама",
+      "country": "bh"
+    },
+    {
+      "slug": "gitega",
+      "name": "Гитега",
+      "country": "bi"
+    },
+    {
+      "slug": "porto-novo",
+      "name": "Порто-Ново",
+      "country": "bj"
+    },
+    {
+      "slug": "gustaviya",
+      "name": "Густавия",
+      "country": "bl"
+    },
+    {
+      "slug": "gamilton",
+      "name": "Гамильтон",
+      "country": "bm"
+    },
+    {
+      "slug": "bandar-seri-begavan",
+      "name": "Бандар-Сери-Бегаван",
+      "country": "bn"
+    },
+    {
+      "slug": "la-pas",
+      "name": "Ла-Пас",
+      "country": "bo"
+    },
+    {
+      "slug": "kralendeyk",
+      "name": "Кралендейк",
+      "country": "bq"
+    },
+    {
+      "slug": "brazilia",
+      "name": "Бразилиа",
+      "country": "br"
+    },
+    {
+      "slug": "nassau",
+      "name": "Нассау",
+      "country": "bs"
+    },
+    {
+      "slug": "thimphu",
+      "name": "Тхимпху",
+      "country": "bt"
+    },
+    {
+      "slug": "gaborone",
+      "name": "Габороне",
+      "country": "bw"
+    },
+    {
+      "slug": "minsk",
+      "name": "Минск",
+      "country": "by"
+    },
+    {
+      "slug": "belmopan",
+      "name": "Бельмопан",
+      "country": "bz"
+    },
+    {
+      "slug": "ottava",
+      "name": "Оттава",
+      "country": "ca"
+    },
+    {
+      "slug": "uest-aylend",
+      "name": "Уэст-Айленд",
+      "country": "cc"
+    },
+    {
+      "slug": "kinshasa",
+      "name": "Киншаса",
+      "country": "cd"
+    },
+    {
+      "slug": "bangi",
+      "name": "Банги",
+      "country": "cf"
+    },
+    {
+      "slug": "brazzavil",
+      "name": "Браззавиль",
+      "country": "cg"
+    },
+    {
+      "slug": "bern",
+      "name": "Берн",
+      "country": "ch"
+    },
+    {
+      "slug": "yamusukro",
+      "name": "Ямусукро",
+      "country": "ci"
+    },
+    {
+      "slug": "avarua",
+      "name": "Аваруа",
+      "country": "ck"
+    },
+    {
+      "slug": "santyago",
+      "name": "Сантьяго",
+      "country": "cl"
+    },
+    {
+      "slug": "yaunde",
+      "name": "Яунде",
+      "country": "cm"
+    },
+    {
+      "slug": "pekin",
+      "name": "Пекин",
+      "country": "cn"
+    },
+    {
+      "slug": "bogota",
+      "name": "Богота",
+      "country": "co"
+    },
+    {
+      "slug": "san-hose",
+      "name": "Сан-Хосе",
+      "country": "cr"
+    },
+    {
+      "slug": "gavana",
+      "name": "Гавана",
+      "country": "cu"
+    },
+    {
+      "slug": "praya",
+      "name": "Прая",
+      "country": "cv"
+    },
+    {
+      "slug": "villemstad",
+      "name": "Виллемстад",
+      "country": "cw"
+    },
+    {
+      "slug": "flaying-fish-kouv",
+      "name": "Флайинг-Фиш-Коув",
+      "country": "cx"
+    },
+    {
+      "slug": "nikosiya",
+      "name": "Никосия",
+      "country": "cy"
+    },
+    {
+      "slug": "praga",
+      "name": "Прага",
+      "country": "cz"
+    },
+    {
+      "slug": "berlin",
+      "name": "Берлин",
+      "country": "de"
+    },
+    {
+      "slug": "dzhibuti",
+      "name": "Джибути",
+      "country": "dj"
+    },
+    {
+      "slug": "kopengagen",
+      "name": "Копенгаген",
+      "country": "dk"
+    },
+    {
+      "slug": "rozo",
+      "name": "Розо",
+      "country": "dm"
+    },
+    {
+      "slug": "santo-domingo",
+      "name": "Санто-Доминго",
+      "country": "do"
+    },
+    {
+      "slug": "alzhir",
+      "name": "Алжир",
+      "country": "dz"
+    },
+    {
+      "slug": "kito",
+      "name": "Кито",
+      "country": "ec"
+    },
+    {
+      "slug": "tallin",
+      "name": "Таллин",
+      "country": "ee"
+    },
+    {
+      "slug": "kair",
+      "name": "Каир",
+      "country": "eg"
+    },
+    {
+      "slug": "el-ayun",
+      "name": "Эль-Аюн",
+      "country": "eh"
+    },
+    {
+      "slug": "asmera",
+      "name": "Асмэра",
+      "country": "er"
+    },
+    {
+      "slug": "madrid",
+      "name": "Мадрид",
+      "country": "es"
+    },
+    {
+      "slug": "addis-abeba",
+      "name": "Аддис-Абеба",
+      "country": "et"
+    },
+    {
+      "slug": "helsinki",
+      "name": "Хельсинки",
+      "country": "fi"
+    },
+    {
+      "slug": "suva",
+      "name": "Сува",
+      "country": "fj"
+    },
+    {
+      "slug": "port-stenli",
+      "name": "Порт-Стэнли",
+      "country": "fk"
+    },
+    {
+      "slug": "palikir",
+      "name": "Паликир",
+      "country": "fm"
+    },
+    {
+      "slug": "torshavn",
+      "name": "Торсхавн",
+      "country": "fo"
+    },
+    {
+      "slug": "parizh",
+      "name": "Париж",
+      "country": "fr"
+    },
+    {
+      "slug": "librevil",
+      "name": "Либревиль",
+      "country": "ga"
+    },
+    {
+      "slug": "london",
+      "name": "Лондон",
+      "country": "gb"
+    },
+    {
+      "slug": "sent-dzhordzhes",
+      "name": "Сент-Джорджес",
+      "country": "gd"
+    },
+    {
+      "slug": "tbilisi",
+      "name": "Тбилиси",
+      "country": "ge"
+    },
+    {
+      "slug": "kayenna",
+      "name": "Кайенна",
+      "country": "gf"
+    },
+    {
+      "slug": "sent-piter-port",
+      "name": "Сент-Питер-Порт",
+      "country": "gg"
+    },
+    {
+      "slug": "akkra",
+      "name": "Аккра",
+      "country": "gh"
+    },
+    {
+      "slug": "gibraltar",
+      "name": "Гибралтар",
+      "country": "gi"
+    },
+    {
+      "slug": "nuuk",
+      "name": "Нуук",
+      "country": "gl"
+    },
+    {
+      "slug": "banzhul",
+      "name": "Банжул",
+      "country": "gm"
+    },
+    {
+      "slug": "konakri",
+      "name": "Конакри",
+      "country": "gn"
+    },
+    {
+      "slug": "bas-ter",
+      "name": "Бас-Тер",
+      "country": "gp"
+    },
+    {
+      "slug": "syudad-de-la-pas",
+      "name": "Сьюдад-де-ла-Пас",
+      "country": "gq"
+    },
+    {
+      "slug": "afiny",
+      "name": "Афины",
+      "country": "gr"
+    },
+    {
+      "slug": "gvatemala",
+      "name": "Гватемала",
+      "country": "gt"
+    },
+    {
+      "slug": "hagatna",
+      "name": "Хагатна",
+      "country": "gu"
+    },
+    {
+      "slug": "bisau",
+      "name": "Бисау",
+      "country": "gw"
+    },
+    {
+      "slug": "dzhordzhtaun",
+      "name": "Джорджтаун",
+      "country": "gy"
+    },
+    {
+      "slug": "gonkong",
+      "name": "Гонконг",
+      "country": "hk"
+    },
+    {
+      "slug": "tegusigalpa",
+      "name": "Тегусигальпа",
+      "country": "hn"
+    },
+    {
+      "slug": "zagreb",
+      "name": "Загреб",
+      "country": "hr"
+    },
+    {
+      "slug": "port-o-prens",
+      "name": "Порт-о-Пренс",
+      "country": "ht"
+    },
+    {
+      "slug": "budapesht",
+      "name": "Будапешт",
+      "country": "hu"
+    },
+    {
+      "slug": "dzhakarta",
+      "name": "Джакарта",
+      "country": "id"
+    },
+    {
+      "slug": "dublin",
+      "name": "Дублин",
+      "country": "ie"
+    },
+    {
+      "slug": "ierusalim",
+      "name": "Иерусалим",
+      "country": "il"
+    },
+    {
+      "slug": "duglas",
+      "name": "Дуглас",
+      "country": "im"
+    },
+    {
+      "slug": "nyu-deli",
+      "name": "Нью-Дели",
+      "country": "in"
+    },
+    {
+      "slug": "diego-garsiya",
+      "name": "Диего-Гарсия",
+      "country": "io"
+    },
+    {
+      "slug": "bagdad",
+      "name": "Багдад",
+      "country": "iq"
+    },
+    {
+      "slug": "tegeran",
+      "name": "Тегеран",
+      "country": "ir"
+    },
+    {
+      "slug": "reykyavik",
+      "name": "Рейкьявик",
+      "country": "is"
+    },
+    {
+      "slug": "rim",
+      "name": "Рим",
+      "country": "it"
+    },
+    {
+      "slug": "sent-helier",
+      "name": "Сент-Хелиер",
+      "country": "je"
+    },
+    {
+      "slug": "kingston",
+      "name": "Кингстон",
+      "country": "jm"
+    },
+    {
+      "slug": "amman",
+      "name": "Амман",
+      "country": "jo"
+    },
+    {
+      "slug": "tokio",
+      "name": "Токио",
+      "country": "jp"
+    },
+    {
+      "slug": "nayrobi",
+      "name": "Найроби",
+      "country": "ke"
+    },
+    {
+      "slug": "bishkek",
+      "name": "Бишкек",
+      "country": "kg"
+    },
+    {
+      "slug": "pnompen",
+      "name": "Пномпень",
+      "country": "kh"
+    },
+    {
+      "slug": "yuzhnaya-tarava",
+      "name": "Южная Тарава",
+      "country": "ki"
+    },
+    {
+      "slug": "moroni",
+      "name": "Морони",
+      "country": "km"
+    },
+    {
+      "slug": "baster",
+      "name": "Бастер",
+      "country": "kn"
+    },
+    {
+      "slug": "phenyan",
+      "name": "Пхеньян",
+      "country": "kp"
+    },
+    {
+      "slug": "seul",
+      "name": "Сеул",
+      "country": "kr"
+    },
+    {
+      "slug": "el-kuveyt",
+      "name": "Эль-Кувейт",
+      "country": "kw"
+    },
+    {
+      "slug": "dzhordzhtaun-ky",
+      "name": "Джорджтаун",
+      "country": "ky"
+    },
+    {
+      "slug": "astana",
+      "name": "Астана",
+      "country": "kz"
+    },
+    {
+      "slug": "ventyan",
+      "name": "Вьентьян",
+      "country": "la"
+    },
+    {
+      "slug": "beyrut",
+      "name": "Бейрут",
+      "country": "lb"
+    },
+    {
+      "slug": "kastri",
+      "name": "Кастри",
+      "country": "lc"
+    },
+    {
+      "slug": "vaduts",
+      "name": "Вадуц",
+      "country": "li"
+    },
+    {
+      "slug": "kolombo",
+      "name": "Коломбо",
+      "country": "lk"
+    },
+    {
+      "slug": "monroviya",
+      "name": "Монровия",
+      "country": "lr"
+    },
+    {
+      "slug": "maseru",
+      "name": "Масеру",
+      "country": "ls"
+    },
+    {
+      "slug": "vilnyus",
+      "name": "Вильнюс",
+      "country": "lt"
+    },
+    {
+      "slug": "lyuksemburg",
+      "name": "Люксембург",
+      "country": "lu"
+    },
+    {
+      "slug": "riga",
+      "name": "Рига",
+      "country": "lv"
+    },
+    {
+      "slug": "tripoli",
+      "name": "Триполи",
+      "country": "ly"
+    },
+    {
+      "slug": "rabat",
+      "name": "Рабат",
+      "country": "ma"
+    },
+    {
+      "slug": "monako",
+      "name": "Монако",
+      "country": "mc"
+    },
+    {
+      "slug": "kishinev",
+      "name": "Кишинёв",
+      "country": "md"
+    },
+    {
+      "slug": "podgoritsa",
+      "name": "Подгорица",
+      "country": "me"
+    },
+    {
+      "slug": "marigo",
+      "name": "Мариго",
+      "country": "mf"
+    },
+    {
+      "slug": "antananarivu",
+      "name": "Антананариву",
+      "country": "mg"
+    },
+    {
+      "slug": "madzhuro",
+      "name": "Маджуро",
+      "country": "mh"
+    },
+    {
+      "slug": "skope",
+      "name": "Скопье",
+      "country": "mk"
+    },
+    {
+      "slug": "bamako",
+      "name": "Бамако",
+      "country": "ml"
+    },
+    {
+      "slug": "neypido",
+      "name": "Нейпьидо",
+      "country": "mm"
+    },
+    {
+      "slug": "ulan-bator",
+      "name": "Улан-Батор",
+      "country": "mn"
+    },
+    {
+      "slug": "makao",
+      "name": "Макао",
+      "country": "mo"
+    },
+    {
+      "slug": "saipan",
+      "name": "Saipan",
+      "country": "mp"
+    },
+    {
+      "slug": "for-de-frans",
+      "name": "Фор-де-Франс",
+      "country": "mq"
+    },
+    {
+      "slug": "nuakshot",
+      "name": "Нуакшот",
+      "country": "mr"
+    },
+    {
+      "slug": "breyds",
+      "name": "Брейдс",
+      "country": "ms"
+    },
+    {
+      "slug": "valletta",
+      "name": "Валлетта",
+      "country": "mt"
+    },
+    {
+      "slug": "port-lui",
+      "name": "Порт-Луи",
+      "country": "mu"
+    },
+    {
+      "slug": "male",
+      "name": "Мале",
+      "country": "mv"
+    },
+    {
+      "slug": "lilongve",
+      "name": "Лилонгве",
+      "country": "mw"
+    },
+    {
+      "slug": "mehiko",
+      "name": "Мехико",
+      "country": "mx"
+    },
+    {
+      "slug": "kuala-lumpur",
+      "name": "Куала-Лумпур",
+      "country": "my"
+    },
+    {
+      "slug": "maputu",
+      "name": "Мапуту",
+      "country": "mz"
+    },
+    {
+      "slug": "vindhuk",
+      "name": "Виндхук",
+      "country": "na"
+    },
+    {
+      "slug": "numea",
+      "name": "Нумеа",
+      "country": "nc"
+    },
+    {
+      "slug": "niamey",
+      "name": "Ниамей",
+      "country": "ne"
+    },
+    {
+      "slug": "kingston-nf",
+      "name": "Кингстон",
+      "country": "nf"
+    },
+    {
+      "slug": "abudzha",
+      "name": "Абуджа",
+      "country": "ng"
+    },
+    {
+      "slug": "managua",
+      "name": "Манагуа",
+      "country": "ni"
+    },
+    {
+      "slug": "amsterdam",
+      "name": "Амстердам",
+      "country": "nl"
+    },
+    {
+      "slug": "oslo",
+      "name": "Осло",
+      "country": "no"
+    },
+    {
+      "slug": "katmandu",
+      "name": "Катманду",
+      "country": "np"
+    },
+    {
+      "slug": "yaren",
+      "name": "Ярен",
+      "country": "nr"
+    },
+    {
+      "slug": "alofi",
+      "name": "Алофи",
+      "country": "nu"
+    },
+    {
+      "slug": "vellington",
+      "name": "Веллингтон",
+      "country": "nz"
+    },
+    {
+      "slug": "maskat",
+      "name": "Маскат",
+      "country": "om"
+    },
+    {
+      "slug": "panama",
+      "name": "Панама",
+      "country": "pa"
+    },
+    {
+      "slug": "lima",
+      "name": "Лима",
+      "country": "pe"
+    },
+    {
+      "slug": "papeete",
+      "name": "Папеэте",
+      "country": "pf"
+    },
+    {
+      "slug": "port-morsbi",
+      "name": "Порт-Морсби",
+      "country": "pg"
+    },
+    {
+      "slug": "manila",
+      "name": "Манила",
+      "country": "ph"
+    },
+    {
+      "slug": "islamabad",
+      "name": "Исламабад",
+      "country": "pk"
+    },
+    {
+      "slug": "varshava",
+      "name": "Варшава",
+      "country": "pl"
+    },
+    {
+      "slug": "sen-per",
+      "name": "Сен-Пьер",
+      "country": "pm"
+    },
+    {
+      "slug": "adamstaun",
+      "name": "Адамстаун",
+      "country": "pn"
+    },
+    {
+      "slug": "san-huan",
+      "name": "Сан-Хуан",
+      "country": "pr"
+    },
+    {
+      "slug": "ramalla",
+      "name": "Рамалла",
+      "country": "ps"
+    },
+    {
+      "slug": "lissabon",
+      "name": "Лиссабон",
+      "country": "pt"
+    },
+    {
+      "slug": "ngerulmud",
+      "name": "Нгерулмуд",
+      "country": "pw"
+    },
+    {
+      "slug": "asunson",
+      "name": "Асунсьон",
+      "country": "py"
+    },
+    {
+      "slug": "doha",
+      "name": "Доха",
+      "country": "qa"
+    },
+    {
+      "slug": "sen-deni",
+      "name": "Сен-Дени",
+      "country": "re"
+    },
+    {
+      "slug": "buharest",
+      "name": "Бухарест",
+      "country": "ro"
+    },
+    {
+      "slug": "belgrad",
+      "name": "Белград",
+      "country": "rs"
+    },
+    {
+      "slug": "moskva",
+      "name": "Москва",
+      "country": "ru"
+    },
+    {
+      "slug": "kigali",
+      "name": "Кигали",
+      "country": "rw"
+    },
+    {
+      "slug": "er-riyad",
+      "name": "Эр-Рияд",
+      "country": "sa"
+    },
+    {
+      "slug": "honiara",
+      "name": "Хониара",
+      "country": "sb"
+    },
+    {
+      "slug": "viktoriya",
+      "name": "Виктория",
+      "country": "sc"
+    },
+    {
+      "slug": "hartum",
+      "name": "Хартум",
+      "country": "sd"
+    },
+    {
+      "slug": "stokgolm",
+      "name": "Стокгольм",
+      "country": "se"
+    },
+    {
+      "slug": "singapur",
+      "name": "Сингапур",
+      "country": "sg"
+    },
+    {
+      "slug": "dzheymstaun",
+      "name": "Джеймстаун",
+      "country": "sh"
+    },
+    {
+      "slug": "lyublyana",
+      "name": "Любляна",
+      "country": "si"
+    },
+    {
+      "slug": "longyir",
+      "name": "Лонгйир",
+      "country": "sj"
+    },
+    {
+      "slug": "bratislava",
+      "name": "Братислава",
+      "country": "sk"
+    },
+    {
+      "slug": "fritaun",
+      "name": "Фритаун",
+      "country": "sl"
+    },
+    {
+      "slug": "san-marino",
+      "name": "Сан-Марино",
+      "country": "sm"
+    },
+    {
+      "slug": "dakar",
+      "name": "Дакар",
+      "country": "sn"
+    },
+    {
+      "slug": "mogadisho",
+      "name": "Могадишо",
+      "country": "so"
+    },
+    {
+      "slug": "paramaribo",
+      "name": "Парамарибо",
+      "country": "sr"
+    },
+    {
+      "slug": "dzhuba",
+      "name": "Джуба",
+      "country": "ss"
+    },
+    {
+      "slug": "san-tome",
+      "name": "Сан-Томе",
+      "country": "st"
+    },
+    {
+      "slug": "san-salvador",
+      "name": "Сан-Сальвадор",
+      "country": "sv"
+    },
+    {
+      "slug": "filipsburg",
+      "name": "Филипсбург",
+      "country": "sx"
+    },
+    {
+      "slug": "damask",
+      "name": "Дамаск",
+      "country": "sy"
+    },
+    {
+      "slug": "mbabane",
+      "name": "Мбабане",
+      "country": "sz"
+    },
+    {
+      "slug": "kobern-taun",
+      "name": "Коберн-Таун",
+      "country": "tc"
+    },
+    {
+      "slug": "ndzhamena",
+      "name": "Нджамена",
+      "country": "td"
+    },
+    {
+      "slug": "lome",
+      "name": "Ломе",
+      "country": "tg"
+    },
+    {
+      "slug": "bangkok",
+      "name": "Бангкок",
+      "country": "th"
+    },
+    {
+      "slug": "dushanbe",
+      "name": "Душанбе",
+      "country": "tj"
+    },
+    {
+      "slug": "dili",
+      "name": "Дили",
+      "country": "tl"
+    },
+    {
+      "slug": "ashhabad",
+      "name": "Ашхабад",
+      "country": "tm"
+    },
+    {
+      "slug": "tunis",
+      "name": "Тунис",
+      "country": "tn"
+    },
+    {
+      "slug": "nukualofa",
+      "name": "Нукуалофа",
+      "country": "to"
+    },
+    {
+      "slug": "ankara",
+      "name": "Анкара",
+      "country": "tr"
+    },
+    {
+      "slug": "port-of-speyn",
+      "name": "Порт-оф-Спейн",
+      "country": "tt"
+    },
+    {
+      "slug": "funafuti",
+      "name": "Фунафути",
+      "country": "tv"
+    },
+    {
+      "slug": "taybey",
+      "name": "Тайбэй",
+      "country": "tw"
+    },
+    {
+      "slug": "dodoma",
+      "name": "Додома",
+      "country": "tz"
+    },
+    {
+      "slug": "kiev",
+      "name": "Киев",
+      "country": "ua"
+    },
+    {
+      "slug": "kampala",
+      "name": "Кампала",
+      "country": "ug"
+    },
+    {
+      "slug": "vashington",
+      "name": "Вашингтон",
+      "country": "us"
+    },
+    {
+      "slug": "montevideo",
+      "name": "Монтевидео",
+      "country": "uy"
+    },
+    {
+      "slug": "tashkent",
+      "name": "Ташкент",
+      "country": "uz"
+    },
+    {
+      "slug": "vatikan",
+      "name": "Ватикан",
+      "country": "va"
+    },
+    {
+      "slug": "kingstaun",
+      "name": "Кингстаун",
+      "country": "vc"
+    },
+    {
+      "slug": "karakas",
+      "name": "Каракас",
+      "country": "ve"
+    },
+    {
+      "slug": "rod-taun",
+      "name": "Род-Таун",
+      "country": "vg"
+    },
+    {
+      "slug": "sharlotta-amaliya",
+      "name": "Шарлотта-Амалия",
+      "country": "vi"
+    },
+    {
+      "slug": "hanoy",
+      "name": "Ханой",
+      "country": "vn"
+    },
+    {
+      "slug": "port-vila",
+      "name": "Порт-Вила",
+      "country": "vu"
+    },
+    {
+      "slug": "mata-utu",
+      "name": "Мата-Уту",
+      "country": "wf"
+    },
+    {
+      "slug": "apia",
+      "name": "Апиа",
+      "country": "ws"
+    },
+    {
+      "slug": "prishtina",
+      "name": "Приштина",
+      "country": "xk"
+    },
+    {
+      "slug": "sana",
+      "name": "Сана",
+      "country": "ye"
+    },
+    {
+      "slug": "mamudzu",
+      "name": "Мамудзу",
+      "country": "yt"
+    },
+    {
+      "slug": "keyptaun",
+      "name": "Кейптаун",
+      "country": "za"
+    },
+    {
+      "slug": "lusaka",
+      "name": "Лусака",
+      "country": "zm"
+    },
+    {
+      "slug": "harare",
+      "name": "Хараре",
+      "country": "zw"
+    }
+  ]
+}

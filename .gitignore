@@ -1,9 +1,13 @@
 # dependencies
 node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
 
 # next.js
 .next/
 out/
+build/
 
 # testing
 coverage/
@@ -15,6 +19,7 @@ playwright/.cache/
 # misc
 .DS_Store
 *.pem
+.idea/
 
 # debug
 npm-debug.log*
@@ -32,4 +37,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# загрузки Payload
 /media
+
+# сырые ответы Wikidata для scripts/fetch-geo.mjs; в репозиторий идёт только
+# собранный src/cms/seed/data/geo.json
+scripts/.geo-cache/

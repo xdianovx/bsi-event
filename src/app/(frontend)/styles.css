@@ -1,0 +1,30 @@
+/* Tailwind v4 — строго первым */
+@import 'tailwindcss';
+
+/* Стили HeroUI v3 — строго после Tailwind */
+@import '@heroui/styles';
+
+/*
+  Подключается только в layout группы (frontend). Админка Payload — отдельная
+  route-группа со своим layout и своими стилями, Tailwind туда не протекает.
+
+  Тема — стандартная светлая тема HeroUI целиком: палитра, радиусы, тени,
+  типографика. Своего не задаём ничего, включая шрифт: у библиотеки это
+  системный стек (--font-sans), вебшрифт она не грузит.
+*/
+
+/*
+  Единственное отступление от дефолта: фон страницы белый.
+  У HeroUI в светлой теме --background светло-серый, а белый отдан
+  поверхностям. Карточки от белого полотна отделяет их собственная тень.
+*/
+:root {
+  --background: var(--white);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

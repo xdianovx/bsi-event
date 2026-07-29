@@ -1,2 +1,2 @@
-npm run lint --workspaces --if-present
-npm run test --workspaces --if-present
+npm run lint
+npm run test
