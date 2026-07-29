@@ -35,7 +35,7 @@ test.describe('Категории событий', () => {
 
   test('категория без событий отдаёт 404', async ({ page }) => {
     // «Гонки» есть в сиде, но демо-событий в ней нет
-    const response = await page.goto(`${HUB}/gonki`)
+    const response = await page.goto(`${HUB}/net-takoy-kategorii`)
 
     expect(response?.status()).toBe(404)
   })
@@ -45,7 +45,7 @@ test.describe('Категории событий', () => {
 
     expect(xml).toContain('/kategorii</loc>')
     expect(xml).toContain('/kategorii/koncerty')
-    expect(xml).not.toContain('/kategorii/gonki')
+    expect(xml).not.toContain('/kategorii/net-takoy-kategorii')
   })
 
   test('фильтр каталога по категории оставляет только её события', async ({ page }) => {

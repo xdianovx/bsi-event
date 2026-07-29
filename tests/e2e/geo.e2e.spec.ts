@@ -23,7 +23,7 @@ test.describe('География', () => {
     await page.goto(`${BASE}/evropa/italiya`)
 
     await expect(page.locator('h1')).toContainText('Италия')
-    await expect(page.getByRole('link', { name: 'Милан' })).toBeVisible()
+    await expect(page.getByRole('link', { name: 'Рим' })).toBeVisible()
     await expect(page.locator('main ul > li .card')).not.toHaveCount(0)
   })
 
@@ -34,15 +34,15 @@ test.describe('География', () => {
   })
 
   test('город показывает только свои события', async ({ page }) => {
-    await page.goto(`${BASE}/evropa/italiya/milan`)
+    await page.goto(`${BASE}/evropa/italiya/rim`)
 
-    await expect(page.locator('h1')).toHaveText('Милан')
+    await expect(page.locator('h1')).toHaveText('Рим')
     await expect(page.locator('main ul > li .card')).toHaveCount(1)
-    await expect(page.locator('main ul > li .card').first()).toContainText('Милан')
+    await expect(page.locator('main ul > li .card').first()).toContainText('Рим')
   })
 
   test('хлебные крошки ведут вверх по цепочке', async ({ page }) => {
-    await page.goto(`${BASE}/evropa/italiya/milan`)
+    await page.goto(`${BASE}/evropa/italiya/rim`)
     const crumbs = page.getByLabel('Хлебные крошки')
 
     await expect(crumbs.getByRole('link', { name: 'Направления' })).toBeVisible()
@@ -64,10 +64,10 @@ test.describe('География', () => {
 
   test('страна и город без событий не открываются', async ({ page }) => {
     // Справочник заполнен целиком, но событий во Францию нет — страницы быть не должно
-    const country = await page.goto(`${BASE}/evropa/frantsiya`)
+    const country = await page.goto(`${BASE}/evropa/polsha`)
     expect(country?.status()).toBe(404)
 
-    const city = await page.goto(`${BASE}/evropa/frantsiya/parizh`)
+    const city = await page.goto(`${BASE}/evropa/polsha/varshava`)
     expect(city?.status()).toBe(404)
   })
 
@@ -75,7 +75,7 @@ test.describe('География', () => {
     await page.goto(`${BASE}/evropa`)
 
     await expect(page.getByRole('link', { name: /Италия/ })).toBeVisible()
-    await expect(page.getByRole('link', { name: /Франция/ })).toHaveCount(0)
+    await expect(page.getByRole('link', { name: /Польша/ })).toHaveCount(0)
   })
 
   test('карта сайта содержит вложенные адреса и не содержит обрывочных', async ({ page }) => {
@@ -83,13 +83,13 @@ test.describe('География', () => {
     const xml = (await res?.text()) ?? ''
     const urls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => m[1])
 
-    expect(urls).toContain('http://localhost:3000/napravleniya/evropa/italiya/milan')
+    expect(urls).toContain('http://localhost:3000/napravleniya/evropa/italiya/rim')
 
     // Страна без региона недостижима по адресу — в карте ей не место
     const napravleniya = urls.filter((u) => u.includes('/napravleniya/'))
     expect(napravleniya.every((u) => u.split('/napravleniya/')[1].length > 0)).toBe(true)
 
     // Как и страна без событий: её страница отдаёт 404
-    expect(urls).not.toContain('http://localhost:3000/napravleniya/evropa/frantsiya')
+    expect(urls).not.toContain('http://localhost:3000/napravleniya/evropa/polsha')
   })
 })

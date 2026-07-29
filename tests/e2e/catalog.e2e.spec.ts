@@ -34,24 +34,24 @@ test.describe('Каталог событий', () => {
   })
 
   test('фильтр по городу оставляет события только этого города', async ({ page }) => {
-    await page.goto(`${CATALOG}?city=milan`)
+    await page.goto(`${CATALOG}?city=berlin`)
 
     await expect(cards(page)).toHaveCount(1)
-    await expect(cards(page).first()).toContainText('Милан')
+    await expect(cards(page).first()).toContainText('Берлин')
   })
 
   test('фильтр по цене отбирает по рублёвому эквиваленту', async ({ page }) => {
-    // Демо-данные: 15 000 ₽ и 300 $ (≈ 30 000 ₽). Порог 20 000 оставляет только первое.
-    await page.goto(`${CATALOG}?maxPrice=20000`)
+    // Самое дешёвое событие сида — Афинский марафон, ≈ 71 000 ₽.
+    await page.goto(`${CATALOG}?maxPrice=75000`)
 
     await expect(cards(page)).toHaveCount(1)
-    await expect(cards(page).first()).toContainText('15 000')
+    await expect(cards(page).first()).toContainText('Афинский классический марафон')
   })
 
   test('сортировка по цене ставит дешёвое первым', async ({ page }) => {
     await page.goto(`${CATALOG}?sort=price`)
 
-    await expect(cards(page).first()).toContainText('15 000')
+    await expect(cards(page).first()).toContainText('Афинский классический марафон')
   })
 
   test('сброс фильтров возвращает полный список', async ({ page }) => {
@@ -86,7 +86,7 @@ test.describe('Sitemap', () => {
     const xml = (await res?.text()) ?? ''
 
     expect(xml).toContain('/sobytiya')
-    expect(xml).toContain('/sobytiya/sobytie-rubli-demo')
+    expect(xml).toContain('/sobytiya/coldplay-berlin-2026')
 
     // Фильтры — дубли каталога, в карту сайта не попадают. Проверяем сами адреса:
     // '?' есть и в XML-декларации, поэтому искать по всему документу нельзя.

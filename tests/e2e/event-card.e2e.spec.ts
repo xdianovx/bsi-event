@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test'
 
-const CARD = 'http://localhost:3000/sobytiya/sobytie-rubli-demo'
+const CARD = 'http://localhost:3000/sobytiya/coldplay-berlin-2026'
 
-// Демо-событие: билет 15 000 ₽, допки — трансфер 1 000 ₽ и страховка 500 ₽
+// Демо-событие из сида: цена «от» 1 140 €, докупаются виза 180 € и экскурсии 90 €
 const total = (page: import('@playwright/test').Page) => page.getByTestId('order-total')
 
 /**
@@ -16,8 +16,8 @@ test.describe('Карточка события', () => {
   test('показывает название, место и дату', async ({ page }) => {
     await page.goto(CARD)
 
-    await expect(page.locator('h1')).toHaveText('Демо-событие: рублёвая цена')
-    await expect(page.getByText('Италия, Милан')).toBeVisible()
+    await expect(page.locator('h1')).toHaveText('Coldplay в Берлине')
+    await expect(page.getByText('Германия, Берлин')).toBeVisible()
     await expect(page.getByText('12 сент 2026')).toBeVisible()
   })
 
@@ -29,38 +29,38 @@ test.describe('Карточка события', () => {
 
   test('допка увеличивает итог и попадает в состав', async ({ page }) => {
     await page.goto(CARD)
-    await expect(total(page)).toHaveText('15 000 ₽')
+    await expect(total(page)).toHaveText('1 140 €')
 
-    await addon(page, 'Трансфер').click()
+    await addon(page, 'Виза').click()
 
-    await expect(total(page)).toHaveText('16 000 ₽')
-    await expect(page.getByTestId('order-items')).toContainText('Трансфер')
+    await expect(total(page)).toHaveText('1 320 €')
+    await expect(page.getByTestId('order-items')).toContainText('Виза')
   })
 
   test('снятая допка возвращает прежний итог', async ({ page }) => {
     await page.goto(CARD)
-    const transfer = addon(page, 'Трансфер')
+    const transfer = addon(page, 'Виза')
 
     await transfer.click()
-    await expect(total(page)).toHaveText('16 000 ₽')
+    await expect(total(page)).toHaveText('1 320 €')
 
     await transfer.click()
-    await expect(total(page)).toHaveText('15 000 ₽')
-    await expect(page.getByTestId('order-items')).not.toContainText('Трансфер')
+    await expect(total(page)).toHaveText('1 140 €')
+    await expect(page.getByTestId('order-items')).not.toContainText('Виза')
   })
 
   test('несколько допок складываются', async ({ page }) => {
     await page.goto(CARD)
 
-    await addon(page, 'Трансфер').click()
-    await addon(page, 'Страховка').click()
+    await addon(page, 'Виза').click()
+    await addon(page, 'Экскурсии').click()
 
-    await expect(total(page)).toHaveText('16 500 ₽')
+    await expect(total(page)).toHaveText('1 410 €')
   })
 
   test('заявка уходит вместе с собранным составом', async ({ page }) => {
     await page.goto(CARD)
-    await addon(page, 'Трансфер').click()
+    await addon(page, 'Виза').click()
 
     // Ловим тело запроса: состав должен уехать копией, а не ссылкой на событие
     const request = page.waitForRequest(
@@ -76,9 +76,9 @@ test.describe('Карточка события', () => {
     const body = JSON.parse((await request).postData() ?? '{}')
 
     expect(body.name).toBe('Тестовый Иван')
-    expect(body.orderTotal).toBe(16000)
+    expect(body.orderTotal).toBe(1320)
     expect(body.orderItems).toHaveLength(2)
-    expect(body.orderItems[1]).toMatchObject({ label: 'Трансфер', price: 1000 })
+    expect(body.orderItems[1]).toMatchObject({ label: 'Виза', price: 180 })
 
     await expect(page.getByText('Заявка принята')).toBeVisible()
   })

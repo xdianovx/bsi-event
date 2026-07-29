@@ -47,7 +47,7 @@ test.describe('Страница направлений', () => {
     await page.goto(`${BASE}/napravleniya`)
 
     await expect(page.getByRole('heading', { name: 'Все страны' })).toBeVisible()
-    await expect(page.getByText('Франция', { exact: true })).toBeVisible()
-    await expect(page.getByRole('link', { name: 'Франция', exact: true })).toHaveCount(0)
+    await expect(page.getByText('Польша', { exact: true })).toBeVisible()
+    await expect(page.getByRole('link', { name: 'Польша', exact: true })).toHaveCount(0)
   })
 })
