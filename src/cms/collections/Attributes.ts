@@ -7,9 +7,9 @@ import { generateSlug } from '../hooks/generateSlug'
  * «Питание» осмысленны в обеих ролях, а дубли ради одной роли пришлось бы
  * править дважды.
  */
-export const Components: CollectionConfig = {
-  slug: 'components',
-  labels: { singular: 'Составляющая тура', plural: 'Составляющие тура' },
+export const Attributes: CollectionConfig = {
+  slug: 'attributes',
+  labels: { singular: 'Атрибут', plural: 'Атрибуты' },
   admin: {
     useAsTitle: 'name',
     group: 'Справочники',

@@ -3,13 +3,13 @@ import { Card, Chip, Typography } from '@heroui/react'
 import { getPayload } from 'payload'
 
 import config from '@/cms/payload.config'
-import { ComponentIcon, getComponents } from '@/entities/component'
+import { AttributeIcon, getAttributes } from '@/entities/attribute'
 import { Page, Section } from '@/shared/ui'
 
 // Витрина служебная: заказчик и редакция проверяют глазами иконки и тексты.
 // Трафика она не ищет — закрыта от индексации и не попадает в sitemap.xml.
 export const metadata: Metadata = {
-  title: 'Составляющие тура — справочник',
+  title: 'Атрибуты — справочник',
   robots: { index: false, follow: false },
 }
 
@@ -18,44 +18,44 @@ const SCOPE_LABELS: Record<string, string> = {
   room: 'Номер',
 }
 
-export default async function ComponentsShowcasePage() {
+export default async function AttributesShowcasePage() {
   const payload = await getPayload({ config: await config })
-  const components = await getComponents(payload)
+  const attributes = await getAttributes(payload)
 
   return (
     <Page>
       <Section>
-        <Typography.Heading level={1}>Составляющие тура</Typography.Heading>
+        <Typography.Heading level={1}>Атрибуты</Typography.Heading>
         <Typography color="muted">
-          Справочник того, из чего складывается тур. Заполняется в админке, отсюда попадает в
-          карточки и на страницы туров.
+          Справочник того, из чего складывается тур и что есть в номере. Заполняется в админке,
+          отсюда попадает в карточки и на страницы туров.
         </Typography>
       </Section>
 
-      {components.length === 0 ? (
+      {attributes.length === 0 ? (
         <Typography color="muted">
-          Справочник пуст. Заведите составляющие в админке или выполните команду сида.
+          Справочник пуст. Заведите атрибуты в админке или выполните команду сида.
         </Typography>
       ) : (
         <Section>
           <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {components.map((component) => (
-              <li key={component.id}>
+            {attributes.map((attribute) => (
+              <li key={attribute.id}>
                 <Card className="h-full">
                   <Card.Header>
                     <div className="flex items-center gap-3">
                       {/* Иконки может не быть — тогда остаётся название: без него
                           непонятно, что входит в тур, без картинки — понятно. */}
-                      <ComponentIcon icon={component.icon} />
-                      <Card.Title>{component.name}</Card.Title>
+                      <AttributeIcon icon={attribute.icon} />
+                      <Card.Title>{attribute.name}</Card.Title>
                     </div>
-                    {component.description && (
-                      <Card.Description>{component.description}</Card.Description>
+                    {attribute.description && (
+                      <Card.Description>{attribute.description}</Card.Description>
                     )}
                   </Card.Header>
 
                   <Card.Footer className="mt-auto gap-2">
-                    {component.scope.map((scope) => (
+                    {attribute.scope.map((scope) => (
                       <Chip key={scope} size="sm">
                         {SCOPE_LABELS[scope] ?? scope}
                       </Chip>

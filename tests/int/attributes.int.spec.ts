@@ -28,7 +28,7 @@ const PNG = bytes(
   ),
 )
 
-describe('Справочник составляющих тура', () => {
+describe('Справочник атрибутов', () => {
   beforeAll(async () => {
     payload = await getPayload({ config: await config })
   })
@@ -36,7 +36,7 @@ describe('Справочник составляющих тура', () => {
   it('создаётся с автослагом из названия', async () => {
     const name = `Гид автотест ${Date.now()}`
     const doc = await payload.create({
-      collection: 'components',
+      collection: 'attributes',
       // slug опущен намеренно — подставляет хук beforeValidate, типы этого не знают
       data: { name, scope: ['tour'] } as never,
     })
@@ -47,32 +47,32 @@ describe('Справочник составляющих тура', () => {
 
   it('не перезаписывает явно заданный слаг', async () => {
     const doc = await payload.create({
-      collection: 'components',
+      collection: 'attributes',
       data: {
         name: `Трансфер автотест ${Date.now()}`,
-        slug: `custom-component-${Date.now()}`,
+        slug: `custom-attribute-${Date.now()}`,
         scope: ['tour'],
       },
     })
 
-    expect(doc.slug).toMatch(/^custom-component-/)
+    expect(doc.slug).toMatch(/^custom-attribute-/)
   })
 
   it('не допускает двух записей с одинаковым слагом', async () => {
-    const slug = `duplicate-component-${Date.now()}`
+    const slug = `duplicate-attribute-${Date.now()}`
     await payload.create({
-      collection: 'components',
+      collection: 'attributes',
       data: { name: 'Первая', slug, scope: ['tour'] },
     })
 
     await expect(
-      payload.create({ collection: 'components', data: { name: 'Вторая', slug, scope: ['tour'] } }),
+      payload.create({ collection: 'attributes', data: { name: 'Вторая', slug, scope: ['tour'] } }),
     ).rejects.toThrow()
   })
 
   it('хранит сразу две области применения', async () => {
     const doc = await payload.create({
-      collection: 'components',
+      collection: 'attributes',
       data: {
         name: `Питание автотест ${Date.now()}`,
         slug: `pitanie-${Date.now()}`,
@@ -83,7 +83,7 @@ describe('Справочник составляющих тура', () => {
     expect(doc.scope).toEqual(['tour', 'room'])
 
     const { docs } = await payload.find({
-      collection: 'components',
+      collection: 'attributes',
       where: { scope: { contains: 'room' }, id: { equals: doc.id } },
       limit: 1,
     })
@@ -93,7 +93,7 @@ describe('Справочник составляющих тура', () => {
   it('требует хотя бы одну область применения', async () => {
     await expect(
       payload.create({
-        collection: 'components',
+        collection: 'attributes',
         data: { name: 'Без области', slug: `bez-oblasti-${Date.now()}`, scope: [] } as never,
       }),
     ).rejects.toThrow()
@@ -119,7 +119,7 @@ describe('Справочник составляющих тура', () => {
     ).rejects.toThrow()
   })
 
-  it('связывает составляющую с иконкой', async () => {
+  it('связывает атрибут с иконкой', async () => {
     const icon = await payload.create({
       collection: 'icons',
       data: { alt: `Иконка связи ${Date.now()}` },
@@ -127,7 +127,7 @@ describe('Справочник составляющих тура', () => {
     })
 
     const doc = await payload.create({
-      collection: 'components',
+      collection: 'attributes',
       data: {
         name: `Виза автотест ${Date.now()}`,
         slug: `viza-${Date.now()}`,

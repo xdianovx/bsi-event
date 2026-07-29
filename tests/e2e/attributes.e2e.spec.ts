@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test'
 
-const URL = 'http://localhost:3000/sostav-tura'
+const URL = 'http://localhost:3000/atributy'
 
-test.describe('Витрина справочника составляющих', () => {
+test.describe('Витрина справочника атрибутов', () => {
   test('показывает засиженные записи', async ({ page }) => {
     await page.goto(URL)
 
-    await expect(page.locator('h1')).toHaveText('Составляющие тура')
+    await expect(page.locator('h1')).toHaveText('Атрибуты')
     await expect(page.getByText('Билеты', { exact: true })).toBeVisible()
     await expect(page.getByText('Гид', { exact: true })).toBeVisible()
     await expect(page.locator('main ul > li')).toHaveCount(9)
@@ -31,7 +31,7 @@ test.describe('Витрина справочника составляющих', 
     )
   })
 
-  test('составляющая без иконки показывается названием', async ({ page }) => {
+  test('атрибут без иконки показывается названием', async ({ page }) => {
     await page.goto(URL)
 
     // Сид иконок не грузит: карточки есть, а масок ещё нет — и это рабочее состояние
@@ -43,6 +43,6 @@ test.describe('Витрина справочника составляющих', 
   test('витрины нет в sitemap.xml', async ({ request }) => {
     const response = await request.get('http://localhost:3000/sitemap.xml')
 
-    expect(await response.text()).not.toContain('/sostav-tura')
+    expect(await response.text()).not.toContain('/atributy')
   })
 })

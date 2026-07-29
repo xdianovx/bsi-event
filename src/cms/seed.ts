@@ -13,13 +13,13 @@ type GeoData = {
   cities: { slug: string; name: string; country: string }[]
 }
 
-type SeedCollection = 'regions' | 'countries' | 'cities' | 'components'
+type SeedCollection = 'regions' | 'countries' | 'cities' | 'attributes'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
 const DATA = join(HERE, 'seed', 'data')
 const geo: GeoData = JSON.parse(readFileSync(join(DATA, 'geo.json'), 'utf8'))
-const components: { slug: string; [key: string]: unknown }[] = JSON.parse(
-  readFileSync(join(DATA, 'components.json'), 'utf8'),
+const attributes: { slug: string; [key: string]: unknown }[] = JSON.parse(
+  readFileSync(join(DATA, 'attributes.json'), 'utf8'),
 )
 
 /**
@@ -91,9 +91,9 @@ const run = async () => {
     })),
   )
 
-  // Стартовый набор состава тура. Иконки не грузим: их подбирает контент-менеджер,
-  // а составляющая без иконки выводится названием — так решено в PRD.
-  await syncCollection(payload, 'components', components, { createOnly: true })
+  // Стартовый набор атрибутов тура. Иконки не грузим: их подбирает контент-менеджер,
+  // а атрибут без иконки выводится названием — так решено в PRD.
+  await syncCollection(payload, 'attributes', attributes, { createOnly: true })
 
   // --- Демо-контент: события, на которых видно работу каталога ---
 

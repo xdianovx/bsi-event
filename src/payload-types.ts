@@ -73,7 +73,7 @@ export interface Config {
     regions: Region;
     countries: Country;
     cities: City;
-    components: Component;
+    attributes: Attribute;
     events: Event;
     leads: Lead;
     reviews: Review;
@@ -98,7 +98,7 @@ export interface Config {
     regions: RegionsSelect<false> | RegionsSelect<true>;
     countries: CountriesSelect<false> | CountriesSelect<true>;
     cities: CitiesSelect<false> | CitiesSelect<true>;
-    components: ComponentsSelect<false> | ComponentsSelect<true>;
+    attributes: AttributesSelect<false> | AttributesSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     leads: LeadsSelect<false> | LeadsSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
@@ -306,9 +306,9 @@ export interface City {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "components".
+ * via the `definition` "attributes".
  */
-export interface Component {
+export interface Attribute {
   id: number;
   name: string;
   /**
@@ -520,8 +520,8 @@ export interface PayloadLockedDocument {
         value: number | City;
       } | null)
     | ({
-        relationTo: 'components';
-        value: number | Component;
+        relationTo: 'attributes';
+        value: number | Attribute;
       } | null)
     | ({
         relationTo: 'events';
@@ -699,9 +699,9 @@ export interface CitiesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "components_select".
+ * via the `definition` "attributes_select".
  */
-export interface ComponentsSelect<T extends boolean = true> {
+export interface AttributesSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
   icon?: T;

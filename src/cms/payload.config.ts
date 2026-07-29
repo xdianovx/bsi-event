@@ -11,7 +11,7 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Icons } from './collections/Icons'
-import { Components } from './collections/Components'
+import { Attributes } from './collections/Attributes'
 import { Countries } from './collections/Countries'
 import { Regions } from './collections/Regions'
 import { Cities } from './collections/Cities'
@@ -49,7 +49,7 @@ export default buildConfig({
     Regions,
     Countries,
     Cities,
-    Components,
+    Attributes,
     Events,
     Leads,
     Reviews,

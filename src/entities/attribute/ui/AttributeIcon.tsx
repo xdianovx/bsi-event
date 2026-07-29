@@ -1,7 +1,7 @@
-import type { Component } from '@/payload-types'
+import type { Attribute } from '@/payload-types'
 
 /**
- * Иконка составляющей. Файл подключается как CSS-маска, а цвет берётся из
+ * Иконка атрибута. Файл подключается как CSS-маска, а цвет берётся из
  * currentColor — так иконка следует теме и состоянию. Через <img> этого не
  * добиться (CSS внутрь картинки не проникает), а встраивать загруженный SVG
  * в разметку нельзя: он может содержать скрипт.
@@ -12,7 +12,7 @@ import type { Component } from '@/payload-types'
  * Иконки нет — не рисуем ничего: название важнее картинки, заглушка только
  * шумит.
  */
-export function ComponentIcon({ icon }: { icon: Component['icon'] }) {
+export function AttributeIcon({ icon }: { icon: Attribute['icon'] }) {
   const url = typeof icon === 'object' && icon?.url ? icon.url : null
 
   if (!url) return null

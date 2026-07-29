@@ -9,7 +9,7 @@ import { describe, it, beforeAll, expect } from 'vitest'
 let payload: Payload
 
 const seedRows: { slug: string; name: string; scope: string[]; order: number }[] = JSON.parse(
-  readFileSync(join(process.cwd(), 'src/cms/seed/data/components.json'), 'utf8'),
+  readFileSync(join(process.cwd(), 'src/cms/seed/data/attributes.json'), 'utf8'),
 )
 
 /** Прогон настоящего сида: проверять идемпотентность имитацией бессмысленно. */
@@ -22,14 +22,14 @@ const runSeed = () =>
 
 const findAll = () =>
   payload.find({
-    collection: 'components',
+    collection: 'attributes',
     where: { slug: { in: seedRows.map((row) => row.slug) } },
     limit: 0,
     depth: 0,
     sort: 'order',
   })
 
-describe('Сид составляющих тура', () => {
+describe('Сид атрибутов', () => {
   beforeAll(async () => {
     payload = await getPayload({ config: await config })
     runSeed()
@@ -56,7 +56,7 @@ describe('Сид составляющих тура', () => {
 
   it('повторный запуск не плодит дубли и не затирает правки', async () => {
     const edited = await payload.update({
-      collection: 'components',
+      collection: 'attributes',
       where: { slug: { equals: 'gid' } },
       data: { description: 'Правка контент-менеджера' },
     })
