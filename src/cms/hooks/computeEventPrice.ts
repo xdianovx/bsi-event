@@ -28,7 +28,7 @@ export const computeEventPrice: CollectionBeforeChangeHook = async ({ data, req 
     priceRub: calcPriceRub({
       price: priceFrom,
       currency,
-      rates: await getLatestRates(req),
+      rates: await getLatestRates({ payload: req.payload, req }),
       markupPercent: settings.markupPercent ?? 0,
     }),
   }

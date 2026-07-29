@@ -1,9 +1,11 @@
-import type { PayloadRequest } from 'payload'
-import type { Currency, Rates } from '@/shared/lib'
+import type { Payload, PayloadRequest } from 'payload'
+import { calcPriceRub, type Currency, type Rates } from '@/shared/lib'
 
 type Foreign = Exclude<Currency, 'rub'>
 
 const FOREIGN: Foreign[] = ['usd', 'eur']
+
+type Args = { payload: Payload; req?: PayloadRequest }
 
 /**
  * Последний известный курс каждой валюты.
@@ -12,10 +14,10 @@ const FOREIGN: Foreign[] = ['usd', 'eur']
  * по последней записи, а не отдаёт нули. Пустая коллекция — только на чистой базе до сида,
  * там курс и правда неизвестен.
  */
-export const getLatestRates = async (req: PayloadRequest): Promise<Rates> => {
+export const getLatestRates = async ({ payload, req }: Args): Promise<Rates> => {
   const entries = await Promise.all(
     FOREIGN.map(async (currency) => {
-      const { docs } = await req.payload.find({
+      const { docs } = await payload.find({
         collection: 'exchangeRates',
         where: { currency: { equals: currency } },
         sort: '-date',
@@ -29,4 +31,21 @@ export const getLatestRates = async (req: PayloadRequest): Promise<Rates> => {
   )
 
   return Object.fromEntries(entries) as Rates
+}
+
+/**
+ * Переводит цены события в рубли — ту же цифру, что лежит в `priceRub` каталога.
+ *
+ * Курс и наценку читаем один раз на страницу и отдаём готовую функцию: считать формулу
+ * на клиенте нельзя, иначе округление разъедется с каталогом, а наценка компании уедет
+ * в исходники страницы.
+ */
+export const getRubConverter = async ({ payload, req }: Args) => {
+  const [rates, settings] = await Promise.all([
+    getLatestRates({ payload, req }),
+    payload.findGlobal({ slug: 'settings', req }),
+  ])
+
+  return (price: number, currency: Currency) =>
+    calcPriceRub({ price, currency, rates, markupPercent: settings.markupPercent ?? 0 })
 }

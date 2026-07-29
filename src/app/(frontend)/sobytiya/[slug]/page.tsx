@@ -5,6 +5,7 @@ import { getPayload } from 'payload'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 
 import config from '@/cms/payload.config'
+import { getRubConverter } from '@/cms/lib/rates'
 import { getEventBySlug } from '@/entities/event'
 import type { Media } from '@/payload-types'
 import { formatDate, formatPlace, formatPrice } from '@/entities/event'
@@ -16,6 +17,12 @@ type Params = Promise<{ slug: string }>
 const load = async (slug: string) => {
   const payload = await getPayload({ config: await config })
   return getEventBySlug(payload, slug)
+}
+
+/** Цены показываем только в рублях: покупатель платит рублями, а курс — наша забота. */
+const loadConverter = async () => {
+  const payload = await getPayload({ config: await config })
+  return getRubConverter({ payload })
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
@@ -53,10 +60,15 @@ export default async function EventPage({ params }: { params: Params }) {
     .map((item) => (typeof item === 'object' ? item : null))
     .filter(Boolean) as { id: number; name: string; description?: string | null }[]
 
+  // Все цены приводим к рублям здесь, на сервере: формула и округление должны остаться
+  // в одном месте, иначе сумма на странице разойдётся с ценой на карточке каталога.
+  const toRub = await loadConverter()
+  const inRub = (price?: number | null) => toRub(price ?? 0, event.currency)
+
   const paidSeparately = (event.paidSeparately ?? []).map((row) => ({
     id: String(row.id),
     label: typeof row.attribute === 'object' ? row.attribute.name : 'Доп',
-    price: row.price,
+    price: inRub(row.price),
     note: row.note,
   }))
 
@@ -124,7 +136,7 @@ export default async function EventPage({ params }: { params: Params }) {
                   <li key={item.id} className="text-muted">
                     <span className="text-foreground font-medium">{item.label}</span>
                     {' — '}
-                    {formatPrice(item.price, event.currency)}
+                    {formatPrice(item.price, 'rub')}
                     {item.note ? ` · ${item.note}` : null}
                   </li>
                 ))}
@@ -145,7 +157,7 @@ export default async function EventPage({ params }: { params: Params }) {
                       ) : null}
                     </span>
                     <span className="text-muted shrink-0">
-                      {ticket.soldOut ? 'нет мест' : formatPrice(ticket.price, event.currency)}
+                      {ticket.soldOut ? 'нет мест' : formatPrice(inRub(ticket.price), 'rub')}
                     </span>
                   </li>
                 ))}
@@ -172,7 +184,7 @@ export default async function EventPage({ params }: { params: Params }) {
                       </span>
                     </span>
                     <span className="text-muted shrink-0">
-                      {room.soldOut ? 'нет мест' : formatPrice(room.price, event.currency)}
+                      {room.soldOut ? 'нет мест' : formatPrice(inRub(room.price), 'rub')}
                     </span>
                   </li>
                 ))}
@@ -221,16 +233,16 @@ export default async function EventPage({ params }: { params: Params }) {
           <OrderPanel
             eventId={event.id}
             title={event.title}
-            price={event.priceFrom ?? 0}
-            currency={event.currency}
+            price={event.priceRub ?? 0}
+            currency="rub"
             addons={paidSeparately.map(({ id, label, price }) => ({ id, label, price }))}
           />
 
-          {event.currency !== 'rub' && event.priceRub ? (
+          {event.currency !== 'rub' && (
             <p className="text-muted mt-3 text-xs">
-              Ориентировочно {formatPrice(event.priceRub, 'rub')} по курсу на сегодня.
+              Цена пересчитана в рубли по курсу ЦБ на сегодня и может измениться вместе с ним.
             </p>
-          ) : null}
+          )}
         </aside>
       </div>
     </Page>
