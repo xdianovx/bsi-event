@@ -391,27 +391,12 @@ export interface Category {
 export interface Event {
   id: number;
   title: string;
-  /**
-   * Латиницей, автогенерируется из названия, можно переопределить
-   */
-  slug: string;
   category: number | Category;
   country: number | Country;
+  /**
+   * Список ограничен городами выбранной страны
+   */
   city?: (number | null) | City;
-  startDate?: string | null;
-  endDate?: string | null;
-  duration?: number | null;
-  includes?: {
-    ticket?: boolean | null;
-    visa?: boolean | null;
-    accommodation?: boolean | null;
-    extra?:
-      | {
-          item?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
   description?: {
     root: {
       type: string;
@@ -430,10 +415,6 @@ export interface Event {
   price: number;
   currency: 'rub' | 'usd' | 'eur';
   /**
-   * Считается по курсу и наценке из настроек. Каталог сортирует по этому полю.
-   */
-  priceRub?: number | null;
-  /**
    * Опциональные дополнения к билету. Цена — в валюте события.
    */
   addons?:
@@ -444,6 +425,17 @@ export interface Event {
         id?: string | null;
       }[]
     | null;
+  includes?: {
+    ticket?: boolean | null;
+    visa?: boolean | null;
+    accommodation?: boolean | null;
+    extra?:
+      | {
+          item?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
   photos?: (number | Media)[] | null;
   seo?: {
     title?: string | null;
@@ -451,6 +443,18 @@ export interface Event {
     noindex?: boolean | null;
   };
   status: 'draft' | 'published' | 'archived';
+  /**
+   * Латиницей, автогенерируется из названия, можно переопределить
+   */
+  slug: string;
+  startDate?: string | null;
+  endDate?: string | null;
+  days?: number | null;
+  /**
+   * Подставляется как дни минус один, можно переопределить
+   */
+  nights?: number | null;
+  priceRub?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -923,13 +927,20 @@ export interface CategoriesSelect<T extends boolean = true> {
  */
 export interface EventsSelect<T extends boolean = true> {
   title?: T;
-  slug?: T;
   category?: T;
   country?: T;
   city?: T;
-  startDate?: T;
-  endDate?: T;
-  duration?: T;
+  description?: T;
+  price?: T;
+  currency?: T;
+  addons?:
+    | T
+    | {
+        label?: T;
+        price?: T;
+        type?: T;
+        id?: T;
+      };
   includes?:
     | T
     | {
@@ -943,18 +954,6 @@ export interface EventsSelect<T extends boolean = true> {
               id?: T;
             };
       };
-  description?: T;
-  price?: T;
-  currency?: T;
-  priceRub?: T;
-  addons?:
-    | T
-    | {
-        label?: T;
-        price?: T;
-        type?: T;
-        id?: T;
-      };
   photos?: T;
   seo?:
     | T
@@ -964,6 +963,12 @@ export interface EventsSelect<T extends boolean = true> {
         noindex?: T;
       };
   status?: T;
+  slug?: T;
+  startDate?: T;
+  endDate?: T;
+  days?: T;
+  nights?: T;
+  priceRub?: T;
   updatedAt?: T;
   createdAt?: T;
 }
