@@ -17,6 +17,7 @@ import { Countries } from './collections/Countries'
 import { Regions } from './collections/Regions'
 import { Cities } from './collections/Cities'
 import { Events } from './collections/Events'
+import { ExchangeRates } from './collections/ExchangeRates'
 import { Leads } from './collections/Leads'
 import { Reviews } from './collections/Reviews'
 import { Pages } from './collections/Pages'
@@ -53,6 +54,7 @@ export default buildConfig({
     Attributes,
     Categories,
     Events,
+    ExchangeRates,
     Leads,
     Reviews,
     Pages,

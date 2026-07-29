@@ -1,6 +1,7 @@
 import { getPayload, Payload } from 'payload'
 import config from '@/cms/payload.config'
 import { ensureCategory } from '../helpers/category'
+import { setRate } from '../helpers/rates'
 import { describe, it, beforeAll, expect } from 'vitest'
 
 import { buildCatalogQuery } from '@/entities/event'
@@ -38,11 +39,10 @@ describe('Каталог: цена, валюта, выдача', () => {
     })
     countryId = country.id
 
-    await payload.updateGlobal({
-      slug: 'settings',
-      data: { rates: { usd: 100, eur: 110 }, markupPercent: 0 },
-    })
-  })
+    await setRate(payload, 'usd', 100)
+    await setRate(payload, 'eur', 110)
+    await payload.updateGlobal({ slug: 'settings', data: { markupPercent: 0 } })
+  }, 60_000)
 
   it('рублёвой цене priceRub равен цене', async () => {
     const doc = await makeEvent({ price: 7000, currency: 'rub' })
@@ -50,7 +50,7 @@ describe('Каталог: цена, валюта, выдача', () => {
     expect(doc.priceRub).toBe(7000)
   })
 
-  it('валютную цену пересчитывает в рубли по курсу из настроек', async () => {
+  it('валютную цену пересчитывает в рубли по курсу из истории', async () => {
     const doc = await makeEvent({ price: 300, currency: 'usd' })
 
     expect(doc.priceRub).toBe(30000)
@@ -60,38 +60,26 @@ describe('Каталог: цена, валюта, выдача', () => {
   // чтобы курс не оставил каталог со старыми ценами. На проде событий
   // немного, но локальная тестовая база копит записи от прошлых прогонов.
   it('наценка из настроек попадает в priceRub', async () => {
-    await payload.updateGlobal({
-      slug: 'settings',
-      data: { rates: { usd: 100, eur: 110 }, markupPercent: 10 },
-    })
+    await payload.updateGlobal({ slug: 'settings', data: { markupPercent: 10 } })
 
     const doc = await makeEvent({ price: 300, currency: 'usd' })
 
     expect(doc.priceRub).toBe(33000)
 
-    await payload.updateGlobal({
-      slug: 'settings',
-      data: { rates: { usd: 100, eur: 110 }, markupPercent: 0 },
-    })
-  }, 30_000)
+    await payload.updateGlobal({ slug: 'settings', data: { markupPercent: 0 } })
+  }, 60_000)
 
   it('смена курса пересчитывает priceRub у уже сохранённых событий', async () => {
     const created = await makeEvent({ price: 200, currency: 'usd' })
     expect(created.priceRub).toBe(20000)
 
-    await payload.updateGlobal({
-      slug: 'settings',
-      data: { rates: { usd: 150, eur: 110 }, markupPercent: 0 },
-    })
+    await setRate(payload, 'usd', 150)
 
     const after = await payload.findByID({ collection: 'events', id: created.id })
     expect(after.priceRub).toBe(30000)
 
-    await payload.updateGlobal({
-      slug: 'settings',
-      data: { rates: { usd: 100, eur: 110 }, markupPercent: 0 },
-    })
-  }, 30_000)
+    await setRate(payload, 'usd', 100)
+  }, 60_000)
 
   it('черновик не попадает в выдачу каталога', async () => {
     const draft = await makeEvent({ status: 'draft' })

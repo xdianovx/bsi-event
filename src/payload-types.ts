@@ -76,6 +76,7 @@ export interface Config {
     attributes: Attribute;
     categories: Category;
     events: Event;
+    exchangeRates: ExchangeRate;
     leads: Lead;
     reviews: Review;
     pages: Page;
@@ -102,6 +103,7 @@ export interface Config {
     attributes: AttributesSelect<false> | AttributesSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
+    exchangeRates: ExchangeRatesSelect<false> | ExchangeRatesSelect<true>;
     leads: LeadsSelect<false> | LeadsSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
@@ -443,6 +445,27 @@ export interface Event {
   createdAt: string;
 }
 /**
+ * История курса ЦБ. Цена события считается по последней записи.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "exchangeRates".
+ */
+export interface ExchangeRate {
+  id: number;
+  /**
+   * Дата, на которую ЦБ установил курс, а не дата загрузки.
+   */
+  date: string;
+  currency: 'usd' | 'eur';
+  /**
+   * Курс за одну единицу валюты, номинал ЦБ уже учтён.
+   */
+  rate: number;
+  source: 'cbr' | 'manual';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "leads".
  */
@@ -574,6 +597,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'events';
         value: number | Event;
+      } | null)
+    | ({
+        relationTo: 'exchangeRates';
+        value: number | ExchangeRate;
       } | null)
     | ({
         relationTo: 'leads';
@@ -831,6 +858,18 @@ export interface EventsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "exchangeRates_select".
+ */
+export interface ExchangeRatesSelect<T extends boolean = true> {
+  date?: T;
+  currency?: T;
+  rate?: T;
+  source?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "leads_select".
  */
 export interface LeadsSelect<T extends boolean = true> {
@@ -927,14 +966,19 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Setting {
   id: number;
-  rates: {
-    usd: number;
-    eur: number;
-  };
   /**
    * Накидывается сверх курса. К рублёвым ценам не применяется.
    */
   markupPercent: number;
+  /**
+   * Выключить, если курс ведётся вручную.
+   */
+  ratesAutoUpdate?: boolean | null;
+  lastSyncAt?: string | null;
+  /**
+   * Если здесь ошибка — цены считаются по последнему известному курсу.
+   */
+  lastSyncStatus?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -943,13 +987,10 @@ export interface Setting {
  * via the `definition` "settings_select".
  */
 export interface SettingsSelect<T extends boolean = true> {
-  rates?:
-    | T
-    | {
-        usd?: T;
-        eur?: T;
-      };
   markupPercent?: T;
+  ratesAutoUpdate?: T;
+  lastSyncAt?: T;
+  lastSyncStatus?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

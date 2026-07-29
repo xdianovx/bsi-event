@@ -1,41 +1,15 @@
 import type { GlobalConfig } from 'payload'
+import { recalcEventPrices } from '../hooks/recalcEventPrices'
 
-// Курсы вводятся вручную. Позже сюда встанет загрузка из ЦБ РФ — подменится
-// только источник цифры, формула и хуки останутся прежними (issue #21).
+// Курс здесь больше не хранится — он живёт историей в коллекции `exchangeRates`
+// и приходит из ЦБ. В настройках остаётся то, что решает компания: наценка
+// и режим синхронизации.
 export const Settings: GlobalConfig = {
   slug: 'settings',
   label: 'Настройки',
   admin: { group: 'Настройки' },
   access: { read: () => true },
   fields: [
-    {
-      name: 'rates',
-      type: 'group',
-      label: 'Курсы валют, ₽ за единицу',
-      fields: [
-        {
-          type: 'row',
-          fields: [
-            {
-              name: 'usd',
-              type: 'number',
-              required: true,
-              defaultValue: 100,
-              label: 'Доллар',
-              admin: { width: '50%' },
-            },
-            {
-              name: 'eur',
-              type: 'number',
-              required: true,
-              defaultValue: 110,
-              label: 'Евро',
-              admin: { width: '50%' },
-            },
-          ],
-        },
-      ],
-    },
     {
       name: 'markupPercent',
       type: 'number',
@@ -45,28 +19,41 @@ export const Settings: GlobalConfig = {
       label: 'Наценка при конвертации, %',
       admin: { description: 'Накидывается сверх курса. К рублёвым ценам не применяется.' },
     },
+    {
+      name: 'ratesAutoUpdate',
+      type: 'checkbox',
+      defaultValue: true,
+      label: 'Обновлять курс из ЦБ автоматически',
+      admin: { description: 'Выключить, если курс ведётся вручную.' },
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'lastSyncAt',
+          type: 'date',
+          label: 'Последняя синхронизация',
+          admin: {
+            readOnly: true,
+            width: '50%',
+            date: { pickerAppearance: 'dayAndTime', displayFormat: 'dd.MM.yyyy HH:mm' },
+          },
+        },
+        {
+          name: 'lastSyncStatus',
+          type: 'text',
+          label: 'Результат синхронизации',
+          admin: {
+            readOnly: true,
+            width: '50%',
+            description: 'Если здесь ошибка — цены считаются по последнему известному курсу.',
+          },
+        },
+      ],
+    },
   ],
   hooks: {
-    // Курс поменялся — рублёвые эквиваленты всех событий протухли. Без пересчёта
-    // каталог продолжил бы сортировать и фильтровать по прошлому курсу молча.
-    afterChange: [
-      async ({ req }) => {
-        const { docs } = await req.payload.find({
-          collection: 'events',
-          limit: 0,
-          depth: 0,
-          req,
-        })
-
-        for (const event of docs) {
-          await req.payload.update({
-            collection: 'events',
-            id: event.id,
-            data: { price: event.price },
-            req,
-          })
-        }
-      },
-    ],
+    // Наценка поменялась — рублёвые эквиваленты валютных событий протухли.
+    afterChange: [recalcEventPrices],
   },
 }

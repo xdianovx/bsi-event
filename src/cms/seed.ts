@@ -73,6 +73,37 @@ const syncCollection = async (
   return bySlug
 }
 
+/**
+ * Стартовые курсы ЦБ на день написания сида. Помечены как `manual`: это не выгрузка,
+ * а заглушка, чтобы каталог считал цены до первой синхронизации.
+ */
+const seedStartingRates = async (payload: Payload) => {
+  const starting = [
+    { currency: 'usd' as const, rate: 78.698 },
+    { currency: 'eur' as const, rate: 89.6292 },
+  ]
+
+  const date = new Date(Date.UTC(2026, 6, 29)).toISOString()
+
+  for (const { currency, rate } of starting) {
+    const { totalDocs } = await payload.find({
+      collection: 'exchangeRates',
+      where: { currency: { equals: currency } },
+      limit: 0,
+      depth: 0,
+    })
+
+    // Курс уже ведётся — не перебиваем историю стартовым значением.
+    if (totalDocs > 0) continue
+
+    await payload.create({
+      collection: 'exchangeRates',
+      data: { date, currency, rate, source: 'manual' },
+    })
+    payload.logger.info(`Курс: ${currency} ${rate}`)
+  }
+}
+
 const run = async () => {
   const payload = await getPayload({ config })
 
@@ -103,6 +134,11 @@ const run = async () => {
   const eventCategories = await syncCollection(payload, 'categories', categories, {
     createOnly: true,
   })
+
+  // Стартовый курс. Без него валютные события посчитались бы по нулевому курсу:
+  // синхронизация с ЦБ придёт позже, а каталог должен работать сразу.
+  // Заводим только на пустой коллекции — дальше историю ведёт синхронизация.
+  await seedStartingRates(payload)
 
   // --- Демо-контент: события, на которых видно работу каталога ---
 

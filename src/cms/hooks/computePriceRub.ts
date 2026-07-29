@@ -1,11 +1,14 @@
 import type { FieldHook } from 'payload'
 import { calcPriceRub, type Currency } from '@/shared/lib'
+import { getLatestRates } from '../lib/rates'
 
 /**
  * Считает рублёвый эквивалент цены события.
  *
  * Поле хранится в БД, а не virtual: по нему идут сортировка и фильтрация каталога,
  * а виртуальные поля Postgres не видит.
+ *
+ * Курс берётся последний известный из истории `exchangeRates`, наценка — из настроек.
  */
 export const computePriceRub: FieldHook = async ({ siblingData, req }) => {
   const price = siblingData?.price
@@ -20,7 +23,7 @@ export const computePriceRub: FieldHook = async ({ siblingData, req }) => {
   return calcPriceRub({
     price,
     currency,
-    rates: { usd: settings.rates.usd, eur: settings.rates.eur },
+    rates: await getLatestRates(req),
     markupPercent: settings.markupPercent ?? 0,
   })
 }
