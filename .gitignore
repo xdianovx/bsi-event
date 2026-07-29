@@ -39,6 +39,7 @@ next-env.d.ts
 
 # загрузки Payload
 /media
+/icons
 
 # сырые ответы Wikidata для scripts/fetch-geo.mjs; в репозиторий идёт только
 # собранный src/cms/seed/data/geo.json
