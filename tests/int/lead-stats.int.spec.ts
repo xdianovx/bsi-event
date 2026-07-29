@@ -32,7 +32,7 @@ describe('Статистика заявок', () => {
         slug: `sobytie-stat-${uniq()}`,
         category: categoryId,
         country: country.id,
-        price: 1000,
+        basePrice: 1000,
         currency: 'rub',
         status: 'published',
       } as never,

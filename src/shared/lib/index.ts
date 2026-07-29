@@ -1,2 +1,8 @@
 export { slugify } from './slugify'
-export { calcPriceRub, type Currency, type Rates } from './price'
+export {
+  calcPriceRub,
+  calcPriceFrom,
+  type Currency,
+  type Rates,
+  type PriceAxisRow,
+} from './price'

@@ -26,13 +26,10 @@ describe('Заявка сохраняет состав заказа', () => {
         slug: `sobytie-zayavki-${uniq()}`,
         category: categoryId,
         country: country.id,
-        price: 5000,
+        basePrice: 5000,
         currency: 'rub',
         status: 'published',
-        addons: [
-          { label: 'Трансфер', price: 1000, type: 'transfer' },
-          { label: 'Страховка', price: 500, type: 'insurance' },
-        ],
+        ticketTypes: [{ name: 'Билет', price: 1000 }],
       },
     })
     eventId = event.id
@@ -85,7 +82,7 @@ describe('Заявка сохраняет состав заказа', () => {
     await payload.update({
       collection: 'events',
       id: eventId,
-      data: { price: 9999 },
+      data: { basePrice: 9999 },
     })
 
     const after = await payload.findByID({ collection: 'leads', id: lead.id })

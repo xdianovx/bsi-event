@@ -397,6 +397,11 @@ export interface Event {
    * Список ограничен городами выбранной страны
    */
   city?: (number | null) | City;
+  /**
+   * Стадион, арена, концертный зал
+   */
+  venueName?: string | null;
+  address?: string | null;
   description?: {
     root: {
       type: string;
@@ -412,30 +417,71 @@ export interface Event {
     };
     [k: string]: unknown;
   } | null;
-  price: number;
+  /**
+   * Перелёт, трансфер, сопровождение — то, что входит всегда
+   */
+  basePrice: number;
   currency: 'rub' | 'usd' | 'eur';
   /**
-   * Опциональные дополнения к билету. Цена — в валюте события.
+   * Фан-зона, трибуна, VIP. Цена — сверх базовой части
    */
-  addons?:
+  ticketTypes?:
     | {
-        label: string;
+        name: string;
         price: number;
-        type?: string | null;
+        description?: string | null;
+        soldOut?: boolean | null;
         id?: string | null;
       }[]
     | null;
-  includes?: {
-    ticket?: boolean | null;
-    visa?: boolean | null;
-    accommodation?: boolean | null;
-    extra?:
-      | {
-          item?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
+  /**
+   * Варианты номеров. Цена — сверх базовой части
+   */
+  accommodations?:
+    | {
+        hotelName: string;
+        stars?: number | null;
+        roomName: string;
+        capacity?: number | null;
+        /**
+         * Если заезд короче поездки
+         */
+        nights?: number | null;
+        /**
+         * Завтраки, полупансион, без питания
+         */
+        mealPlan?: string | null;
+        price: number;
+        amenities?: (number | Attribute)[] | null;
+        photos?: (number | Media)[] | null;
+        soldOut?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Иконки на карточке и фильтры каталога берутся отсюда. Есть номера — отметьте «Отель»
+   */
+  included?: (number | Attribute)[] | null;
+  /**
+   * Покупатель добирает это галочками на странице события
+   */
+  paidSeparately?:
+    | {
+        attribute: number | Attribute;
+        price: number;
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  itinerary?:
+    | {
+        day: number;
+        title: string;
+        description?: string | null;
+        photo?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
   photos?: (number | Media)[] | null;
   /**
    * Латиницей, автогенерируется из названия, можно переопределить
@@ -454,6 +500,7 @@ export interface Event {
    * Подставляется как дни минус один, можно переопределить
    */
   nights?: number | null;
+  priceFrom?: number | null;
   priceRub?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -930,29 +977,52 @@ export interface EventsSelect<T extends boolean = true> {
   category?: T;
   country?: T;
   city?: T;
+  venueName?: T;
+  address?: T;
   description?: T;
-  price?: T;
+  basePrice?: T;
   currency?: T;
-  addons?:
+  ticketTypes?:
     | T
     | {
-        label?: T;
+        name?: T;
         price?: T;
-        type?: T;
+        description?: T;
+        soldOut?: T;
         id?: T;
       };
-  includes?:
+  accommodations?:
     | T
     | {
-        ticket?: T;
-        visa?: T;
-        accommodation?: T;
-        extra?:
-          | T
-          | {
-              item?: T;
-              id?: T;
-            };
+        hotelName?: T;
+        stars?: T;
+        roomName?: T;
+        capacity?: T;
+        nights?: T;
+        mealPlan?: T;
+        price?: T;
+        amenities?: T;
+        photos?: T;
+        soldOut?: T;
+        id?: T;
+      };
+  included?: T;
+  paidSeparately?:
+    | T
+    | {
+        attribute?: T;
+        price?: T;
+        note?: T;
+        id?: T;
+      };
+  itinerary?:
+    | T
+    | {
+        day?: T;
+        title?: T;
+        description?: T;
+        photo?: T;
+        id?: T;
       };
   photos?: T;
   slug?: T;
@@ -968,6 +1038,7 @@ export interface EventsSelect<T extends boolean = true> {
   endDate?: T;
   days?: T;
   nights?: T;
+  priceFrom?: T;
   priceRub?: T;
   updatedAt?: T;
   createdAt?: T;

@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { seoField } from '../fields/seo'
 import { generateSlug } from '../hooks/generateSlug'
-import { computePriceRub } from '../hooks/computePriceRub'
+import { computeEventPrice } from '../hooks/computeEventPrice'
 import { fillNights } from '../hooks/fillNights'
 
 // Событие — продукт целиком: концерт/забег/etc с одной ценой в выбранной валюте
@@ -70,23 +70,43 @@ export const Events: CollectionConfig = {
                 },
               ],
             },
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'venueName',
+                  type: 'text',
+                  label: 'Площадка',
+                  admin: { width: '50%', description: 'Стадион, арена, концертный зал' },
+                },
+                {
+                  name: 'address',
+                  type: 'text',
+                  label: 'Адрес площадки',
+                  admin: { width: '50%' },
+                },
+              ],
+            },
             { name: 'description', type: 'richText', label: 'Описание' },
           ],
         },
         {
           label: 'Цены',
-          description: 'Цена вводится в валюте события, покупатель видит рубли',
+          description: 'Все цены — в валюте события. Покупатель видит рубли по курсу ЦБ',
           fields: [
             {
               type: 'row',
               fields: [
                 {
-                  name: 'price',
+                  name: 'basePrice',
                   type: 'number',
                   required: true,
                   min: 0,
-                  label: 'Цена',
-                  admin: { width: '50%' },
+                  label: 'Базовая часть',
+                  admin: {
+                    width: '50%',
+                    description: 'Перелёт, трансфер, сопровождение — то, что входит всегда',
+                  },
                 },
                 {
                   name: 'currency',
@@ -104,43 +124,218 @@ export const Events: CollectionConfig = {
               ],
             },
             {
-              name: 'addons',
+              name: 'ticketTypes',
               type: 'array',
-              label: 'Допки (дополнительные опции)',
+              label: 'Категории билета',
               admin: {
-                description: 'Опциональные дополнения к билету. Цена — в валюте события.',
+                initCollapsed: true,
+                description: 'Фан-зона, трибуна, VIP. Цена — сверх базовой части',
+                components: { RowLabel: '/cms/ui/RowLabels#TicketRowLabel' },
               },
               fields: [
-                { name: 'label', type: 'text', required: true, label: 'Название' },
-                { name: 'price', type: 'number', required: true, label: 'Цена' },
-                { name: 'type', type: 'text', label: 'Тип (свободный текст)' },
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'name',
+                      type: 'text',
+                      required: true,
+                      label: 'Название',
+                      admin: { width: '60%' },
+                    },
+                    {
+                      name: 'price',
+                      type: 'number',
+                      required: true,
+                      min: 0,
+                      label: 'Цена',
+                      admin: { width: '40%' },
+                    },
+                  ],
+                },
+                { name: 'description', type: 'textarea', label: 'Что за место' },
+                { name: 'soldOut', type: 'checkbox', label: 'Нет мест', defaultValue: false },
+              ],
+            },
+            {
+              name: 'accommodations',
+              type: 'array',
+              label: 'Размещение',
+              admin: {
+                initCollapsed: true,
+                description: 'Варианты номеров. Цена — сверх базовой части',
+                components: { RowLabel: '/cms/ui/RowLabels#AccommodationRowLabel' },
+              },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'hotelName',
+                      type: 'text',
+                      required: true,
+                      label: 'Отель',
+                      admin: { width: '70%' },
+                    },
+                    {
+                      name: 'stars',
+                      type: 'number',
+                      min: 1,
+                      max: 5,
+                      label: 'Звёзды',
+                      admin: { width: '30%' },
+                    },
+                  ],
+                },
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'roomName',
+                      type: 'text',
+                      required: true,
+                      label: 'Номер',
+                      admin: { width: '50%' },
+                    },
+                    {
+                      name: 'capacity',
+                      type: 'number',
+                      min: 1,
+                      label: 'Мест',
+                      admin: { width: '25%' },
+                    },
+                    {
+                      name: 'nights',
+                      type: 'number',
+                      min: 1,
+                      label: 'Ночей',
+                      admin: { width: '25%', description: 'Если заезд короче поездки' },
+                    },
+                  ],
+                },
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'mealPlan',
+                      type: 'text',
+                      label: 'Питание',
+                      admin: { width: '50%', description: 'Завтраки, полупансион, без питания' },
+                    },
+                    {
+                      name: 'price',
+                      type: 'number',
+                      required: true,
+                      min: 0,
+                      label: 'Цена',
+                      admin: { width: '50%' },
+                    },
+                  ],
+                },
+                {
+                  name: 'amenities',
+                  type: 'relationship',
+                  relationTo: 'attributes',
+                  hasMany: true,
+                  label: 'Удобства',
+                  // Тот же справочник, что и состав события: у «Питания» и «Отеля»
+                  // область включает «номер».
+                  filterOptions: { scope: { contains: 'room' } },
+                },
+                { name: 'photos', type: 'upload', relationTo: 'media', hasMany: true, label: 'Фото' },
+                { name: 'soldOut', type: 'checkbox', label: 'Нет мест', defaultValue: false },
               ],
             },
           ],
         },
         {
           label: 'Состав',
-          description: 'Что входит в поездку',
+          description: 'Что входит в цену и что докупается отдельно',
           fields: [
             {
-              name: 'includes',
-              type: 'group',
-              label: 'Что входит',
+              name: 'included',
+              type: 'relationship',
+              relationTo: 'attributes',
+              hasMany: true,
+              label: 'Включено',
+              admin: {
+                description:
+                  'Иконки на карточке и фильтры каталога берутся отсюда. Есть номера — отметьте «Отель»',
+              },
+              filterOptions: { scope: { contains: 'tour' } },
+            },
+            {
+              name: 'paidSeparately',
+              type: 'array',
+              label: 'Оплачивается отдельно',
+              admin: {
+                initCollapsed: true,
+                description: 'Покупатель добирает это галочками на странице события',
+                components: { RowLabel: '/cms/ui/RowLabels#PaidSeparatelyRowLabel' },
+              },
               fields: [
-                { name: 'ticket', type: 'checkbox', label: 'Билет на событие', defaultValue: true },
-                { name: 'visa', type: 'checkbox', label: 'Виза', defaultValue: false },
                 {
-                  name: 'accommodation',
-                  type: 'checkbox',
-                  label: 'Расселение',
-                  defaultValue: false,
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'attribute',
+                      type: 'relationship',
+                      relationTo: 'attributes',
+                      required: true,
+                      label: 'Что именно',
+                      admin: { width: '60%' },
+                      filterOptions: { scope: { contains: 'tour' } },
+                    },
+                    {
+                      name: 'price',
+                      type: 'number',
+                      required: true,
+                      min: 0,
+                      label: 'Цена',
+                      admin: { width: '40%' },
+                    },
+                  ],
                 },
+                { name: 'note', type: 'text', label: 'Примечание' },
+              ],
+            },
+          ],
+        },
+        {
+          label: 'Программа',
+          description: 'Расписание по дням — так раскладываются многодневные турниры',
+          fields: [
+            {
+              name: 'itinerary',
+              type: 'array',
+              label: 'Программа по дням',
+              admin: {
+                initCollapsed: true,
+                components: { RowLabel: '/cms/ui/RowLabels#ItineraryRowLabel' },
+              },
+              fields: [
                 {
-                  name: 'extra',
-                  type: 'array',
-                  label: 'Прочее',
-                  fields: [{ name: 'item', type: 'text', label: 'Пункт' }],
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'day',
+                      type: 'number',
+                      required: true,
+                      min: 1,
+                      label: 'День',
+                      admin: { width: '20%' },
+                    },
+                    {
+                      name: 'title',
+                      type: 'text',
+                      required: true,
+                      label: 'Заголовок',
+                      admin: { width: '80%' },
+                    },
+                  ],
                 },
+                { name: 'description', type: 'textarea', label: 'Что происходит' },
+                { name: 'photo', type: 'upload', relationTo: 'media', label: 'Фото' },
               ],
             },
           ],
@@ -234,15 +429,21 @@ export const Events: CollectionConfig = {
         components: { Field: '/cms/ui/EventPriceSummary#EventPriceSummary' },
       },
     },
+    // Вычисляемые поля. Из формы убраны: править их нельзя, сводку показывает
+    // priceSummary. В БД остаются — по priceRub сортирует и фильтрует каталог.
+    {
+      name: 'priceFrom',
+      type: 'number',
+      label: 'Цена «от», в валюте события',
+      admin: { hidden: true },
+    },
     {
       name: 'priceRub',
       type: 'number',
       index: true,
-      label: 'Цена в рублях',
-      // Из формы поле убрано: править его нельзя, а сводку показывает priceSummary выше.
-      // В БД остаётся — по нему сортирует и фильтрует каталог.
+      label: 'Цена «от», в рублях',
       admin: { hidden: true },
-      hooks: { beforeChange: [computePriceRub] },
     },
   ],
+  hooks: { beforeChange: [computeEventPrice] },
 }

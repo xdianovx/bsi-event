@@ -46,21 +46,21 @@ export default async function EventPage({ params }: { params: Params }) {
   const photos = (Array.isArray(event.photos) ? event.photos : []) as Media[]
   const place = formatPlace(event.country, event.city)
 
-  const includes = [
-    event.includes?.ticket && 'Билет на событие',
-    event.includes?.visa && 'Виза',
-    event.includes?.accommodation && 'Проживание',
-    ...(event.includes?.extra ?? []).map((e) => e.item).filter(Boolean),
-  ].filter(Boolean) as string[]
-
   // getEventBySlug раскрывает связи depth: 2
   const category = typeof event.category === 'object' ? event.category : null
 
-  const addons = (event.addons ?? []).map((a) => ({
-    id: String(a.id),
-    label: a.label,
-    price: a.price,
+  const included = (event.included ?? [])
+    .map((item) => (typeof item === 'object' ? item : null))
+    .filter(Boolean) as { id: number; name: string; description?: string | null }[]
+
+  const paidSeparately = (event.paidSeparately ?? []).map((row) => ({
+    id: String(row.id),
+    label: typeof row.attribute === 'object' ? row.attribute.name : 'Доп',
+    price: row.price,
+    note: row.note,
   }))
+
+  const itinerary = [...(event.itinerary ?? [])].sort((a, b) => (a.day ?? 0) - (b.day ?? 0))
 
   return (
     <Page>
@@ -100,16 +100,108 @@ export default async function EventPage({ params }: { params: Params }) {
             </div>
           )}
 
-          {includes.length > 0 && (
+          {included.length > 0 && (
             <Section className="mt-12">
-              <Typography.Heading level={2}>Что входит</Typography.Heading>
+              <Typography.Heading level={2}>Включено</Typography.Heading>
               <ul className="flex flex-col gap-2">
-                {includes.map((item) => (
-                  <li key={item} className="text-muted">
-                    {item}
+                {included.map((item) => (
+                  <li key={item.id} className="text-muted">
+                    <span className="text-foreground font-medium">{item.name}</span>
+                    {item.description ? ` — ${item.description}` : null}
                   </li>
                 ))}
               </ul>
+            </Section>
+          )}
+
+          {paidSeparately.length > 0 && (
+            <Section className="mt-12">
+              {/* Отдельной секцией, а не крестиками в общем списке: «оплачивается
+                  отдельно» — это возражение, и снять его лучше на странице */}
+              <Typography.Heading level={2}>Оплачивается отдельно</Typography.Heading>
+              <ul className="flex flex-col gap-2">
+                {paidSeparately.map((item) => (
+                  <li key={item.id} className="text-muted">
+                    <span className="text-foreground font-medium">{item.label}</span>
+                    {' — '}
+                    {formatPrice(item.price, event.currency)}
+                    {item.note ? ` · ${item.note}` : null}
+                  </li>
+                ))}
+              </ul>
+            </Section>
+          )}
+
+          {(event.ticketTypes ?? []).length > 0 && (
+            <Section className="mt-12">
+              <Typography.Heading level={2}>Категории билета</Typography.Heading>
+              <ul className="flex flex-col gap-3">
+                {(event.ticketTypes ?? []).map((ticket) => (
+                  <li key={ticket.id} className="flex items-baseline justify-between gap-4">
+                    <span>
+                      <span className="font-medium">{ticket.name}</span>
+                      {ticket.description ? (
+                        <span className="text-muted"> — {ticket.description}</span>
+                      ) : null}
+                    </span>
+                    <span className="text-muted shrink-0">
+                      {ticket.soldOut ? 'нет мест' : formatPrice(ticket.price, event.currency)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </Section>
+          )}
+
+          {(event.accommodations ?? []).length > 0 && (
+            <Section className="mt-12">
+              <Typography.Heading level={2}>Размещение</Typography.Heading>
+              <ul className="flex flex-col gap-3">
+                {(event.accommodations ?? []).map((room) => (
+                  <li key={room.id} className="flex items-baseline justify-between gap-4">
+                    <span>
+                      <span className="font-medium">
+                        {room.hotelName}
+                        {room.stars ? ` ${room.stars}★` : null}
+                      </span>
+                      <span className="text-muted">
+                        {' — '}
+                        {room.roomName}
+                        {room.capacity ? `, до ${room.capacity} чел.` : null}
+                        {room.mealPlan ? `, ${room.mealPlan}` : null}
+                      </span>
+                    </span>
+                    <span className="text-muted shrink-0">
+                      {room.soldOut ? 'нет мест' : formatPrice(room.price, event.currency)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </Section>
+          )}
+
+          {itinerary.length > 0 && (
+            <Section className="mt-12">
+              <Typography.Heading level={2}>Программа по дням</Typography.Heading>
+              <ol className="flex flex-col gap-4">
+                {itinerary.map((day) => (
+                  <li key={day.id}>
+                    <p className="font-medium">
+                      День {day.day} — {day.title}
+                    </p>
+                    {day.description && <p className="text-muted">{day.description}</p>}
+                  </li>
+                ))}
+              </ol>
+            </Section>
+          )}
+
+          {(event.venueName || event.address) && (
+            <Section className="mt-12">
+              <Typography.Heading level={2}>Где проходит</Typography.Heading>
+              <p className="text-muted">
+                {[event.venueName, event.address].filter(Boolean).join(', ')}
+              </p>
             </Section>
           )}
 
@@ -124,12 +216,14 @@ export default async function EventPage({ params }: { params: Params }) {
         </div>
 
         <aside className="lg:sticky lg:top-8 lg:self-start">
+          {/* Пока панель считает от цены «от»; выбор билета и номера — веха
+              «Состав события. Фаза 6» */}
           <OrderPanel
             eventId={event.id}
             title={event.title}
-            price={event.price}
+            price={event.priceFrom ?? 0}
             currency={event.currency}
-            addons={addons}
+            addons={paidSeparately.map(({ id, label, price }) => ({ id, label, price }))}
           />
 
           {event.currency !== 'rub' && event.priceRub ? (

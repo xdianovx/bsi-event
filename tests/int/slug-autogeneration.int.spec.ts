@@ -43,7 +43,7 @@ describe('Автогенерация slug', () => {
     const doc = await payload.create({
       collection: 'events',
       // slug опущен намеренно — см. комментарий выше
-      data: { title, category: categoryId, country: country.id, price: 5000, currency: 'rub' } as never,
+      data: { title, category: categoryId, country: country.id, basePrice: 5000, currency: 'rub' } as never,
     })
     expect(doc.slug).toBe(slugify(title))
   })

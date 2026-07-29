@@ -21,7 +21,7 @@ const makeEvent = async (data: Record<string, unknown>) =>
       title: `Событие ${uniq()}`,
       category: categoryId,
       country: countryId,
-      price: 5000,
+      basePrice: 5000,
       currency: 'rub',
       status: 'published',
       ...data,
@@ -45,13 +45,13 @@ describe('Каталог: цена, валюта, выдача', () => {
   }, 60_000)
 
   it('рублёвой цене priceRub равен цене', async () => {
-    const doc = await makeEvent({ price: 7000, currency: 'rub' })
+    const doc = await makeEvent({ basePrice: 7000, currency: 'rub' })
 
     expect(doc.priceRub).toBe(7000)
   })
 
   it('валютную цену пересчитывает в рубли по курсу из истории', async () => {
-    const doc = await makeEvent({ price: 300, currency: 'usd' })
+    const doc = await makeEvent({ basePrice: 300, currency: 'usd' })
 
     expect(doc.priceRub).toBe(30000)
   })
@@ -62,7 +62,7 @@ describe('Каталог: цена, валюта, выдача', () => {
   it('наценка из настроек попадает в priceRub', async () => {
     await payload.updateGlobal({ slug: 'settings', data: { markupPercent: 10 } })
 
-    const doc = await makeEvent({ price: 300, currency: 'usd' })
+    const doc = await makeEvent({ basePrice: 300, currency: 'usd' })
 
     expect(doc.priceRub).toBe(33000)
 
@@ -70,7 +70,7 @@ describe('Каталог: цена, валюта, выдача', () => {
   }, 60_000)
 
   it('смена курса пересчитывает priceRub у уже сохранённых событий', async () => {
-    const created = await makeEvent({ price: 200, currency: 'usd' })
+    const created = await makeEvent({ basePrice: 200, currency: 'usd' })
     expect(created.priceRub).toBe(20000)
 
     await setRate(payload, 'usd', 150)
@@ -95,8 +95,8 @@ describe('Каталог: цена, валюта, выдача', () => {
 
   it('сортировка по цене сравнивает валюты честно, а не по сырому числу', async () => {
     const slug = `sort-${uniq()}`
-    const cheapUsd = await makeEvent({ price: 100, currency: 'usd', slug: `${slug}-usd` }) // 10 000 ₽
-    const pricyRub = await makeEvent({ price: 50000, currency: 'rub', slug: `${slug}-rub` }) // 50 000 ₽
+    const cheapUsd = await makeEvent({ basePrice: 100, currency: 'usd', slug: `${slug}-usd` }) // 10 000 ₽
+    const pricyRub = await makeEvent({ basePrice: 50000, currency: 'rub', slug: `${slug}-rub` }) // 50 000 ₽
 
     const { docs } = await payload.find({
       collection: 'events',
@@ -109,7 +109,7 @@ describe('Каталог: цена, валюта, выдача', () => {
   })
 
   it('фильтр по цене отбирает по рублёвому эквиваленту', async () => {
-    const expensive = await makeEvent({ price: 900, currency: 'usd' }) // 90 000 ₽
+    const expensive = await makeEvent({ basePrice: 900, currency: 'usd' }) // 90 000 ₽
 
     const { docs } = await payload.find({
       collection: 'events',
@@ -122,11 +122,11 @@ describe('Каталог: цена, валюта, выдача', () => {
 
   it('карточка по слагу отдаёт событие с раскрытой страной', async () => {
     const slug = `karta-${uniq()}`
-    await makeEvent({ slug, price: 1234, currency: 'rub' })
+    await makeEvent({ slug, basePrice: 1234, currency: 'rub' })
 
     const doc = await getEventBySlug(payload, slug)
 
-    expect(doc?.price).toBe(1234)
+    expect(doc?.priceFrom).toBe(1234)
     expect(doc?.country).toMatchObject({ id: countryId })
   })
 

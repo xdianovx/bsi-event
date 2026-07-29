@@ -2,15 +2,48 @@
 // а payload.config читает process.env уже на этапе импорта.
 import 'dotenv/config'
 import { readFileSync } from 'node:fs'
+import { mkdir } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { getPayload, type Payload } from 'payload'
+import sharp from 'sharp'
 import config from '@payload-config'
 
 type GeoData = {
   regions: { slug: string; name: string }[]
   countries: { code: string; slug: string; name: string; region: string }[]
   cities: { slug: string; name: string; country: string }[]
+}
+
+type DemoEvent = {
+  slug: string
+  title: string
+  category: string
+  country: string
+  city: string
+  venueName: string
+  address: string
+  startDate: string
+  endDate: string
+  days: number
+  basePrice: number
+  currency: 'rub' | 'usd' | 'eur'
+  lead: string
+  included: string[]
+  paidSeparately: { attribute: string; price: number; note?: string }[]
+  ticketTypes: { name: string; price: number; description?: string; soldOut?: boolean }[]
+  accommodations: {
+    hotelName: string
+    stars?: number
+    roomName: string
+    capacity?: number
+    nights?: number
+    mealPlan?: string
+    price: number
+    soldOut?: boolean
+    amenities: string[]
+  }[]
+  itinerary: { day: number; title: string; description?: string }[]
 }
 
 type SeedCollection = 'regions' | 'countries' | 'cities' | 'attributes' | 'categories'
@@ -24,6 +57,11 @@ const attributes: { slug: string; [key: string]: unknown }[] = JSON.parse(
 const categories: { slug: string; [key: string]: unknown }[] = JSON.parse(
   readFileSync(join(DATA, 'categories.json'), 'utf8'),
 )
+const demoEvents: DemoEvent[] = JSON.parse(readFileSync(join(DATA, 'events.json'), 'utf8'))
+
+// Сгенерированные афиши: Payload копирует файл к себе в media, поэтому исходники
+// лежат отдельно и в репозиторий не попадают.
+const POSTERS = join(HERE, '..', '..', '.seed-posters')
 
 /**
  * Заводит недостающие документы и дописывает поля существующим, но сначала
@@ -104,6 +142,92 @@ const seedStartingRates = async (payload: Payload) => {
   }
 }
 
+/** Слаг → документ: демо-события ссылаются на справочники по слагам, а не по id. */
+const mapBySlug = async (payload: Payload, collection: 'attributes' | 'cities') => {
+  const { docs } = await payload.find({ collection, limit: 0, depth: 0 })
+
+  return new Map(docs.map((doc) => [doc.slug as string, doc]))
+}
+
+/** Минимальный lexical-документ: одно описание одним абзацем. */
+const paragraph = (text: string) => ({
+  root: {
+    type: 'root',
+    format: '',
+    indent: 0,
+    version: 1,
+    direction: 'ltr' as const,
+    children: [
+      {
+        type: 'paragraph',
+        format: '',
+        indent: 0,
+        version: 1,
+        direction: 'ltr' as const,
+        children: [
+          { type: 'text', text, format: 0, detail: 0, mode: 'normal', style: '', version: 1 },
+        ],
+      },
+    ],
+  },
+})
+
+const POSTER_COLORS = [
+  ['#1e3a8a', '#0ea5e9'],
+  ['#7c2d12', '#f59e0b'],
+  ['#14532d', '#4ade80'],
+  ['#4c1d95', '#c084fc'],
+  ['#7f1d1d', '#fb7185'],
+  ['#0f172a', '#38bdf8'],
+  ['#134e4a', '#2dd4bf'],
+  ['#581c87', '#e879f9'],
+  ['#78350f', '#fbbf24'],
+  ['#1e293b', '#94a3b8'],
+]
+
+/**
+ * Афиша демо-события.
+ *
+ * Рисуем градиент с названием, а не тянем картинки из сети: сид должен отрабатывать
+ * без интернета и без вопросов о лицензии на фотографии.
+ */
+const ensurePoster = async (payload: Payload, slug: string, title: string, index: number) => {
+  const filename = `${slug}.jpg`
+
+  const { docs } = await payload.find({
+    collection: 'media',
+    where: { filename: { equals: filename } },
+    limit: 1,
+  })
+
+  if (docs[0]) return docs[0].id
+
+  const [from, to] = POSTER_COLORS[index % POSTER_COLORS.length]
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="${from}"/><stop offset="100%" stop-color="${to}"/>
+    </linearGradient></defs>
+    <rect width="1600" height="900" fill="url(#g)"/>
+    <text x="80" y="780" font-family="Helvetica, Arial, sans-serif" font-size="64"
+          font-weight="bold" fill="#ffffff">${title.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</text>
+  </svg>`
+
+  await mkdir(POSTERS, { recursive: true })
+  const filePath = join(POSTERS, filename)
+  await sharp(Buffer.from(svg)).jpeg({ quality: 82 }).toFile(filePath)
+
+  const media = await payload.create({
+    collection: 'media',
+    data: { alt: title },
+    filePath,
+  })
+
+  payload.logger.info(`Афиша: ${filename}`)
+
+  return media.id
+}
+
 const run = async () => {
   const payload = await getPayload({ config })
 
@@ -142,55 +266,79 @@ const run = async () => {
 
   // --- Демо-контент: события, на которых видно работу каталога ---
 
-  const italy = countries.get('italiya')
-  if (!italy) throw new Error('В справочнике нет Италии — демо-события привязать не к чему')
+  const attributeBySlug = await mapBySlug(payload, 'attributes')
+  const cityBySlug = await mapBySlug(payload, 'cities')
 
-  const demoCities = await syncCollection(payload, 'cities', [
-    { slug: 'milan', name: 'Милан', country: italy.id },
-    { slug: 'moncza', name: 'Монца', country: italy.id },
-  ])
+  for (const [index, demo] of demoEvents.entries()) {
+    const countrySlug = byCode.get(demo.country)
+    const country = countrySlug ? countries.get(countrySlug) : undefined
+    const city = cityBySlug.get(demo.city)
+    const category = eventCategories.get(demo.category)
 
-  const demos = [
-    {
-      title: 'Демо-событие: рублёвая цена',
-      slug: 'sobytie-rubli-demo',
-      category: eventCategories.get('koncerty')!.id,
-      city: demoCities.get('milan')!.id,
-      startDate: '2026-09-12T19:00:00.000Z',
-      price: 15000,
-      currency: 'rub' as const,
-      addons: [
-        { label: 'Трансфер', price: 1000, type: 'transfer' },
-        { label: 'Страховка', price: 500, type: 'insurance' },
-      ],
-    },
-    {
-      // В валюте — чтобы было видно работу конвертации и сортировки каталога
-      title: 'Демо-событие: цена в долларах',
-      slug: 'sobytie-dollary-demo',
-      category: eventCategories.get('sport')!.id,
-      city: demoCities.get('moncza')!.id,
-      startDate: '2026-10-04T14:00:00.000Z',
-      price: 300,
-      currency: 'usd' as const,
-      addons: [{ label: 'Экскурсия', price: 50, type: 'excursion' }],
-    },
-  ]
+    if (!country || !city || !category) {
+      payload.logger.warn(`Пропущено ${demo.slug}: нет страны, города или категории`)
+      continue
+    }
 
-  for (const demo of demos) {
-    const data = { ...demo, country: italy.id, status: 'published' as const }
+    const cover = await ensurePoster(payload, demo.slug, demo.title, index)
+
+    const data = {
+      title: demo.title,
+      slug: demo.slug,
+      category: category.id,
+      country: country.id,
+      city: city.id,
+      venueName: demo.venueName,
+      address: demo.address,
+      startDate: demo.startDate,
+      endDate: demo.endDate,
+      days: demo.days,
+      basePrice: demo.basePrice,
+      currency: demo.currency,
+      description: paragraph(demo.lead),
+      included: demo.included.map((slug) => attributeBySlug.get(slug)?.id).filter(Boolean),
+      paidSeparately: demo.paidSeparately.map((row) => ({
+        attribute: attributeBySlug.get(row.attribute)?.id,
+        price: row.price,
+        note: row.note,
+      })),
+      ticketTypes: demo.ticketTypes,
+      accommodations: demo.accommodations.map((room) => ({
+        ...room,
+        amenities: room.amenities.map((slug) => attributeBySlug.get(slug)?.id).filter(Boolean),
+      })),
+      itinerary: demo.itinerary,
+      photos: [cover],
+      seo: { title: `${demo.title} — поездка с BSI Events`, description: demo.lead },
+      status: 'published' as const,
+    }
+
     const { docs } = await payload.find({
       collection: 'events',
       where: { slug: { equals: demo.slug } },
       limit: 1,
     })
 
-    // Именно update, а не пропуск: у существующих демо-событий страна и город
-    // могли остаться от старого справочника, где слаг Италии был другим.
-    if (docs[0]) await payload.update({ collection: 'events', id: docs[0].id, data })
-    else await payload.create({ collection: 'events', data })
+    // Именно update, а не пропуск: демо-контент должен догонять правки сида,
+    // иначе после смены схемы половина событий остаётся в старом виде.
+    if (docs[0]) await payload.update({ collection: 'events', id: docs[0].id, data: data as never })
+    else await payload.create({ collection: 'events', data: data as never })
 
     payload.logger.info(`Событие: ${demo.slug}`)
+  }
+
+  // Демо-события первой итерации: их схема (price + addons) больше не существует.
+  for (const stale of ['sobytie-rubli-demo', 'sobytie-dollary-demo']) {
+    const { docs } = await payload.find({
+      collection: 'events',
+      where: { slug: { equals: stale } },
+      limit: 1,
+    })
+
+    if (docs[0]) {
+      await payload.delete({ collection: 'events', id: docs[0].id })
+      payload.logger.info(`Удалено устаревшее демо-событие: ${stale}`)
+    }
   }
 
   // Справочник до этой версии заполнялся вручную и слаги были на глаз

@@ -21,7 +21,7 @@ const createEvent = async (price: number, currency: 'rub' | 'usd' | 'eur') =>
       slug: `sobytie-${uniq()}`,
       category: categoryId,
       country: countryId,
-      price,
+      basePrice: price,
       currency,
       status: 'published',
     },

@@ -53,12 +53,11 @@ export function EventCard({ event }: { event: Event }) {
       </Card.Header>
 
       <Card.Footer className="mt-auto items-baseline gap-2">
-        <Typography type="h5">{formatPrice(event.price, event.currency)}</Typography>
-        {event.currency !== 'rub' && event.priceRub ? (
-          <Typography color="muted" type="body-xs">
-            ≈ {formatPrice(event.priceRub, 'rub')}
-          </Typography>
-        ) : null}
+        {/* «от», а не точная цена: итог зависит от выбранных билета и номера */}
+        <Typography color="muted" type="body-xs">
+          от
+        </Typography>
+        <Typography type="h5">{formatPrice(event.priceRub ?? 0, 'rub')}</Typography>
       </Card.Footer>
     </Card>
   )

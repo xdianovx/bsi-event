@@ -19,7 +19,7 @@ const makeEvent = (data: Record<string, unknown>) =>
       title: `Событие ${uniq()}`,
       category: categoryId,
       country: spainId,
-      price: 1000,
+      basePrice: 1000,
       currency: 'rub',
       status: 'published',
       ...data,
@@ -93,7 +93,7 @@ describe('Карточка события в админке', () => {
       expect(tabs).toBeDefined()
       expect(
         tabs && 'tabs' in tabs ? tabs.tabs.map((tab) => ('label' in tab ? tab.label : null)) : [],
-      ).toEqual(['Основное', 'Цены', 'Состав', 'Медиа', 'SEO'])
+      ).toEqual(['Основное', 'Цены', 'Состав', 'Программа', 'Медиа', 'SEO'])
     })
 
     it('в правой колонке то, к чему возвращаются постоянно', async () => {

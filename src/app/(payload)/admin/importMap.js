@@ -21,6 +21,10 @@ import { StrikethroughFeatureClient as StrikethroughFeatureClient_e70f5e05f09f93
 import { UnderlineFeatureClient as UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { BoldFeatureClient as BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { TicketRowLabel as TicketRowLabel_205982f083b5cdf4838e76a99f20292b } from '../../../cms/ui/RowLabels'
+import { AccommodationRowLabel as AccommodationRowLabel_205982f083b5cdf4838e76a99f20292b } from '../../../cms/ui/RowLabels'
+import { PaidSeparatelyRowLabel as PaidSeparatelyRowLabel_205982f083b5cdf4838e76a99f20292b } from '../../../cms/ui/RowLabels'
+import { ItineraryRowLabel as ItineraryRowLabel_205982f083b5cdf4838e76a99f20292b } from '../../../cms/ui/RowLabels'
 import { EventPriceSummary as EventPriceSummary_631da8db3db3af43b6353bb99ee3e615 } from '../../../cms/ui/EventPriceSummary'
 import { ViewOnSite as ViewOnSite_8d225ac0a8aad6605c5f677e52cce4ae } from '../../../cms/ui/ViewOnSite'
 import { default as default_5c1994cce67314782c1d912c49882cfd } from '../../../cms/ui/LeadStats'
@@ -51,6 +55,10 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#UnderlineFeatureClient": UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#BoldFeatureClient": BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "/cms/ui/RowLabels#TicketRowLabel": TicketRowLabel_205982f083b5cdf4838e76a99f20292b,
+  "/cms/ui/RowLabels#AccommodationRowLabel": AccommodationRowLabel_205982f083b5cdf4838e76a99f20292b,
+  "/cms/ui/RowLabels#PaidSeparatelyRowLabel": PaidSeparatelyRowLabel_205982f083b5cdf4838e76a99f20292b,
+  "/cms/ui/RowLabels#ItineraryRowLabel": ItineraryRowLabel_205982f083b5cdf4838e76a99f20292b,
   "/cms/ui/EventPriceSummary#EventPriceSummary": EventPriceSummary_631da8db3db3af43b6353bb99ee3e615,
   "/cms/ui/ViewOnSite#ViewOnSite": ViewOnSite_8d225ac0a8aad6605c5f677e52cce4ae,
   "/cms/ui/LeadStats#default": default_5c1994cce67314782c1d912c49882cfd,

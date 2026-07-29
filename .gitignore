@@ -44,3 +44,4 @@ next-env.d.ts
 # сырые ответы Wikidata для scripts/fetch-geo.mjs; в репозиторий идёт только
 # собранный src/cms/seed/data/geo.json
 scripts/.geo-cache/
+.seed-posters/

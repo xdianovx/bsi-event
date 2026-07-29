@@ -1,0 +1,1017 @@
+[
+  {
+    "slug": "coldplay-berlin-2026",
+    "title": "Coldplay в Берлине",
+    "category": "koncerty",
+    "country": "de",
+    "city": "berlin",
+    "venueName": "Олимпийский стадион",
+    "address": "Olympischer Platz 3, Берлин",
+    "startDate": "2026-09-12T19:00:00.000Z",
+    "endDate": "2026-09-15T12:00:00.000Z",
+    "days": 4,
+    "basePrice": 620,
+    "currency": "eur",
+    "lead": "Три ночи в Берлине вокруг главного стадионного шоу сезона: перелёт, отель у Тиргартена и трансфер до площадки.",
+    "included": [
+      "perelet",
+      "otel",
+      "transfer",
+      "bilety",
+      "strahovka"
+    ],
+    "paidSeparately": [
+      {
+        "attribute": "viza",
+        "price": 180,
+        "note": "Шенген, подача за 30 дней"
+      },
+      {
+        "attribute": "ekskursii",
+        "price": 90,
+        "note": "Обзорная по Берлину"
+      }
+    ],
+    "ticketTypes": [
+      {
+        "name": "Фан-зона",
+        "price": 180,
+        "description": "Танцпол перед сценой, без мест"
+      },
+      {
+        "name": "Трибуна, нижний ярус",
+        "price": 260,
+        "description": "Сидячие места, вид на сцену сбоку"
+      },
+      {
+        "name": "VIP-ложа",
+        "price": 640,
+        "description": "Отдельный вход, кейтеринг, паркинг",
+        "soldOut": true
+      }
+    ],
+    "accommodations": [
+      {
+        "hotelName": "Motel One Upper West",
+        "stars": 3,
+        "roomName": "Стандарт двухместный",
+        "capacity": 2,
+        "nights": 3,
+        "mealPlan": "Завтраки",
+        "price": 340,
+        "amenities": [
+          "pitanie",
+          "otel"
+        ]
+      },
+      {
+        "hotelName": "Waldorf Astoria Berlin",
+        "stars": 5,
+        "roomName": "Делюкс с видом на город",
+        "capacity": 2,
+        "nights": 3,
+        "mealPlan": "Завтраки",
+        "price": 890,
+        "amenities": [
+          "pitanie",
+          "otel"
+        ]
+      }
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Прилёт и заселение",
+        "description": "Встреча в аэропорту, трансфер в отель, свободный вечер."
+      },
+      {
+        "day": 2,
+        "title": "Берлин без спешки",
+        "description": "Обзорная прогулка, Музейный остров, вечер свободен."
+      },
+      {
+        "day": 3,
+        "title": "Концерт",
+        "description": "Ранний выезд на стадион, сопровождающий на входе, трансфер обратно после шоу."
+      },
+      {
+        "day": 4,
+        "title": "Вылет",
+        "description": "Завтрак, трансфер в аэропорт."
+      }
+    ]
+  },
+  {
+    "slug": "formula-1-monca-2026",
+    "title": "Формула-1: Гран-при Италии",
+    "category": "gonki",
+    "country": "it",
+    "city": "rim",
+    "venueName": "Автодром Монцы",
+    "address": "Via Vedano 5, Монца",
+    "startDate": "2026-09-04T10:00:00.000Z",
+    "endDate": "2026-09-07T18:00:00.000Z",
+    "days": 4,
+    "basePrice": 980,
+    "currency": "eur",
+    "lead": "Уик-энд в храме скорости: свободные заезды, квалификация и гонка с трибуны на первом повороте.",
+    "included": [
+      "perelet",
+      "otel",
+      "transfer",
+      "bilety",
+      "gid",
+      "strahovka"
+    ],
+    "paidSeparately": [
+      {
+        "attribute": "viza",
+        "price": 180,
+        "note": "Шенген"
+      },
+      {
+        "attribute": "pitanie",
+        "price": 120,
+        "note": "Обеды на трассе, три дня"
+      }
+    ],
+    "ticketTypes": [
+      {
+        "name": "Генеральный доступ",
+        "price": 240,
+        "description": "Свободные зоны вдоль трассы"
+      },
+      {
+        "name": "Трибуна 6А, первый поворот",
+        "price": 620,
+        "description": "Торможение в первый поворот, вид на пит-лейн"
+      },
+      {
+        "name": "Paddock Club",
+        "price": 2400,
+        "description": "Пит-уок, кейтеринг, вид с крыши боксов"
+      }
+    ],
+    "accommodations": [
+      {
+        "hotelName": "Hotel de la Ville Monza",
+        "stars": 4,
+        "roomName": "Классик двухместный",
+        "capacity": 2,
+        "nights": 3,
+        "mealPlan": "Завтраки",
+        "price": 720,
+        "amenities": [
+          "pitanie",
+          "otel"
+        ]
+      },
+      {
+        "hotelName": "NH Milano Congress",
+        "stars": 4,
+        "roomName": "Стандарт одноместный",
+        "capacity": 1,
+        "nights": 3,
+        "mealPlan": "Без питания",
+        "price": 480,
+        "amenities": [
+          "otel"
+        ]
+      }
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Прилёт в Милан",
+        "description": "Трансфер в отель, вечерняя прогулка по Монце."
+      },
+      {
+        "day": 2,
+        "title": "Свободные заезды",
+        "description": "Первый день на трассе, знакомство с автодромом."
+      },
+      {
+        "day": 3,
+        "title": "Квалификация",
+        "description": "Борьба за поул, вечером — ужин в городе."
+      },
+      {
+        "day": 4,
+        "title": "Гонка и вылет",
+        "description": "Основная гонка, подиум, поздний трансфер в аэропорт."
+      }
+    ]
+  },
+  {
+    "slug": "roland-garros-parizh-2026",
+    "title": "Ролан Гаррос: неделя турнира",
+    "category": "sport",
+    "country": "fr",
+    "city": "parizh",
+    "venueName": "Стадион Ролан Гаррос",
+    "address": "2 Avenue Gordon Bennett, Париж",
+    "startDate": "2026-05-25T09:00:00.000Z",
+    "endDate": "2026-05-31T20:00:00.000Z",
+    "days": 7,
+    "basePrice": 1240,
+    "currency": "eur",
+    "lead": "Шесть дней грунтового турнира: матчи на Филиппе Шатрие, Париж между играми и сопровождающий на площадке.",
+    "included": [
+      "perelet",
+      "otel",
+      "transfer",
+      "bilety",
+      "gid",
+      "pitanie",
+      "strahovka"
+    ],
+    "paidSeparately": [
+      {
+        "attribute": "viza",
+        "price": 180,
+        "note": "Шенген, подача за 45 дней"
+      }
+    ],
+    "ticketTypes": [
+      {
+        "name": "Симонн Матьё",
+        "price": 210,
+        "description": "Третий по величине корт, ранние круги"
+      },
+      {
+        "name": "Сюзанн Ленглен",
+        "price": 380,
+        "description": "Второй корт, матчи топ-игроков"
+      },
+      {
+        "name": "Филипп Шатрие",
+        "price": 720,
+        "description": "Центральный корт под крышей"
+      }
+    ],
+    "accommodations": [
+      {
+        "hotelName": "Hotel Le Sainte-Beuve",
+        "stars": 4,
+        "roomName": "Двухместный классик",
+        "capacity": 2,
+        "nights": 6,
+        "mealPlan": "Завтраки",
+        "price": 1180,
+        "amenities": [
+          "pitanie",
+          "otel"
+        ]
+      },
+      {
+        "hotelName": "Citadines Tour Eiffel",
+        "stars": 3,
+        "roomName": "Студия с кухней",
+        "capacity": 2,
+        "nights": 6,
+        "mealPlan": "Без питания",
+        "price": 760,
+        "amenities": [
+          "otel"
+        ]
+      }
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Прилёт",
+        "description": "Трансфер, заселение, ужин в Латинском квартале."
+      },
+      {
+        "day": 2,
+        "title": "Первый игровой день",
+        "description": "Матчи на внешних кортах, разминка публики."
+      },
+      {
+        "day": 3,
+        "title": "Париж",
+        "description": "Свободный день: Лувр, Марэ, набережные."
+      },
+      {
+        "day": 4,
+        "title": "Четвертьфиналы",
+        "description": "Полный день на стадионе."
+      },
+      {
+        "day": 5,
+        "title": "Полуфинал",
+        "description": "Вечерняя сессия на центральном корте."
+      },
+      {
+        "day": 6,
+        "title": "Финал",
+        "description": "Главный матч турнира и церемония награждения."
+      },
+      {
+        "day": 7,
+        "title": "Вылет",
+        "description": "Завтрак и трансфер в аэропорт."
+      }
+    ]
+  },
+  {
+    "slug": "el-klasiko-madrid-2026",
+    "title": "Эль Класико в Мадриде",
+    "category": "sport",
+    "country": "es",
+    "city": "madrid",
+    "venueName": "Сантьяго Бернабеу",
+    "address": "Avenida de Concha Espina 1, Мадрид",
+    "startDate": "2026-10-24T21:00:00.000Z",
+    "endDate": "2026-10-27T12:00:00.000Z",
+    "days": 4,
+    "basePrice": 540,
+    "currency": "eur",
+    "lead": "Главное дерби Испании: билет на Бернабеу, экскурсия по стадиону и три ночи в центре Мадрида.",
+    "included": [
+      "perelet",
+      "otel",
+      "transfer",
+      "bilety",
+      "ekskursii",
+      "strahovka"
+    ],
+    "paidSeparately": [
+      {
+        "attribute": "viza",
+        "price": 180,
+        "note": "Шенген"
+      },
+      {
+        "attribute": "gid",
+        "price": 140,
+        "note": "Персональный сопровождающий на матч"
+      }
+    ],
+    "ticketTypes": [
+      {
+        "name": "Верхний ярус",
+        "price": 320,
+        "description": "Панорама поля, дальний сектор"
+      },
+      {
+        "name": "Боковая трибуна",
+        "price": 580,
+        "description": "Средний ярус вдоль поля"
+      },
+      {
+        "name": "VIP-зона",
+        "price": 1450,
+        "description": "Кресла у центральной линии, кейтеринг"
+      }
+    ],
+    "accommodations": [
+      {
+        "hotelName": "Hotel Riu Plaza España",
+        "stars": 4,
+        "roomName": "Двухместный с видом",
+        "capacity": 2,
+        "nights": 3,
+        "mealPlan": "Завтраки",
+        "price": 420,
+        "amenities": [
+          "pitanie",
+          "otel"
+        ]
+      },
+      {
+        "hotelName": "Only YOU Boutique",
+        "stars": 5,
+        "roomName": "Люкс",
+        "capacity": 2,
+        "nights": 3,
+        "mealPlan": "Завтраки",
+        "price": 980,
+        "amenities": [
+          "pitanie",
+          "otel"
+        ],
+        "soldOut": true
+      }
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Прилёт",
+        "description": "Трансфер, заселение, вечер на Гран-Виа."
+      },
+      {
+        "day": 2,
+        "title": "Экскурсия по Бернабеу",
+        "description": "Музей клуба, выход к полю, раздевалки."
+      },
+      {
+        "day": 3,
+        "title": "Матч",
+        "description": "Ранний ужин, трансфер на стадион, дерби."
+      },
+      {
+        "day": 4,
+        "title": "Вылет",
+        "description": "Свободное утро и трансфер."
+      }
+    ]
+  },
+  {
+    "slug": "uimbldon-london-2026",
+    "title": "Уимблдон: вторая неделя",
+    "category": "sport",
+    "country": "gb",
+    "city": "london",
+    "venueName": "All England Club",
+    "address": "Church Road, Уимблдон, Лондон",
+    "startDate": "2026-07-06T11:00:00.000Z",
+    "endDate": "2026-07-12T20:00:00.000Z",
+    "days": 7,
+    "basePrice": 1680,
+    "currency": "eur",
+    "lead": "Трава, клубника и белая форма: вторая неделя турнира с матчами на Центральном корте.",
+    "included": [
+      "perelet",
+      "otel",
+      "transfer",
+      "bilety",
+      "gid",
+      "strahovka"
+    ],
+    "paidSeparately": [
+      {
+        "attribute": "viza",
+        "price": 240,
+        "note": "Британская виза, подача за 60 дней"
+      },
+      {
+        "attribute": "pitanie",
+        "price": 160,
+        "note": "Обеды на территории клуба"
+      }
+    ],
+    "ticketTypes": [
+      {
+        "name": "Корт №2",
+        "price": 280,
+        "description": "Матчи ранних кругов второй недели"
+      },
+      {
+        "name": "Корт №1",
+        "price": 520,
+        "description": "Четвертьфиналы"
+      },
+      {
+        "name": "Центральный корт",
+        "price": 1100,
+        "description": "Полуфиналы и финал"
+      }
+    ],
+    "accommodations": [
+      {
+        "hotelName": "The Lodge Hotel Putney",
+        "stars": 3,
+        "roomName": "Двухместный стандарт",
+        "capacity": 2,
+        "nights": 6,
+        "mealPlan": "Завтраки",
+        "price": 1240,
+        "amenities": [
+          "pitanie",
+          "otel"
+        ]
+      },
+      {
+        "hotelName": "Cannizaro House",
+        "stars": 5,
+        "roomName": "Номер с видом на парк",
+        "capacity": 2,
+        "nights": 6,
+        "mealPlan": "Завтраки",
+        "price": 2350,
+        "amenities": [
+          "pitanie",
+          "otel"
+        ]
+      }
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Прилёт в Лондон",
+        "description": "Трансфер, заселение в Патни."
+      },
+      {
+        "day": 2,
+        "title": "Знакомство с клубом",
+        "description": "Территория All England Club, музей тенниса."
+      },
+      {
+        "day": 3,
+        "title": "Матчи четвёртого круга",
+        "description": "Полный день на кортах."
+      },
+      {
+        "day": 4,
+        "title": "Лондон",
+        "description": "Свободный день в городе."
+      },
+      {
+        "day": 5,
+        "title": "Четвертьфиналы",
+        "description": "Корт №1 и внешние корты."
+      },
+      {
+        "day": 6,
+        "title": "Финал",
+        "description": "Центральный корт, церемония награждения."
+      },
+      {
+        "day": 7,
+        "title": "Вылет",
+        "description": "Трансфер в Хитроу."
+      }
+    ]
+  },
+  {
+    "slug": "novogodniy-koncert-vena-2027",
+    "title": "Новогодний концерт в Вене",
+    "category": "koncerty",
+    "country": "at",
+    "city": "vena",
+    "venueName": "Музикферайн, Золотой зал",
+    "address": "Musikvereinsplatz 1, Вена",
+    "startDate": "2026-12-30T11:00:00.000Z",
+    "endDate": "2027-01-02T14:00:00.000Z",
+    "days": 4,
+    "basePrice": 890,
+    "currency": "eur",
+    "lead": "Новый год в Вене с концертом Венского филармонического оркестра в Золотом зале.",
+    "included": [
+      "perelet",
+      "otel",
+      "transfer",
+      "bilety",
+      "gid",
+      "pitanie",
+      "strahovka"
+    ],
+    "paidSeparately": [
+      {
+        "attribute": "ekskursii",
+        "price": 110,
+        "note": "Шёнбрунн с гидом"
+      }
+    ],
+    "ticketTypes": [
+      {
+        "name": "Балкон",
+        "price": 340,
+        "description": "Верхний ярус Золотого зала"
+      },
+      {
+        "name": "Партер",
+        "price": 780,
+        "description": "Центральные ряды"
+      }
+    ],
+    "accommodations": [
+      {
+        "hotelName": "Hotel Sacher Wien",
+        "stars": 5,
+        "roomName": "Двухместный делюкс",
+        "capacity": 2,
+        "nights": 3,
+        "mealPlan": "Завтраки",
+        "price": 1450,
+        "amenities": [
+          "pitanie",
+          "otel"
+        ]
+      },
+      {
+        "hotelName": "Motel One Wien-Staatsoper",
+        "stars": 3,
+        "roomName": "Стандарт двухместный",
+        "capacity": 2,
+        "nights": 3,
+        "mealPlan": "Завтраки",
+        "price": 460,
+        "amenities": [
+          "pitanie",
+          "otel"
+        ]
+      }
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Прилёт",
+        "description": "Трансфер, заселение, вечерняя Вена в огнях."
+      },
+      {
+        "day": 2,
+        "title": "Императорская Вена",
+        "description": "Хофбург, Штефансдом, кофейни."
+      },
+      {
+        "day": 3,
+        "title": "Новый год",
+        "description": "Праздничный ужин, площадь у Ратуши."
+      },
+      {
+        "day": 4,
+        "title": "Концерт и вылет",
+        "description": "Утренний концерт в Музикферайне, трансфер в аэропорт."
+      }
+    ]
+  },
+  {
+    "slug": "ajax-amsterdam-2026",
+    "title": "Аякс: матч Лиги чемпионов",
+    "category": "sport",
+    "country": "nl",
+    "city": "amsterdam",
+    "venueName": "Йохан Кройф Арена",
+    "address": "ArenA Boulevard 1, Амстердам",
+    "startDate": "2026-11-04T21:00:00.000Z",
+    "endDate": "2026-11-06T12:00:00.000Z",
+    "days": 3,
+    "basePrice": 430,
+    "currency": "eur",
+    "lead": "Короткая поездка на еврокубковый вечер: две ночи в Амстердаме и матч на Кройф Арене.",
+    "included": [
+      "perelet",
+      "otel",
+      "bilety",
+      "transfer",
+      "strahovka"
+    ],
+    "paidSeparately": [
+      {
+        "attribute": "viza",
+        "price": 180,
+        "note": "Шенген"
+      },
+      {
+        "attribute": "ekskursii",
+        "price": 70,
+        "note": "Прогулка по каналам"
+      }
+    ],
+    "ticketTypes": [
+      {
+        "name": "Верхний ярус",
+        "price": 140,
+        "description": "Обзор всего поля"
+      },
+      {
+        "name": "Боковой сектор",
+        "price": 260,
+        "description": "Средний ярус вдоль поля"
+      }
+    ],
+    "accommodations": [
+      {
+        "hotelName": "citizenM Amstel",
+        "stars": 4,
+        "roomName": "Двухместный",
+        "capacity": 2,
+        "nights": 2,
+        "mealPlan": "Без питания",
+        "price": 290,
+        "amenities": [
+          "otel"
+        ]
+      }
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Прилёт",
+        "description": "Трансфер, заселение, вечер в центре."
+      },
+      {
+        "day": 2,
+        "title": "Матч",
+        "description": "День в городе, вечером — игра на Кройф Арене."
+      },
+      {
+        "day": 3,
+        "title": "Вылет",
+        "description": "Завтрак и трансфер в Схипхол."
+      }
+    ]
+  },
+  {
+    "slug": "rammstein-praga-2026",
+    "title": "Rammstein в Праге",
+    "category": "koncerty",
+    "country": "cz",
+    "city": "praga",
+    "venueName": "Стадион Летня",
+    "address": "Letenské sady, Прага",
+    "startDate": "2026-08-15T20:00:00.000Z",
+    "endDate": "2026-08-18T12:00:00.000Z",
+    "days": 4,
+    "basePrice": 380,
+    "currency": "eur",
+    "lead": "Самое пиротехническое шоу Европы и три ночи в Праге в пешей доступности от площадки.",
+    "included": [
+      "perelet",
+      "otel",
+      "bilety",
+      "transfer",
+      "strahovka"
+    ],
+    "paidSeparately": [
+      {
+        "attribute": "viza",
+        "price": 180,
+        "note": "Шенген"
+      },
+      {
+        "attribute": "pitanie",
+        "price": 90,
+        "note": "Завтраки и один ужин"
+      }
+    ],
+    "ticketTypes": [
+      {
+        "name": "Танцпол",
+        "price": 160,
+        "description": "Стоячая зона перед сценой"
+      },
+      {
+        "name": "Feuerzone",
+        "price": 320,
+        "description": "Ближняя к сцене зона, отдельный вход"
+      },
+      {
+        "name": "Трибуна",
+        "price": 210,
+        "description": "Сидячие места сбоку"
+      }
+    ],
+    "accommodations": [
+      {
+        "hotelName": "Mama Shelter Prague",
+        "stars": 4,
+        "roomName": "Двухместный",
+        "capacity": 2,
+        "nights": 3,
+        "mealPlan": "Завтраки",
+        "price": 310,
+        "amenities": [
+          "pitanie",
+          "otel"
+        ]
+      },
+      {
+        "hotelName": "Hotel Josef",
+        "stars": 4,
+        "roomName": "Улучшенный двухместный",
+        "capacity": 2,
+        "nights": 3,
+        "mealPlan": "Завтраки",
+        "price": 470,
+        "amenities": [
+          "pitanie",
+          "otel"
+        ]
+      }
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Прилёт",
+        "description": "Трансфер, заселение, Староместская площадь."
+      },
+      {
+        "day": 2,
+        "title": "Прага",
+        "description": "Град, Карлов мост, Винограды."
+      },
+      {
+        "day": 3,
+        "title": "Концерт",
+        "description": "Выезд на Летню, шоу, поздний трансфер."
+      },
+      {
+        "day": 4,
+        "title": "Вылет",
+        "description": "Завтрак и трансфер в аэропорт."
+      }
+    ]
+  },
+  {
+    "slug": "marafon-afiny-2026",
+    "title": "Афинский классический марафон",
+    "category": "sport",
+    "country": "gr",
+    "city": "afiny",
+    "venueName": "Стадион Панатинаикос",
+    "address": "Leof. Vasileos Konstantinou, Афины",
+    "startDate": "2026-11-08T08:00:00.000Z",
+    "endDate": "2026-11-11T14:00:00.000Z",
+    "days": 4,
+    "basePrice": 460,
+    "currency": "eur",
+    "lead": "Тот самый маршрут от Марафона до мраморного стадиона: слот, сопровождение и восстановление после финиша.",
+    "included": [
+      "perelet",
+      "otel",
+      "transfer",
+      "bilety",
+      "gid",
+      "strahovka"
+    ],
+    "paidSeparately": [
+      {
+        "attribute": "viza",
+        "price": 180,
+        "note": "Шенген"
+      },
+      {
+        "attribute": "ekskursii",
+        "price": 80,
+        "note": "Акрополь с гидом"
+      }
+    ],
+    "ticketTypes": [
+      {
+        "name": "Марафон, 42 км",
+        "price": 120,
+        "description": "Классическая дистанция"
+      },
+      {
+        "name": "Полумарафон",
+        "price": 80,
+        "description": "21 км по городу"
+      },
+      {
+        "name": "Забег 5 км",
+        "price": 40,
+        "description": "Для сопровождающих"
+      }
+    ],
+    "accommodations": [
+      {
+        "hotelName": "Athens Center Square",
+        "stars": 3,
+        "roomName": "Двухместный",
+        "capacity": 2,
+        "nights": 3,
+        "mealPlan": "Завтраки",
+        "price": 280,
+        "amenities": [
+          "pitanie",
+          "otel"
+        ]
+      },
+      {
+        "hotelName": "Electra Metropolis",
+        "stars": 5,
+        "roomName": "Номер с видом на Акрополь",
+        "capacity": 2,
+        "nights": 3,
+        "mealPlan": "Завтраки",
+        "price": 690,
+        "amenities": [
+          "pitanie",
+          "otel"
+        ]
+      }
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Прилёт и экспо",
+        "description": "Трансфер, получение стартового пакета."
+      },
+      {
+        "day": 2,
+        "title": "Разминка",
+        "description": "Лёгкая пробежка, осмотр финиша на Панатинаикосе."
+      },
+      {
+        "day": 3,
+        "title": "Забег",
+        "description": "Старт в Марафоне, финиш на мраморном стадионе."
+      },
+      {
+        "day": 4,
+        "title": "Вылет",
+        "description": "Восстановительное утро и трансфер."
+      }
+    ]
+  },
+  {
+    "slug": "ed-shiran-lissabon-2026",
+    "title": "Эд Ширан в Лиссабоне",
+    "category": "koncerty",
+    "country": "pt",
+    "city": "lissabon",
+    "venueName": "Altice Arena",
+    "address": "Rossio dos Olivais, Лиссабон",
+    "startDate": "2026-11-02T09:00:00.000Z",
+    "endDate": "2026-11-06T18:00:00.000Z",
+    "days": 5,
+    "basePrice": 720,
+    "currency": "usd",
+    "lead": "Стадионный концерт на берегу Тежу и четыре ночи в Лиссабоне.",
+    "included": [
+      "perelet",
+      "otel",
+      "bilety",
+      "transfer",
+      "strahovka"
+    ],
+    "paidSeparately": [
+      {
+        "attribute": "viza",
+        "price": 180,
+        "note": "Шенген"
+      },
+      {
+        "attribute": "pitanie",
+        "price": 140,
+        "note": "Обеды на площадке"
+      }
+    ],
+    "ticketTypes": [
+      {
+        "name": "Танцпол",
+        "price": 140,
+        "description": "Стоячая зона перед сценой"
+      },
+      {
+        "name": "Трибуна",
+        "price": 220,
+        "description": "Сидячие места по кругу арены"
+      },
+      {
+        "name": "Golden Circle",
+        "price": 420,
+        "description": "Ближняя зона у сцены",
+        "soldOut": true
+      }
+    ],
+    "accommodations": [
+      {
+        "hotelName": "Myriad by SANA",
+        "stars": 5,
+        "roomName": "Номер с видом на Тежу",
+        "capacity": 2,
+        "nights": 4,
+        "mealPlan": "Завтраки",
+        "price": 980,
+        "amenities": [
+          "pitanie",
+          "otel"
+        ]
+      },
+      {
+        "hotelName": "Hotel Olissippo Oriente",
+        "stars": 4,
+        "roomName": "Стандарт двухместный",
+        "capacity": 2,
+        "nights": 4,
+        "mealPlan": "Завтраки",
+        "price": 540,
+        "amenities": [
+          "pitanie",
+          "otel"
+        ]
+      }
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Прилёт",
+        "description": "Трансфер, заселение, вечер в Байру-Алту."
+      },
+      {
+        "day": 2,
+        "title": "Лиссабон",
+        "description": "Белен, монастырь Жеронимуш, трамвай 28."
+      },
+      {
+        "day": 3,
+        "title": "Синтра",
+        "description": "Поездка во дворцы Синтры."
+      },
+      {
+        "day": 4,
+        "title": "Концерт",
+        "description": "Трансфер на Altice Arena, шоу, возвращение в отель."
+      },
+      {
+        "day": 5,
+        "title": "Вылет",
+        "description": "Свободное утро и трансфер в аэропорт."
+      }
+    ]
+  }
+]
