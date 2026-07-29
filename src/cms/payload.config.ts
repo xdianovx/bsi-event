@@ -22,6 +22,7 @@ import { Leads } from './collections/Leads'
 import { Reviews } from './collections/Reviews'
 import { Pages } from './collections/Pages'
 import { Settings } from './globals/Settings'
+import { syncExchangeRatesTask } from './jobs/syncExchangeRates'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -43,6 +44,28 @@ export default buildConfig({
   i18n: {
     supportedLanguages: { ru, en },
     fallbackLanguage: 'ru',
+  },
+  jobs: {
+    access: {
+      // Внешний планировщик ходит без сессии, поэтому пускаем по секрету из окружения.
+      // Нет секрета — эндпоинт закрыт для всех, кроме залогиненных.
+      run: ({ req }) => {
+        if (req.user) return true
+
+        const secret = process.env.CRON_SECRET
+        if (!secret) return false
+
+        return req.headers.get('authorization') === `Bearer ${secret}`
+      },
+    },
+    tasks: [syncExchangeRatesTask],
+    // Внутренний планировщик — только там, где процесс живёт постоянно: на serverless он
+    // не работает, а при нескольких инстансах задача выполнилась бы столько же раз.
+    // Иначе очередь разбирает внешний вызов GET /api/payload-jobs/run?queue=rates.
+    autoRun:
+      process.env.RATES_AUTORUN === 'true'
+        ? [{ cron: '*/10 * * * *', queue: 'rates', limit: 5 }]
+        : [],
   },
   collections: [
     Users,
