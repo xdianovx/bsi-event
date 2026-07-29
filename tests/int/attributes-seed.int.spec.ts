@@ -48,7 +48,7 @@ describe('Сид атрибутов', () => {
     const bySlug = new Map(docs.map((doc) => [doc.slug, doc]))
 
     expect(docs.map((doc) => doc.order)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9])
-    // Отель и питание осмысленны и как состав тура, и как удобство номера
+    // Отель и питание осмысленны и как состав события, и как удобство номера
     expect(bySlug.get('otel')?.scope).toEqual(['tour', 'room'])
     expect(bySlug.get('pitanie')?.scope).toEqual(['tour', 'room'])
     expect(bySlug.get('bilety')?.scope).toEqual(['tour'])

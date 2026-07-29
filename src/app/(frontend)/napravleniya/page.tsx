@@ -13,7 +13,7 @@ import { Flag, GeoTile, GeoTiles } from '@/entities/geo'
 export const metadata: Metadata = {
   title: 'Направления',
   description:
-    'Страны, куда мы организуем туры на концерты, спортивные матчи и гонки: билет, проживание и виза под ключ.',
+    'Страны, куда мы организуем поездки на концерты, спортивные матчи и гонки: билет, проживание и виза под ключ.',
   alternates: { canonical: '/napravleniya' },
 }
 
@@ -40,7 +40,7 @@ export default async function DirectionsPage() {
 
   const withTours = countries.filter((country) => populated.countries.has(country.id))
 
-  // Группировка по региону: порядок регионов — по числу стран с турами,
+  // Группировка по региону: порядок регионов — по числу стран с событиями,
   // чтобы наполненное было сверху
   const byRegion = new Map<
     string,
@@ -83,12 +83,12 @@ export default async function DirectionsPage() {
         <Typography.Heading level={1}>Направления</Typography.Heading>
         <Typography className="max-w-2xl" color="muted">
         {withTours.length > 0
-          ? `Сейчас туры есть в ${withTours.length} ${plural(withTours.length, ['стране', 'странах', 'странах'])}. Остальные страны в списке ниже — напишите нам, если нужна поездка туда.`
+          ? `Сейчас события есть в ${withTours.length} ${plural(withTours.length, ['стране', 'странах', 'странах'])}. Остальные страны в списке ниже — напишите нам, если нужна поездка туда.`
           : 'Скоро здесь появятся страны, куда мы возим на события.'}
         </Typography>
       </Section>
 
-      {/* Блок 2 — куда летим сейчас: только страны с турами */}
+      {/* Блок 2 — куда летим сейчас: только страны с событиями */}
       {withTours.length > 0 && (
         <Section>
           <Typography.Heading level={2}>Куда летим сейчас</Typography.Heading>
@@ -100,11 +100,11 @@ export default async function DirectionsPage() {
               return (
                 <GeoTile
                   key={country.id}
-                  href={region ? geoUrl.country(region.slug, country.slug) : `/tury?country=${country.slug}`}
+                  href={region ? geoUrl.country(region.slug, country.slug) : `/sobytiya?country=${country.slug}`}
                   name={country.name}
                   flag={country.flag}
                   code={country.code}
-                  note={`${count} ${plural(count, ['тур', 'тура', 'туров'])}`}
+                  note={`${count} ${plural(count, ['событие', 'события', 'событий'])}`}
                 />
               )
             })}
@@ -112,7 +112,7 @@ export default async function DirectionsPage() {
         </Section>
       )}
 
-      {/* Блок 3 — весь справочник по регионам. Страна без туров показана,
+      {/* Блок 3 — весь справочник по регионам. Страна без событий показана,
           но не ссылка: её страницы не существует, вести на 404 нельзя. */}
       <Section>
         <Typography.Heading level={2}>Все страны</Typography.Heading>

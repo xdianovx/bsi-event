@@ -1,15 +1,15 @@
 import { test, expect } from '@playwright/test'
 
-const CATALOG = 'http://localhost:3000/tury'
+const CATALOG = 'http://localhost:3000/sobytiya'
 
 // Карточка — Card из HeroUI, он рендерит div с классом .card
 const cards = (page: import('@playwright/test').Page) => page.locator('main ul > li .card')
 
-test.describe('Каталог туров', () => {
+test.describe('Каталог событий', () => {
   test('рендерит карточки событий', async ({ page }) => {
     await page.goto(CATALOG)
 
-    await expect(page.locator('h1')).toHaveText('Туры на события')
+    await expect(page.locator('h1')).toHaveText('События')
     await expect(cards(page).first()).toBeVisible()
     expect(await cards(page).count()).toBeGreaterThan(0)
   })
@@ -85,8 +85,8 @@ test.describe('Sitemap', () => {
     const res = await page.goto('http://localhost:3000/sitemap.xml')
     const xml = (await res?.text()) ?? ''
 
-    expect(xml).toContain('/tury')
-    expect(xml).toContain('/tury/sobytie-rubli-demo')
+    expect(xml).toContain('/sobytiya')
+    expect(xml).toContain('/sobytiya/sobytie-rubli-demo')
 
     // Фильтры — дубли каталога, в карту сайта не попадают. Проверяем сами адреса:
     // '?' есть и в XML-декларации, поэтому искать по всему документу нельзя.

@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 import { seoField } from '../fields/seo'
 import { generateSlug } from '../hooks/generateSlug'
 
-// Ось фасетных URL: /tury/{тип}/{slug страны}/
+// Ось фасетных URL: /sobytiya/{тип}/{slug страны}/
 export const Countries: CollectionConfig = {
   slug: 'countries',
   labels: { singular: 'Страна', plural: 'Страны' },

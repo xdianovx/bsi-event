@@ -16,9 +16,9 @@ test.describe('Витрина справочника атрибутов', () => 
     await page.goto(URL)
 
     const hotel = page.locator('main ul > li').filter({ hasText: 'Отель' }).first()
-    await expect(hotel).toContainText('Проживание на даты тура')
-    // Отель осмыслен и как состав тура, и как удобство номера
-    await expect(hotel).toContainText('Тур')
+    await expect(hotel).toContainText('Проживание на даты события')
+    // Отель осмыслен и как состав события, и как удобство номера
+    await expect(hotel).toContainText('Событие')
     await expect(hotel).toContainText('Номер')
   })
 

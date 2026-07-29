@@ -82,7 +82,7 @@ export function CatalogFilters({
   return (
     <form
       method="GET"
-      action="/tury"
+      action="/sobytiya"
       aria-label="Фильтры каталога"
       className="bg-surface flex flex-wrap items-end gap-4 rounded-2xl p-4"
     >
@@ -175,7 +175,7 @@ export function CatalogFilters({
           // Сброс — навигация, а не действие: обычная ссылка, чтобы работал
           // Ctrl+клик и переход попадал в историю.
           <Link
-            href="/tury"
+            href="/sobytiya"
             className="text-muted hover:text-foreground focus-visible:ring-accent inline-flex items-center rounded-lg px-4 py-2 text-sm underline underline-offset-4 focus-visible:ring-2 focus-visible:outline-none"
           >
             Сбросить

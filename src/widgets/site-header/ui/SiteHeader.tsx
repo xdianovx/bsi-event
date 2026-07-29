@@ -6,7 +6,7 @@ import { Button, Typography } from '@heroui/react'
  * структуру навигации видно целиком, но клик не ведёт на 404.
  */
 const NAV: { label: string; href?: string }[] = [
-  { label: 'Туры', href: '/tury' },
+  { label: 'События', href: '/sobytiya' },
   { label: 'Направления', href: '/napravleniya' },
   { label: 'О компании' },
   { label: 'Отзывы' },

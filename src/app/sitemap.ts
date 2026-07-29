@@ -6,7 +6,7 @@ import { collectPopulatedGeo } from '@/entities/geo'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
 
 /**
- * Фильтры каталога в sitemap не попадают: /tury?country=... — это тот же
+ * Фильтры каталога в sitemap не попадают: /sobytiya?country=... — это тот же
  * каталог под другим срезом, в generateMetadata он закрыт noindex.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -32,9 +32,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     { url: `${SITE_URL}/`, changeFrequency: 'weekly', priority: 1 },
-    { url: `${SITE_URL}/tury`, changeFrequency: 'daily', priority: 0.9 },
+    { url: `${SITE_URL}/sobytiya`, changeFrequency: 'daily', priority: 0.9 },
     { url: `${SITE_URL}/napravleniya`, changeFrequency: 'weekly', priority: 0.7 },
-    // В карту идёт только то, что открывается: страницы географии без туров
+    // В карту идёт только то, что открывается: страницы географии без событий
     // отдают 404, ссылаться на них нельзя.
     ...regions
       .filter((r) => populated.regions.has(r.id))
@@ -66,7 +66,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ]
     }),
     ...events.map((e) => ({
-      url: `${SITE_URL}/tury/${e.slug}`,
+      url: `${SITE_URL}/sobytiya/${e.slug}`,
       lastModified: new Date(e.updatedAt),
       changeFrequency: 'weekly' as const,
       priority: 0.8,

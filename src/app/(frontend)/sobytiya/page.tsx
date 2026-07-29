@@ -49,12 +49,12 @@ export async function generateMetadata({
   const filtered = isFiltered(params) || Boolean(params.page && params.page !== '1')
 
   return {
-    title: 'Туры на события',
+    title: 'События',
     description:
-      'Каталог туров на концерты, спортивные матчи и гонки: билет, проживание и виза одним заказом.',
-    alternates: { canonical: '/tury' },
+      'Каталог событий: концерты, спортивные матчи и гонки: билет, проживание и виза одним заказом.',
+    alternates: { canonical: '/sobytiya' },
     // Отфильтрованные выборки — это дубли одного и того же каталога.
-    // В индекс пускаем только чистый /tury, остальное закрываем.
+    // В индекс пускаем только чистый /sobytiya, остальное закрываем.
     robots: filtered ? { index: false, follow: true } : undefined,
   }
 }
@@ -93,7 +93,7 @@ export default async function CatalogPage({ searchParams }: { searchParams: Sear
     Object.entries(params).forEach(([k, v]) => v && k !== 'page' && qs.set(k, v))
     if (n > 1) qs.set('page', String(n))
     const s = qs.toString()
-    return s ? `/tury?${s}` : '/tury'
+    return s ? `/sobytiya?${s}` : '/sobytiya'
   }
 
   return (
@@ -103,7 +103,7 @@ export default async function CatalogPage({ searchParams }: { searchParams: Sear
           Билет · отель · виза
         </Typography>
         <Typography.Heading className="text-balance" level={1}>
-          Туры на события
+          События
         </Typography.Heading>
         <Typography className="max-w-2xl" color="muted">
           Выберите концерт, матч или гонку — поездку соберём целиком, от билета до визы.
@@ -130,8 +130,8 @@ export default async function CatalogPage({ searchParams }: { searchParams: Sear
           </Card.Header>
           {filtered && (
             <Card.Footer>
-              <Link href="/tury" className="link">
-                Показать все туры
+              <Link href="/sobytiya" className="link">
+                Показать все события
               </Link>
             </Card.Footer>
           )}

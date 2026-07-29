@@ -10,7 +10,7 @@ type Option = { name: string; slug: string }
  * конкурентов в нише мало, и позиционирование строим на «под ключ + виза»,
  * а не на «дешевле всех» (см. разбор конкурентов).
  *
- * Фильтр — тот же, что в каталоге: он и так отправляет GET на /tury, поэтому
+ * Фильтр — тот же, что в каталоге: он и так отправляет GET на /sobytiya, поэтому
  * второй его копии для главной не нужно.
  */
 export function HomeHero({
@@ -39,8 +39,8 @@ export function HomeHero({
 
       <div className="flex flex-wrap gap-3">
         <Button size="lg">Подобрать поездку</Button>
-        <Link href="/tury" className="link self-center">
-          Смотреть все туры
+        <Link href="/sobytiya" className="link self-center">
+          Смотреть все события
         </Link>
       </div>
 

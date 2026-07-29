@@ -19,7 +19,7 @@ test.describe('География', () => {
     await expect(page.getByRole('link', { name: /Италия/ })).toBeVisible()
   })
 
-  test('страна показывает города и туры', async ({ page }) => {
+  test('страна показывает города и события', async ({ page }) => {
     await page.goto(`${BASE}/evropa/italiya`)
 
     await expect(page.locator('h1')).toContainText('Италия')
@@ -33,7 +33,7 @@ test.describe('География', () => {
     await expect(page.locator('h1 img')).toHaveAttribute('src', '/flags/4x3/it.svg')
   })
 
-  test('город показывает только свои туры', async ({ page }) => {
+  test('город показывает только свои события', async ({ page }) => {
     await page.goto(`${BASE}/evropa/italiya/milan`)
 
     await expect(page.locator('h1')).toHaveText('Милан')
@@ -62,8 +62,8 @@ test.describe('География', () => {
     expect(wrongCountry?.status()).toBe(404)
   })
 
-  test('страна и город без туров не открываются', async ({ page }) => {
-    // Справочник заполнен целиком, но туров во Францию нет — страницы быть не должно
+  test('страна и город без событий не открываются', async ({ page }) => {
+    // Справочник заполнен целиком, но событий во Францию нет — страницы быть не должно
     const country = await page.goto(`${BASE}/evropa/frantsiya`)
     expect(country?.status()).toBe(404)
 
@@ -71,7 +71,7 @@ test.describe('География', () => {
     expect(city?.status()).toBe(404)
   })
 
-  test('в списке направлений нет стран без туров', async ({ page }) => {
+  test('в списке направлений нет стран без событий', async ({ page }) => {
     await page.goto(`${BASE}/evropa`)
 
     await expect(page.getByRole('link', { name: /Италия/ })).toBeVisible()
@@ -89,7 +89,7 @@ test.describe('География', () => {
     const napravleniya = urls.filter((u) => u.includes('/napravleniya/'))
     expect(napravleniya.every((u) => u.split('/napravleniya/')[1].length > 0)).toBe(true)
 
-    // Как и страна без туров: её страница отдаёт 404
+    // Как и страна без событий: её страница отдаёт 404
     expect(urls).not.toContain('http://localhost:3000/napravleniya/evropa/frantsiya')
   })
 })

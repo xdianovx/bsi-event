@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-const CARD = 'http://localhost:3000/tury/sobytie-rubli-demo'
+const CARD = 'http://localhost:3000/sobytiya/sobytie-rubli-demo'
 
 // Демо-событие: билет 15 000 ₽, допки — трансфер 1 000 ₽ и страховка 500 ₽
 const total = (page: import('@playwright/test').Page) => page.getByTestId('order-total')
@@ -22,7 +22,7 @@ test.describe('Карточка события', () => {
   })
 
   test('несуществующий слаг отдаёт 404', async ({ page }) => {
-    const res = await page.goto('http://localhost:3000/tury/net-takogo-tura')
+    const res = await page.goto('http://localhost:3000/sobytiya/net-takogo-tura')
 
     expect(res?.status()).toBe(404)
   })

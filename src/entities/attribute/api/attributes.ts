@@ -1,7 +1,7 @@
 import type { Payload } from 'payload'
 import type { Attribute } from '@/payload-types'
 
-/** Где применяется атрибут: состав тура или удобство номера. */
+/** Где применяется атрибут: состав события или удобство номера. */
 export type AttributeScope = Attribute['scope'][number]
 
 /**

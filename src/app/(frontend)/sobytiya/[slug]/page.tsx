@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const { slug } = await params
   const event = await load(slug)
 
-  if (!event) return { title: 'Тур не найден' }
+  if (!event) return { title: 'Событие не найдено' }
 
   const place = formatPlace(event.country, event.city)
 
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     description:
       event.seo?.description ||
       `${event.title}${place ? ` — ${place}` : ''}. Билет, проживание и виза одним заказом.`,
-    alternates: { canonical: `/tury/${event.slug}` },
+    alternates: { canonical: `/sobytiya/${event.slug}` },
     robots: event.seo?.noindex ? { index: false, follow: true } : undefined,
   }
 }
@@ -68,7 +68,7 @@ export default async function EventPage({ params }: { params: Params }) {
   return (
     <Page>
       <Breadcrumbs
-        items={[{ label: 'Туры на события', href: '/tury' }, { label: event.title }]}
+        items={[{ label: 'События', href: '/sobytiya' }, { label: event.title }]}
       />
 
       <div className="grid gap-10 lg:grid-cols-[1fr_360px]">

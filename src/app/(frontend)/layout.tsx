@@ -6,10 +6,10 @@ import { SiteFooter } from '@/widgets/site-footer'
 
 export const metadata: Metadata = {
   title: {
-    default: 'BSI Events — событийные туры',
+    default: 'BSI Events — события по всему миру',
     template: '%s | BSI Events',
   },
-  description: 'Туры на концерты, спортивные матчи и гонки: билеты, проживание и виза под ключ.',
+  description: 'События по всему миру: концерты, спортивные матчи и гонки: билеты, проживание и виза под ключ.',
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {

@@ -27,7 +27,7 @@ const load = async (regionSlug: string, countrySlug: string, citySlug: string) =
     depth: 2,
   })
 
-  // Город без туров — пустая страница. Справочник заполнен целиком, так что
+  // Город без событий — пустая страница. Справочник заполнен целиком, так что
   // без этой проверки в индекс ушли бы сотни городов, где показывать нечего.
   if (events.length === 0) return null
 
@@ -41,10 +41,10 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!data) return { title: 'Город не найден' }
 
   return {
-    title: data.city.seo?.title || `Туры в ${data.city.name}`,
+    title: data.city.seo?.title || `События в ${data.city.name}`,
     description:
       data.city.seo?.description ||
-      `Туры на события в городе ${data.city.name}: билет, проживание и виза одним заказом.`,
+      `События в городе ${data.city.name}: билет, проживание и виза одним заказом.`,
     alternates: { canonical: geoUrl.city(region, country, data.city.slug) },
     robots: data.city.seo?.noindex ? { index: false, follow: true } : undefined,
   }

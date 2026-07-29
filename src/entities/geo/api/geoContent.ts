@@ -5,7 +5,7 @@ export type PopulatedGeo = {
   regions: Set<number>
   countries: Set<number>
   cities: Set<number>
-  /** Сколько опубликованных туров в стране — для подписей в списках. */
+  /** Сколько опубликованных событий в стране — для подписей в списках. */
   eventsByCountry: Map<number, number>
 }
 

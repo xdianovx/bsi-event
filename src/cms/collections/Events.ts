@@ -3,8 +3,8 @@ import { seoField } from '../fields/seo'
 import { generateSlug } from '../hooks/generateSlug'
 import { computePriceRub } from '../hooks/computePriceRub'
 
-// Событие и есть полный тур: концерт/забег/etc с одной ценой в выбранной валюте
-// и опциональными допками. Отдельной сущности "тур" нет.
+// Событие — продукт целиком: концерт/забег/etc с одной ценой в выбранной валюте
+// и опциональными допками. Отдельной сущности «тур» нет, поездка и событие — одно.
 export const Events: CollectionConfig = {
   slug: 'events',
   labels: { singular: 'Событие', plural: 'События' },

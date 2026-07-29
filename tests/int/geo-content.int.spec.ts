@@ -81,7 +81,7 @@ describe('Гео с контентом', () => {
     expect(geo.cities.has(empty.city)).toBe(false)
   })
 
-  it('считает, сколько туров в стране', async () => {
+  it('считает, сколько событий в стране', async () => {
     const geo = await collectPopulatedGeo(payload)
 
     expect(geo.eventsByCountry.get(filled.country)).toBe(1)

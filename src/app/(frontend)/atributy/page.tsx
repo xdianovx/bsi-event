@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 }
 
 const SCOPE_LABELS: Record<string, string> = {
-  tour: 'Тур',
+  tour: 'Событие',
   room: 'Номер',
 }
 
@@ -27,8 +27,8 @@ export default async function AttributesShowcasePage() {
       <Section>
         <Typography.Heading level={1}>Атрибуты</Typography.Heading>
         <Typography color="muted">
-          Справочник того, из чего складывается тур и что есть в номере. Заполняется в админке,
-          отсюда попадает в карточки и на страницы туров.
+          Справочник того, из чего складывается событие и что есть в номере. Заполняется в админке,
+          отсюда попадает в карточки и на страницы событий.
         </Typography>
       </Section>
 
@@ -45,7 +45,7 @@ export default async function AttributesShowcasePage() {
                   <Card.Header>
                     <div className="flex items-center gap-3">
                       {/* Иконки может не быть — тогда остаётся название: без него
-                          непонятно, что входит в тур, без картинки — понятно. */}
+                          непонятно, что входит в событие, без картинки — понятно. */}
                       <AttributeIcon icon={attribute.icon} />
                       <Card.Title>{attribute.name}</Card.Title>
                     </div>

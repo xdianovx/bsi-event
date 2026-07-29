@@ -27,7 +27,7 @@ const load = async (slug: string) => {
     collectPopulatedGeo(payload),
   ])
 
-  // Регион без единого тура — пустая страница, её быть не должно
+  // Регион без единого события — пустая страница, её быть не должно
   if (!populated.regions.has(region.id)) return null
 
   return { region, countries: all.filter((country) => populated.countries.has(country.id)) }
@@ -40,10 +40,10 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!data) return { title: 'Регион не найден' }
 
   return {
-    title: data.region.seo?.title || `Туры в регион ${data.region.name}`,
+    title: data.region.seo?.title || `События в регионе ${data.region.name}`,
     description:
       data.region.seo?.description ||
-      `Страны региона ${data.region.name} и туры на события: билет, проживание и виза одним заказом.`,
+      `Страны региона ${data.region.name} и события: билет, проживание и виза одним заказом.`,
     alternates: { canonical: geoUrl.region(data.region.slug) },
     robots: data.region.seo?.noindex ? { index: false, follow: true } : undefined,
   }

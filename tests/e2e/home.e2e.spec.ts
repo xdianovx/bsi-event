@@ -7,19 +7,19 @@ test.describe('Главная', () => {
     await page.goto(BASE)
 
     await expect(page.locator('h1')).toContainText('визой')
-    await page.getByRole('link', { name: 'Смотреть все туры' }).click()
-    await page.waitForURL(`${BASE}/tury`)
+    await page.getByRole('link', { name: 'Смотреть все события' }).click()
+    await page.waitForURL(`${BASE}/sobytiya`)
   })
 
   test('фильтр с главной уводит в каталог с параметрами', async ({ page }) => {
     await page.goto(BASE)
 
-    // Форма фильтра одна и та же с каталогом и отправляет GET на /tury
+    // Форма фильтра одна и та же с каталогом и отправляет GET на /sobytiya
     const filters = page.getByLabel('Фильтры каталога')
     await expect(filters).toBeVisible()
 
     await filters.getByRole('button', { name: 'Показать' }).click()
-    await page.waitForURL(/\/tury/)
+    await page.waitForURL(/\/sobytiya/)
   })
 
   test('показывает ближайшие поездки карточками', async ({ page }) => {

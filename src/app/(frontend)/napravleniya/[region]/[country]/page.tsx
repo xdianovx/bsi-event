@@ -50,10 +50,10 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!data) return { title: 'Страна не найдена' }
 
   return {
-    title: data.country.seo?.title || `Туры в ${data.country.name}`,
+    title: data.country.seo?.title || `События в ${data.country.name}`,
     description:
       data.country.seo?.description ||
-      `Туры на события в ${data.country.name}: билет, проживание и виза одним заказом.`,
+      `События в ${data.country.name}: билет, проживание и виза одним заказом.`,
     alternates: { canonical: geoUrl.country(region, data.country.slug) },
     robots: data.country.seo?.noindex ? { index: false, follow: true } : undefined,
   }
@@ -99,11 +99,11 @@ export default async function CountryPage({ params }: { params: Params }) {
       )}
 
       <Section>
-        <Typography.Heading level={2}>Туры</Typography.Heading>
+        <Typography.Heading level={2}>События</Typography.Heading>
         {events.length === 0 ? (
           <p className="text-muted">
-            Туров пока нет.{' '}
-            <Link href="/tury" className="text-accent underline underline-offset-4">
+            Событий пока нет.{' '}
+            <Link href="/sobytiya" className="text-accent underline underline-offset-4">
               Посмотреть все направления
             </Link>
           </p>

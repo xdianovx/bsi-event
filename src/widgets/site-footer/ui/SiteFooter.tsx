@@ -12,10 +12,10 @@ const COLUMNS: { title: string; items: Item[] }[] = [
   {
     title: 'Поездки',
     items: [
-      { label: 'Все туры', href: '/tury' },
+      { label: 'Все события', href: '/sobytiya' },
       { label: 'Направления', href: '/napravleniya' },
-      { label: 'Концерты', href: '/tury?type=concert' },
-      { label: 'Спорт', href: '/tury?type=sport' },
+      { label: 'Концерты', href: '/sobytiya?type=concert' },
+      { label: 'Спорт', href: '/sobytiya?type=sport' },
     ],
   },
   {

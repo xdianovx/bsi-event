@@ -4,11 +4,11 @@ const BASE = 'http://localhost:3000'
 
 test.describe('Шапка и подвал', () => {
   test('шапка есть на страницах и ведёт в каталог и направления', async ({ page }) => {
-    await page.goto(`${BASE}/tury`)
+    await page.goto(`${BASE}/sobytiya`)
     const header = page.getByRole('banner')
 
     await expect(header.getByRole('link', { name: 'BSI Events' })).toBeVisible()
-    await expect(header.getByRole('link', { name: 'Туры' })).toBeVisible()
+    await expect(header.getByRole('link', { name: 'События' })).toBeVisible()
 
     await header.getByRole('link', { name: 'Направления' }).click()
     await page.waitForURL(`${BASE}/napravleniya`)
@@ -28,22 +28,22 @@ test.describe('Шапка и подвал', () => {
     const footer = page.getByRole('contentinfo')
 
     await expect(footer.getByText('Политика конфиденциальности')).toBeVisible()
-    await expect(footer.getByRole('link', { name: 'Все туры' })).toBeVisible()
+    await expect(footer.getByRole('link', { name: 'Все события' })).toBeVisible()
   })
 })
 
 test.describe('Страница направлений', () => {
-  test('показывает блок с турами и число туров у страны', async ({ page }) => {
+  test('показывает блок с событиями и число событий у страны', async ({ page }) => {
     await page.goto(`${BASE}/napravleniya`)
 
     const block = page.getByRole('heading', { name: 'Куда летим сейчас' })
     await expect(block).toBeVisible()
 
     const italy = page.getByRole('link', { name: /Италия/ }).first()
-    await expect(italy).toContainText(/тур/)
+    await expect(italy).toContainText(/событи/)
   })
 
-  test('страна без туров показана, но не ссылка', async ({ page }) => {
+  test('страна без событий показана, но не ссылка', async ({ page }) => {
     await page.goto(`${BASE}/napravleniya`)
 
     await expect(page.getByRole('heading', { name: 'Все страны' })).toBeVisible()

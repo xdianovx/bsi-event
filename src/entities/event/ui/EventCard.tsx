@@ -47,7 +47,7 @@ export function EventCard({ event }: { event: Event }) {
         </Typography>
         <Card.Title>
           {/* Ссылка растянута на всю карточку: кликабельна вся плитка */}
-          <Link href={`/tury/${event.slug}`} className="after:absolute after:inset-0">
+          <Link href={`/sobytiya/${event.slug}`} className="after:absolute after:inset-0">
             {event.title}
           </Link>
         </Card.Title>

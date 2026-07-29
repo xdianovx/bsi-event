@@ -19,7 +19,7 @@ import type { Event } from '@/payload-types'
 export const metadata: Metadata = {
   title: 'BSI Events — поездки на концерты, матчи и гонки вместе с визой',
   description:
-    'Событийные туры за рубеж под ключ: билет на событие, перелёт, отель, страховка и оформление визы одним заказом.',
+    'События за рубежом под ключ: билет на событие, перелёт, отель, страховка и оформление визы одним заказом.',
   alternates: { canonical: '/' },
 }
 
@@ -95,7 +95,7 @@ export default async function HomePage() {
         <Section>
           <div className="flex flex-wrap items-baseline justify-between gap-2">
             <Typography.Heading level={2}>Ближайшие поездки</Typography.Heading>
-            <Link href="/tury" className="link">
+            <Link href="/sobytiya" className="link">
               Весь каталог
             </Link>
           </div>
